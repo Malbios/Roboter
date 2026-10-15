@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cgjg7spdny4eu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yknmo"]
+albedo_color = Color(0.043137256, 0.23921569, 0.18431373, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vcp2d"]
+material = SubResource("StandardMaterial3D_yknmo")
+size = Vector3(1, 1, 1.7680664)
+
+[node name="Node3D" type="Node3D" unique_id=903438152]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1548811208]
+mesh = SubResource("BoxMesh_vcp2d")

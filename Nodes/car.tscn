@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bciublfesnbbm"]
+
+[ext_resource type="PackedScene" uid="uid://cgjg7spdny4eu" path="res://Nodes/box.tscn" id="1_fbcgl"]
+[ext_resource type="PackedScene" uid="uid://bcnogd3tfk8cv" path="res://Nodes/wheel.tscn" id="2_sds8h"]
+
+[node name="Car" type="Node3D" unique_id=355793286]
+
+[node name="CarBox" parent="." unique_id=903438152 instance=ExtResource("1_fbcgl")]
+transform = Transform3D(1, 0, 0, 0, 0.54614663, 0, 0, 0, 1, 0, 0.23140478, 0)
+
+[node name="Wheel1" parent="." unique_id=1972013189 instance=ExtResource("2_sds8h")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.63346976, 0, -0.5508557)
+
+[node name="Wheel2" parent="." unique_id=1909964442 instance=ExtResource("2_sds8h")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.5798795, 0, 0.55305916)
+
+[node name="Wheel3" parent="." unique_id=1296704212 instance=ExtResource("2_sds8h")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.5136914, 0, -0.43332028)
+
+[node name="Wheel4" parent="." unique_id=168309762 instance=ExtResource("2_sds8h")]
+transform = Transform3D(0.70000005, 0, 0, 0, 0.7000002, 0, 0, 0, 0.7, -0.5219674, 0, 0.5838433)
