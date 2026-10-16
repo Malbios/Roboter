@@ -11,18 +11,26 @@ config_version=5
 [application]
 
 config/name="Roboter"
-run/main_scene="uid://dvfyrpm6pjv05"
+config/version="0.1"
+run/main_scene="uid://wx46ljp08jco"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [dotnet]
 
 project/assembly_name="Roboter"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
 
 [physics]
 

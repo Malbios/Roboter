@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://wx46ljp08jco"]
+
+[ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="1_cr7dl"]
+[ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="2_s2l8y"]
+[ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://demo/assets/textures/rock023_alb_ht.png" id="3_l775r"]
+[ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://demo/assets/textures/rock023_nrm_rgh.png" id="4_ahyi8"]
+[ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="5_s2l8y"]
+
+[sub_resource type="Gradient" id="Gradient_5f77f"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5satc"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4ngd7"]
+noise = SubResource("FastNoiseLite_5satc")
+color_ramp = SubResource("Gradient_5f77f")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_bvhng"]
+_shader_parameters = {
+&"bias_distance": null,
+&"blend_sharpness": null,
+&"depth_blur": null,
+&"enable_macro_variation": null,
+&"enable_projection": null,
+&"flat_terrain_normals": null,
+&"macro_variation1": null,
+&"macro_variation2": null,
+&"macro_variation_slope": null,
+&"mipmap_bias": null,
+&"noise1_angle": null,
+&"noise1_offset": null,
+&"noise1_scale": null,
+&"noise2_scale": null,
+&"noise_texture": SubResource("NoiseTexture2D_4ngd7"),
+&"projection_threshold": null
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s2l8y"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_l775r"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_s2l8y")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_jpeyo"]
+name = "ground037_alb_ht"
+albedo_texture = ExtResource("1_cr7dl")
+normal_texture = ExtResource("2_s2l8y")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_h4u8l"]
+name = "rock023_alb_ht"
+id = 1
+albedo_texture = ExtResource("3_l775r")
+normal_texture = ExtResource("4_ahyi8")
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_l775r"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_l775r")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_jpeyo"), SubResource("Terrain3DTextureAsset_h4u8l")])
+
+[node name="1v1" type="Node3D" unique_id=800020185]
+
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=1939374240]
+data_directory = "res://MapData"
+material = SubResource("Terrain3DMaterial_bvhng")
+assets = SubResource("Terrain3DAssets_l775r")
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="RtsController" parent="." unique_id=1007581704 instance=ExtResource("5_s2l8y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3104305, -95.581696)

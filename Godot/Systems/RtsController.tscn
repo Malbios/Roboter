@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bmyecm564mn5l"]
+
+[ext_resource type="Script" uid="uid://dqq3rwg48xg6s" path="res://Systems/RtsController.cs" id="1_qw1ng"]
+
+[node name="RtsController" type="Node3D" unique_id=1007581704]
+script = ExtResource("1_qw1ng")
+
+[node name="Elevation" type="Node3D" parent="." unique_id=1984972042]
+
+[node name="Camera3D" type="Camera3D" parent="Elevation" unique_id=1162044900]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
