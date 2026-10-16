@@ -1,0 +1,9 @@
+{
+  "promptDelete": false,
+  "showInlineTitle": false,
+  "newFileLocation": "root",
+  "attachmentFolderPath": "Attachments",
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true,
+  "deleteUnlinkedAttachments": "always"
+}
