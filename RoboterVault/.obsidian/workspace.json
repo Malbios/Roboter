@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "2332221101f4cecf",
+        "id": "ce01ed3bd1245b39",
         "type": "tabs",
         "children": [
           {
-            "id": "fd066aa008fddf98",
+            "id": "22ae8d530973fafd",
             "type": "leaf",
             "state": {
               "type": "kanban",
@@ -52,7 +52,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Dateiexplorer"
             }
           },
           {
@@ -185,17 +185,17 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "graph:Open graph view": false,
-      "command-palette:Open command palette": false,
-      "bases:Create new base": false,
-      "workspaces:Manage workspace layouts": false,
+      "graph:Graph-Ansicht öffnen": false,
+      "command-palette:Befehlspalette öffnen": false,
+      "workspaces:Workspace-Layouts verwalten": false,
+      "bases:Neue Base erstellen": false,
       "obsidian-excalidraw-plugin:New drawing": false,
       "templater-obsidian:Templater": false,
       "obsidian-git:Open Git source control": false,
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "fd066aa008fddf98",
+  "active": "20145e5dd7afd039",
   "lastOpenFiles": [
     "Backlog.md",
     "Welcome.md",
