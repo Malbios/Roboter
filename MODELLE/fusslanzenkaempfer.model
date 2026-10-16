@@ -2,19 +2,24 @@
 
 :materials
 
-[name:wood;color:RGBA(0.551, 0.550, 0.566, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0.35;valueB:0;]
-[name:_defaultMat;color:RGBA(0.876, 0.876, 0.876, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
+[name:wood;color:RGBA(0.025, 0.000, 0.405, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0.35;valueB:0;]
+[name:_defaultMat;color:RGBA(0.501, 0.433, 0.433, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
 [name:foliage;color:RGBA(0.000, 0.676, 0.502, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0.35;valueB:0;]
 [name:metal;color:RGBA(0.000, 0.000, 0.000, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
 [name:stone;color:RGBA(0.049, 0.024, 0.483, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0.5;valueB:0;]
+[name:skin;color:RGBA(0.061, 0.032, 0.267, 1.000);scale:(1.00, 1.00);shader:Default;mapping:0;valueA:0;valueB:0;]
+[name:shipparts-_defaultMat;color:RGBA(0.340, 0.127, 0.015, 1.000);scale:(1.00, 1.00);shader:Default;mapping:1;valueA:0.5;valueB:0;]
+[name:shipparts-blueSteel;color:RGBA(0.027, 0.400, 0.694, 1.000);scale:(1.00, 1.00);shader:Default;mapping:1;valueA:0.5;valueB:0;]
 
 :models
 
-[name:;collection:Characters;type:head_robot%;position:(0.0000, 0.3000, 0.1000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+_defaultMat+_defaultMat;]
-[name:;collection:Characters;type:leg_boots;position:(0.2000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:wood+stone;]
-[name:;collection:Characters;type:leg_boots;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:wood+stone;]
-[name:;collection:Characters;type:arm_robot%;position:(0.0000, 0.3000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+metal;]
-[name:;collection:Characters;type:headwear_helmet;position:(0.0000, 0.3000, 0.1000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+stone+_defaultMat;]
-[name:;collection:Characters;type:torso_suit;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:metal+stone+foliage+stone+stone;]
-[name:;collection:Characters;type:arm_robot%;position:(0.0000, 0.3000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(-1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+metal;]
+[name:;collection:Characters;type:headwear_helmet;position:(0.0000, 0.3000, -0.0100);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+stone+_defaultMat;]
+[name:;collection:Characters;type:head_robot%;position:(0.0000, 0.3000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+_defaultMat+_defaultMat;]
 [name:;collection:Characters;type:armor_torso;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone;]
+[name:;collection:Characters;type:leg_boots;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:wood+stone;]
+[name:;collection:Characters;type:torso_suit;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:metal+stone+foliage+stone+stone;]
+[name:;collection:Characters;type:arm_robot%;position:(0.0000, 0.3000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+metal;]
+[name:;collection:Characters;type:leg_boots;position:(0.2000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:wood+stone;]
+[name:;collection:ShipParts;type:Rod01;position:(0.1994, 0.0726, 0.3150);rotation:(330.0000, 0.0000, 0.0000);scale:(0.2952, 0.2978, 0.7244);group:;locked:False;hidden:False;materials:shipparts-_defaultMat+shipparts-_defaultMat;]
+[name:;collection:Characters;type:arm_robot%;position:(0.0000, 0.3000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(-1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:stone+metal;]
+[name:;collection:Primitives;type:cone;position:(0.1980, 0.2713, 0.6039);rotation:(60.0000, 0.0000, 0.0000);scale:(0.0320, 0.1000, 0.0832);group:;locked:False;hidden:False;materials:_defaultMat;]
