@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
-uid="uid://brcded7s1s1ja"
-path="res://.godot/imported/scorpion.glb-326857b8730b0da326bd5c513d21a139.res"
+type="PackedScene"
+uid="uid://y1uyu3pj8mom"
+path="res://.godot/imported/wolfsmen-ground-vehicle.glb-dc76b72f6491435c9c9d6736583599d5.scn"
 
 [deps]
 
-source_file="res://Models/scorpion.glb"
-dest_files=["res://.godot/imported/scorpion.glb-326857b8730b0da326bd5c513d21a139.res"]
+source_file="res://Models/wolfsmen-ground-vehicle.glb"
+dest_files=["res://.godot/imported/wolfsmen-ground-vehicle.glb-dc76b72f6491435c9c9d6736583599d5.scn"]
 
 [params]
 
