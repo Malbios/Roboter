@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://da41j4nlcekaf"
-path="res://.godot/imported/wolfsmen-bunker-upgraded.glb-b0b97270073a547a5529a46cf43a0c28.scn"
+uid="uid://br63qepuvif5q"
+path="res://.godot/imported/palme.glb-f111ee4a670fe51c69c3cb42d1c93de1.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen-bunker-upgraded.glb"
-dest_files=["res://.godot/imported/wolfsmen-bunker-upgraded.glb-b0b97270073a547a5529a46cf43a0c28.scn"]
+source_file="res://Models/palme.glb"
+dest_files=["res://.godot/imported/palme.glb-f111ee4a670fe51c69c3cb42d1c93de1.scn"]
 
 [params]
 

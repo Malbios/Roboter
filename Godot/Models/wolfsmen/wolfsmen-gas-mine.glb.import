@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://fskweg4rajdd"
-path="res://.godot/imported/wolfsmen-worker.glb-a70b5d18f4e96beddf954e5d86ab6015.scn"
+uid="uid://cwndsevo7v2jv"
+path="res://.godot/imported/wolfsmen-gas-mine.glb-9681232823d0a11c55ba6766ab9c752f.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen-worker.glb"
-dest_files=["res://.godot/imported/wolfsmen-worker.glb-a70b5d18f4e96beddf954e5d86ab6015.scn"]
+source_file="res://Models/wolfsmen/wolfsmen-gas-mine.glb"
+dest_files=["res://.godot/imported/wolfsmen-gas-mine.glb-9681232823d0a11c55ba6766ab9c752f.scn"]
 
 [params]
 

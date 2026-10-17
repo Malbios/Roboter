@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d0kxp6whgd835"
-path="res://.godot/imported/wolfsmen-sword-and-shield-warrior.glb-44b1c6190e666f7538a85aee9fc463b5.scn"
+path="res://.godot/imported/wolfsmen-sword-and-shield-warrior.glb-e015487601c2bccfee220ea6b63d11c6.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen-sword-and-shield-warrior.glb"
-dest_files=["res://.godot/imported/wolfsmen-sword-and-shield-warrior.glb-44b1c6190e666f7538a85aee9fc463b5.scn"]
+source_file="res://Models/wolfsmen/wolfsmen-sword-and-shield-warrior.glb"
+dest_files=["res://.godot/imported/wolfsmen-sword-and-shield-warrior.glb-e015487601c2bccfee220ea6b63d11c6.scn"]
 
 [params]
 

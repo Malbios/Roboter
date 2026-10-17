@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwwkenhoyk18q"
-path.s3tc="res://.godot/imported/wolfsmen-bow-warrior_tripo_rgb_d1d4cb5a-54a6-4d66-9249-f0828f5017ac.jpg-09b988355276ee834eeab8769c2b3323.s3tc.ctex"
+uid="uid://b8vir2pio22dm"
+path.s3tc="res://.godot/imported/wolfsmen-gas-mine_tripo_rgb_023b3f79-bebb-4699-86df-98674ea8234c.jpg-6efc475907a88e58740123fd4b308afb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "90ee1662c4db172053f77d9484771257"
+"md5": "a632db8de6d70ea351149a5231463e82"
 }
 
 [deps]
 
-source_file="res://Models/wolfsmen-bow-warrior_tripo_rgb_d1d4cb5a-54a6-4d66-9249-f0828f5017ac.jpg"
-dest_files=["res://.godot/imported/wolfsmen-bow-warrior_tripo_rgb_d1d4cb5a-54a6-4d66-9249-f0828f5017ac.jpg-09b988355276ee834eeab8769c2b3323.s3tc.ctex"]
+source_file="res://Models/wolfsmen/wolfsmen-gas-mine_tripo_rgb_023b3f79-bebb-4699-86df-98674ea8234c.jpg"
+dest_files=["res://.godot/imported/wolfsmen-gas-mine_tripo_rgb_023b3f79-bebb-4699-86df-98674ea8234c.jpg-6efc475907a88e58740123fd4b308afb.s3tc.ctex"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ccirerocroywk"
-path="res://.godot/imported/wolfsmen-bunker.glb-cb811ef73a8329f0b2e23097222db35c.scn"
+uid="uid://b48vk500000x"
+path="res://.godot/imported/wolfsmen-workshop.glb-50a07f170635921f3df58f1fb4b0bc92.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen-bunker.glb"
-dest_files=["res://.godot/imported/wolfsmen-bunker.glb-cb811ef73a8329f0b2e23097222db35c.scn"]
+source_file="res://Models/wolfsmen/wolfsmen-workshop.glb"
+dest_files=["res://.godot/imported/wolfsmen-workshop.glb-50a07f170635921f3df58f1fb4b0bc92.scn"]
 
 [params]
 

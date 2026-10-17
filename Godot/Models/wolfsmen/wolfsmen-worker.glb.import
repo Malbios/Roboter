@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ccqau7i4tan8w"
-path="res://.godot/imported/wolfsmen-mech-vehicle.glb-71e119b7590f6786f965d0a73d11896e.scn"
+uid="uid://fskweg4rajdd"
+path="res://.godot/imported/wolfsmen-worker.glb-8f506cb275e09b1aa448853333241f3c.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen-mech-vehicle.glb"
-dest_files=["res://.godot/imported/wolfsmen-mech-vehicle.glb-71e119b7590f6786f965d0a73d11896e.scn"]
+source_file="res://Models/wolfsmen/wolfsmen-worker.glb"
+dest_files=["res://.godot/imported/wolfsmen-worker.glb-8f506cb275e09b1aa448853333241f3c.scn"]
 
 [params]
 

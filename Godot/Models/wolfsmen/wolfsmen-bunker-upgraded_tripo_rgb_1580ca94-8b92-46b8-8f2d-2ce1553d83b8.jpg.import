@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c233f51o4tik4"
-path.s3tc="res://.godot/imported/wolfsmen-mech-vehicle_tripo_rgb_09231eeb-6070-47fd-aaf2-db6fef5cc1b9.jpg-ba7bcd93655d232e34c569b606a62d6e.s3tc.ctex"
+uid="uid://dr0h6kwkb3o6b"
+path.s3tc="res://.godot/imported/wolfsmen-bunker-upgraded_tripo_rgb_1580ca94-8b92-46b8-8f2d-2ce1553d83b8.jpg-92045f9554171766f4f9b7637ef69011.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "389b093afd0b1a777a140a4fe6810b17"
+"md5": "5b29081d370520f2b1ba11e8bf6ee87b"
 }
 
 [deps]
 
-source_file="res://Models/wolfsmen-mech-vehicle_tripo_rgb_09231eeb-6070-47fd-aaf2-db6fef5cc1b9.jpg"
-dest_files=["res://.godot/imported/wolfsmen-mech-vehicle_tripo_rgb_09231eeb-6070-47fd-aaf2-db6fef5cc1b9.jpg-ba7bcd93655d232e34c569b606a62d6e.s3tc.ctex"]
+source_file="res://Models/wolfsmen/wolfsmen-bunker-upgraded_tripo_rgb_1580ca94-8b92-46b8-8f2d-2ce1553d83b8.jpg"
+dest_files=["res://.godot/imported/wolfsmen-bunker-upgraded_tripo_rgb_1580ca94-8b92-46b8-8f2d-2ce1553d83b8.jpg-92045f9554171766f4f9b7637ef69011.s3tc.ctex"]
 
 [params]
 

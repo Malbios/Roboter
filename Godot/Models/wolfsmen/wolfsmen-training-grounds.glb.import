@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://kot2ndqw6ok1"
-path="res://.godot/imported/wolfsmen-bow-warrior.glb-de353717baa2578577115f8875e86070.scn"
+uid="uid://qnpxr1clvddv"
+path="res://.godot/imported/wolfsmen-training-grounds.glb-d35cef68f88bb97cc45eb423b49f0fed.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen-bow-warrior.glb"
-dest_files=["res://.godot/imported/wolfsmen-bow-warrior.glb-de353717baa2578577115f8875e86070.scn"]
+source_file="res://Models/wolfsmen/wolfsmen-training-grounds.glb"
+dest_files=["res://.godot/imported/wolfsmen-training-grounds.glb-d35cef68f88bb97cc45eb423b49f0fed.scn"]
 
 [params]
 

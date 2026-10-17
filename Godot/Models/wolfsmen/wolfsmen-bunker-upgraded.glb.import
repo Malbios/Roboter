@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://y1uyu3pj8mom"
-path="res://.godot/imported/wolfsmen-ground-vehicle.glb-dc76b72f6491435c9c9d6736583599d5.scn"
+uid="uid://da41j4nlcekaf"
+path="res://.godot/imported/wolfsmen-bunker-upgraded.glb-1921c2f87d03c4d9b71c37dd511ec737.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen-ground-vehicle.glb"
-dest_files=["res://.godot/imported/wolfsmen-ground-vehicle.glb-dc76b72f6491435c9c9d6736583599d5.scn"]
+source_file="res://Models/wolfsmen/wolfsmen-bunker-upgraded.glb"
+dest_files=["res://.godot/imported/wolfsmen-bunker-upgraded.glb-1921c2f87d03c4d9b71c37dd511ec737.scn"]
 
 [params]
 

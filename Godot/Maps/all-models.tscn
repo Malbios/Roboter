@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://b4vy732xo0jww"]
+
+[ext_resource type="PackedScene" uid="uid://kot2ndqw6ok1" path="res://Models/wolfsmen/wolfsmen-bow-warrior.glb" id="1_xaeph"]
+[ext_resource type="PackedScene" uid="uid://da41j4nlcekaf" path="res://Models/wolfsmen/wolfsmen-bunker-upgraded.glb" id="2_b38ra"]
+[ext_resource type="PackedScene" uid="uid://ccirerocroywk" path="res://Models/wolfsmen/wolfsmen-bunker.glb" id="3_47k7a"]
+[ext_resource type="PackedScene" uid="uid://c62uvilkmoikv" path="res://Models/wolfsmen/wolfsmen-crossbow-warrior.glb" id="4_srv0j"]
+[ext_resource type="PackedScene" uid="uid://y1uyu3pj8mom" path="res://Models/wolfsmen/wolfsmen-ground-vehicle.glb" id="5_hwi1o"]
+[ext_resource type="PackedScene" uid="uid://ccqau7i4tan8w" path="res://Models/wolfsmen/wolfsmen-mech-vehicle.glb" id="6_npukh"]
+[ext_resource type="PackedScene" uid="uid://d0kxp6whgd835" path="res://Models/wolfsmen/wolfsmen-sword-and-shield-warrior.glb" id="7_dixhl"]
+[ext_resource type="PackedScene" uid="uid://fskweg4rajdd" path="res://Models/wolfsmen/wolfsmen-worker.glb" id="8_dkw1r"]
+[ext_resource type="PackedScene" uid="uid://vr413h8yht0g" path="res://Models/bridge.glb" id="9_b38ra"]
+[ext_resource type="PackedScene" uid="uid://cwndsevo7v2jv" path="res://Models/wolfsmen/wolfsmen-gas-mine.glb" id="9_cdkgj"]
+[ext_resource type="PackedScene" uid="uid://qnpxr1clvddv" path="res://Models/wolfsmen/wolfsmen-training-grounds.glb" id="10_cvulj"]
+[ext_resource type="PackedScene" uid="uid://b48vk500000x" path="res://Models/wolfsmen/wolfsmen-workshop.glb" id="11_d7c17"]
+[ext_resource type="PackedScene" uid="uid://hleh8sqqaupx" path="res://Models/baum.glb" id="13_5f6fh"]
+[ext_resource type="PackedScene" uid="uid://br63qepuvif5q" path="res://Models/palme.glb" id="14_id6o0"]
+
+[node name="Node3D" type="Node3D" unique_id=1845230387]
+
+[node name="wolfsmen-bow-warrior" parent="." unique_id=1648855900 instance=ExtResource("1_xaeph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8469131, 0, 0)
+
+[node name="wolfsmen-bunker-upgraded" parent="." unique_id=767362379 instance=ExtResource("2_b38ra")]
+transform = Transform3D(4.65, 0, 0, 0, 4.65, 0, 0, 0, 4.65, 11.866846, 0, 0.10242379)
+
+[node name="wolfsmen-bunker" parent="." unique_id=1920419193 instance=ExtResource("3_47k7a")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 9.328388, 0, 0)
+
+[node name="wolfsmen-crossbow-warrior" parent="." unique_id=611835466 instance=ExtResource("4_srv0j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.73777, -0.09496081, 0)
+
+[node name="wolfsmen-ground-vehicle" parent="." unique_id=1307538274 instance=ExtResource("5_hwi1o")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 5.0342803, 0, 0)
+
+[node name="wolfsmen-mech-vehicle" parent="." unique_id=1754481741 instance=ExtResource("6_npukh")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 6.985625, 0, 0)
+
+[node name="wolfsmen-sword-and-shield-warrior" parent="." unique_id=1692622542 instance=ExtResource("7_dixhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.797316, -0.0041573048, 2.3841858e-07)
+
+[node name="wolfsmen-worker" parent="." unique_id=777183608 instance=ExtResource("8_dkw1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82492924, -0.0083402395, 0)
+
+[node name="wolfsmen-gas-mine" parent="." unique_id=204448492 instance=ExtResource("9_cdkgj")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 14.499508, 0, 0)
+
+[node name="wolfsmen-training-grounds" parent="." unique_id=21667984 instance=ExtResource("10_cvulj")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 17.082615, 0, 0)
+
+[node name="wolfsmen-workshop" parent="." unique_id=235145931 instance=ExtResource("11_d7c17")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 19.166668, 0, 0)
+
+[node name="bridge" parent="." unique_id=677295674 instance=ExtResource("9_b38ra")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 21.267794, 0, -0.19312924)
+
+[node name="baum" parent="." unique_id=1655477638 instance=ExtResource("13_5f6fh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.97041, 0, 0)
+
+[node name="palme" parent="." unique_id=1051793751 instance=ExtResource("14_id6o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.360603, 0, 0)
