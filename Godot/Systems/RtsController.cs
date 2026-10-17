@@ -110,14 +110,14 @@ public partial class RtsController : Node3D
 		Vector2 mouseDisplacement = ConsumeMouseDisplacement();
 
 		Vector3 rotation = Rotation;
-		rotation.Y += Mathf.DegToRad(mouseDisplacement.X * RotationSpeed * delta);
+		rotation.Y -= Mathf.DegToRad(mouseDisplacement.X * RotationSpeed * delta);
 		Rotation = rotation;
 
 		float elevationAngle = Mathf.RadToDeg(_elevationNode.Rotation.X);
 		elevationAngle = Mathf.Clamp(
 			elevationAngle - mouseDisplacement.Y * RotationSpeed * delta,
-			-MaxElevationAngle,
-			-MinElevationAngle);
+			MinElevationAngle,
+			MaxElevationAngle);
 
 		Vector3 elevationRotation = _elevationNode.Rotation;
 		elevationRotation.X = Mathf.DegToRad(elevationAngle);
