@@ -102,5 +102,25 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.225612, 4.3104305, -104.65922)
 
 [node name="Scorpion2" type="MeshInstance3D" parent="." unique_id=1936917935]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.16012, 0.95329815, 98.815506)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -126.48847, 0.44465637, -190.02132)
+mesh = ExtResource("8_jpeyo")
+
+[node name="Scorpion2" type="MeshInstance3D" parent="Scorpion2" unique_id=1473932690]
+transform = Transform3D(2.25, 0, 0, 0, 2.25, 0, 0, 0, 2.25, 97.67296, 0.45335388, 144.11858)
+mesh = ExtResource("8_jpeyo")
+
+[node name="Scorpion2" type="MeshInstance3D" parent="Scorpion2/Scorpion2" unique_id=948486591]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 66.05091, 0.564518, 96.61319)
+mesh = ExtResource("8_jpeyo")
+
+[node name="Scorpion2" type="MeshInstance3D" parent="Scorpion2/Scorpion2/Scorpion2" unique_id=397572670]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 66.05091, 0.564518, 96.61319)
+mesh = ExtResource("8_jpeyo")
+
+[node name="Scorpion2" type="MeshInstance3D" parent="Scorpion2/Scorpion2/Scorpion2/Scorpion2" unique_id=1876450954]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 66.05091, 0.564518, 96.61319)
+mesh = ExtResource("8_jpeyo")
+
+[node name="Scorpion3" type="MeshInstance3D" parent="." unique_id=911857846]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 62.1288, 1.5116506, 93.57624)
 mesh = ExtResource("8_jpeyo")
