@@ -3,148 +3,170 @@ using System;
 
 public partial class RtsController : Node3D
 {
+	private const float ZoomSmoothing = 0.1f;
+	private const float PanSensitivity = 0.1f;
+
+	[Export(PropertyHint.Range, "0,1000")] public float MovementSpeed { get; set; } = 64;
+	[Export(PropertyHint.Range, "0,1000")] public float RotationSpeed { get; set; } = 5;
+	[Export(PropertyHint.Range, "0,1000,0.1")] public float ZoomSpeed { get; set; } = 50;
+	[Export(PropertyHint.Range, "0,1000")] public float MinZoom { get; set; } = 32;
+	[Export(PropertyHint.Range, "0,1000")] public float MaxZoom { get; set; } = 256;
+	[Export(PropertyHint.Range, "0,90")] public float MinElevationAngle { get; set; } = 10;
+	[Export(PropertyHint.Range, "0,90")] public float MaxElevationAngle { get; set; } = 90;
+	[Export] public float EdgeMargin { get; set; } = 50;
+	[Export] public bool AllowRotation { get; set; } = true;
+	[Export] public bool AllowZoom { get; set; } = true;
+	[Export] public bool AllowPan { get; set; } = true;
+
+	private Camera3D _camera;
+	private Node3D _elevationNode;
+
+	private bool _isRotating;
+	private bool _isPanning;
+	private Vector2 _lastMousePosition;
+	private float _zoomLevel = 64;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// zoom_level = camera.position.y;
+		_camera = GetNode<Camera3D>("Elevation/Camera3D");
+		_elevationNode = GetNode<Node3D>("Elevation");
+		_zoomLevel = _camera.Position.Y;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		float deltaSeconds = (float)delta;
+
+		if (_isPanning)
+		{
+			if (AllowPan)
+				HandlePanning();
+			return;
+		}
+
+		HandleEdgeMovement(deltaSeconds);
+		HandleKeyboardMovement(deltaSeconds);
+		if (AllowRotation)
+			HandleRotation(deltaSeconds);
+		if (AllowZoom)
+			HandleZoom();
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("camera_rotate"))
+		{
+			_isRotating = true;
+			_lastMousePosition = GetViewport().GetMousePosition();
+		}
+		else if (@event.IsActionReleased("camera_rotate"))
+		{
+			_isRotating = false;
+		}
+
+		if (@event.IsActionPressed("camera_pan"))
+		{
+			_isPanning = true;
+			_lastMousePosition = GetViewport().GetMousePosition();
+		}
+		else if (@event.IsActionReleased("camera_pan"))
+		{
+			_isPanning = false;
+		}
+
+		if (@event.IsActionPressed("zoom_in"))
+			_zoomLevel -= ZoomSpeed;
+		else if (@event.IsActionPressed("zoom_out"))
+			_zoomLevel += ZoomSpeed;
+	}
+
+	private void HandleKeyboardMovement(float delta)
+	{
+		Vector3 direction = Vector3.Zero;
+		if (Input.IsActionPressed("ui_up"))
+			direction.Z -= 1;
+		if (Input.IsActionPressed("ui_down"))
+			direction.Z += 1;
+		if (Input.IsActionPressed("ui_left"))
+			direction.X -= 1;
+		if (Input.IsActionPressed("ui_right"))
+			direction.X += 1;
+
+		MoveInDirection(direction, delta);
+	}
+
+	private void HandleEdgeMovement(float delta)
+	{
+		Viewport viewport = GetViewport();
+		Vector2 mousePosition = viewport.GetMousePosition();
+		Vector2 screenSize = viewport.GetVisibleRect().Size;
+		Vector3 direction = Vector3.Zero;
+
+		if (mousePosition.X < EdgeMargin)
+			direction.X -= 1;
+		else if (mousePosition.X > screenSize.X - EdgeMargin)
+			direction.X += 1;
+
+		if (mousePosition.Y < EdgeMargin)
+			direction.Z -= 1;
+		else if (mousePosition.Y > screenSize.Y - EdgeMargin)
+			direction.Z += 1;
+
+		MoveInDirection(direction, delta);
+	}
+
+	private void MoveInDirection(Vector3 direction, float delta)
+	{
+		if (direction == Vector3.Zero)
+			return;
+
+		GlobalTranslate(direction.Normalized() * MovementSpeed * delta);
+	}
+
+	private void HandleRotation(float delta)
+	{
+		if (!_isRotating)
+			return;
+
+		Vector2 mouseDisplacement = ConsumeMouseDisplacement();
+
+		Vector3 rotation = Rotation;
+		rotation.Y -= Mathf.DegToRad(mouseDisplacement.X * RotationSpeed * delta);
+		Rotation = rotation;
+
+		float elevationAngle = Mathf.RadToDeg(_elevationNode.Rotation.X);
+		elevationAngle = Mathf.Clamp(
+			elevationAngle - mouseDisplacement.Y * RotationSpeed * delta,
+			-MaxElevationAngle,
+			-MinElevationAngle);
+
+		Vector3 elevationRotation = _elevationNode.Rotation;
+		elevationRotation.X = Mathf.DegToRad(elevationAngle);
+		_elevationNode.Rotation = elevationRotation;
+	}
+
+	private void HandleZoom()
+	{
+		_zoomLevel = Mathf.Clamp(_zoomLevel, MinZoom, MaxZoom);
+
+		Vector3 cameraPosition = _camera.Position;
+		cameraPosition.Y = Mathf.Lerp(cameraPosition.Y, _zoomLevel, ZoomSmoothing);
+		_camera.Position = cameraPosition;
+	}
+
+	private void HandlePanning()
+	{
+		Vector2 displacement = ConsumeMouseDisplacement();
+		GlobalTranslate(new Vector3(-displacement.X, 0, -displacement.Y) * PanSensitivity);
+	}
+
+	private Vector2 ConsumeMouseDisplacement()
+	{
+		Vector2 currentMousePosition = GetViewport().GetMousePosition();
+		Vector2 displacement = currentMousePosition - _lastMousePosition;
+		_lastMousePosition = currentMousePosition;
+		return displacement;
 	}
 }
-
-
-/*
-
-extends Node3D
-
-# Parameters for Camera Control
-@export_range(0, 1000) var movement_speed: float = 64
-@export_range(0, 1000) var rotation_speed: float = 5
-@export_range(0, 1000, 0.1) var zoom_speed: float = 50
-@export_range(0, 1000) var min_zoom: float = 32
-@export_range(0, 1000) var max_zoom: float = 256
-@export_range(0, 90) var min_elevation_angle: float = 10
-@export_range(0, 90) var max_elevation_angle: float = 90
-@export var edge_margin: float = 50
-@export var allow_rotation: bool = true
-@export var allow_zoom: bool = true
-@export var allow_pan: bool = true
-
-# Camera Nodes
-@onready var camera = $Elevation/Camera3D
-@onready var elevation_node = $Elevation
-
-# Runtime State
-var is_rotating: bool = false
-var is_panning: bool = false
-var last_mouse_position: Vector2
-var zoom_level: float = 64
-
-func _ready() -> void:
-	# Initialize zoom level
-	zoom_level = camera.position.y
-
-func _process(delta: float) -> void:
-	if not is_panning:
-		handle_edge_movement(delta)
-		handle_keyboard_movement(delta)
-		if allow_rotation:
-			handle_rotation(delta)
-		if allow_zoom:
-			handle_zoom(delta)
-	else:
-		if allow_pan:
-			handle_panning(delta)
-
-# handling inputs
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("camera_rotate"):
-		is_rotating = true
-		last_mouse_position = get_viewport().get_mouse_position()
-	elif event.is_action_released("camera_rotate"):
-		is_rotating = false
-
-	if event.is_action_pressed("camera_pan"):
-		is_panning = true
-		last_mouse_position = get_viewport().get_mouse_position()
-	elif event.is_action_released("camera_pan"):
-		is_panning = false
-
-	if event.is_action_pressed("zoom_in"):
-		zoom_level -= zoom_speed
-	elif event.is_action_pressed("zoom_out"):
-		zoom_level += zoom_speed
-
-# Movement
-func handle_keyboard_movement(delta: float) -> void:
-	var direction = Vector3.ZERO
-	if Input.is_action_pressed("ui_up"):
-		direction.z -= 1
-	if Input.is_action_pressed("ui_down"):
-		direction.z += 1
-	if Input.is_action_pressed("ui_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("ui_right"):
-		direction.x += 1
-
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-		global_translate(direction * movement_speed * delta)
-
-func handle_edge_movement(delta: float) -> void:
-	var viewport = get_viewport()
-	var mouse_pos = viewport.get_mouse_position()
-	var screen_rect = viewport.get_visible_rect()
-	var direction = Vector3.ZERO
-
-	if mouse_pos.x < edge_margin:
-		direction.x -= 1
-	elif mouse_pos.x > screen_rect.size.x - edge_margin:
-		direction.x += 1
-
-	if mouse_pos.y < edge_margin:
-		direction.z -= 1
-	elif mouse_pos.y > screen_rect.size.y - edge_margin:
-		direction.z += 1
-
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-		global_translate(direction * movement_speed * delta)
-
-# Rotation
-func handle_rotation(delta: float) -> void:
-	if is_rotating:
-		var mouse_displacement = get_viewport().get_mouse_position() - last_mouse_position
-		last_mouse_position = get_viewport().get_mouse_position()
-
-		# Horizontal rotation
-		rotation.y -= deg_to_rad(mouse_displacement.x * rotation_speed * delta)
-
-		# Elevation
-		var elevation_angle = rad_to_deg(elevation_node.rotation.x)
-		elevation_angle = clamp(
-			elevation_angle - mouse_displacement.y * rotation_speed * delta,
-			-max_elevation_angle,
-			-min_elevation_angle
-		)
-		elevation_node.rotation.x = deg_to_rad(elevation_angle)
-
-# Zoom
-func handle_zoom(delta: float) -> void:
-	zoom_level = clamp(zoom_level, min_zoom, max_zoom)
-	camera.position.y = lerp(camera.position.y, zoom_level, 0.1)
-
-# Panning
-func handle_panning(delta: float) -> void:
-	if is_panning:
-		var current_mouse_pos = get_viewport().get_mouse_position()
-		var displacement = current_mouse_pos - last_mouse_position
-		last_mouse_position = current_mouse_pos
-
-		global_translate(Vector3(-displacement.x, 0, -displacement.y) * 0.1)
-
-
-*/
