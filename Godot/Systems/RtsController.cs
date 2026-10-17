@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class RtsController : Node3D
 {
@@ -26,7 +25,6 @@ public partial class RtsController : Node3D
 	private Vector2 _lastMousePosition;
 	private float _zoomLevel = 64;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("Elevation/Camera3D");
@@ -34,7 +32,6 @@ public partial class RtsController : Node3D
 		_zoomLevel = _camera.Position.Y;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		float deltaSeconds = (float)delta;
