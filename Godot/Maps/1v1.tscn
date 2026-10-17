@@ -90,4 +90,4 @@ top_level = true
 metadata/_edit_lock_ = true
 
 [node name="RtsController" parent="." unique_id=1007581704 instance=ExtResource("5_s2l8y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3104305, -95.581696)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.225612, 4.3104305, -104.65922)
