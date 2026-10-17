@@ -12,7 +12,6 @@ public partial class RtsController : Node3D
 	[Export(PropertyHint.Range, "0,1000")] public float MaxZoom { get; set; } = 256;
 	[Export(PropertyHint.Range, "0,90")] public float MinElevationAngle { get; set; } = 10;
 	[Export(PropertyHint.Range, "0,90")] public float MaxElevationAngle { get; set; } = 90;
-	[Export] public float EdgeMargin { get; set; } = 50;
 	[Export] public bool AllowRotation { get; set; } = true;
 	[Export] public bool AllowZoom { get; set; } = true;
 	[Export] public bool AllowPan { get; set; } = true;
@@ -43,8 +42,6 @@ public partial class RtsController : Node3D
 			return;
 		}
 
-		if (!_isRotating)
-			HandleEdgeMovement(deltaSeconds);
 		HandleKeyboardMovement(deltaSeconds);
 
 		if (AllowRotation)
@@ -85,34 +82,14 @@ public partial class RtsController : Node3D
 	private void HandleKeyboardMovement(float delta)
 	{
 		Vector3 direction = Vector3.Zero;
-		if (Input.IsActionPressed("ui_up"))
+		if (Input.IsActionPressed("camera_forward"))
 			direction.Z -= 1;
-		if (Input.IsActionPressed("ui_down"))
+		if (Input.IsActionPressed("camera_back"))
 			direction.Z += 1;
-		if (Input.IsActionPressed("ui_left"))
+		if (Input.IsActionPressed("camera_left"))
 			direction.X -= 1;
-		if (Input.IsActionPressed("ui_right"))
+		if (Input.IsActionPressed("camera_right"))
 			direction.X += 1;
-
-		MoveInDirection(direction, delta);
-	}
-
-	private void HandleEdgeMovement(float delta)
-	{
-		Viewport viewport = GetViewport();
-		Vector2 mousePosition = viewport.GetMousePosition();
-		Vector2 screenSize = viewport.GetVisibleRect().Size;
-		Vector3 direction = Vector3.Zero;
-
-		if (mousePosition.X < EdgeMargin)
-			direction.X -= 1;
-		else if (mousePosition.X > screenSize.X - EdgeMargin)
-			direction.X += 1;
-
-		if (mousePosition.Y < EdgeMargin)
-			direction.Z -= 1;
-		else if (mousePosition.Y > screenSize.Y - EdgeMargin)
-			direction.Z += 1;
 
 		MoveInDirection(direction, delta);
 	}
@@ -138,7 +115,7 @@ public partial class RtsController : Node3D
 
 		float elevationAngle = Mathf.RadToDeg(_elevationNode.Rotation.X);
 		elevationAngle = Mathf.Clamp(
-			elevationAngle + mouseDisplacement.Y * RotationSpeed * delta,
+			elevationAngle - mouseDisplacement.Y * RotationSpeed * delta,
 			-MaxElevationAngle,
 			-MinElevationAngle);
 
