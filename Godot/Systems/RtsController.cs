@@ -3,7 +3,6 @@ using Godot;
 public partial class RtsController : Node3D
 {
 	private const float ZoomSmoothing = 0.1f;
-	private const float PanSensitivity = 0.1f;
 
 	[Export(PropertyHint.Range, "0,1000")] public float MovementSpeed { get; set; } = 64;
 	[Export(PropertyHint.Range, "0,1000")] public float RotationSpeed { get; set; } = 5;
@@ -14,13 +13,11 @@ public partial class RtsController : Node3D
 	[Export(PropertyHint.Range, "0,90")] public float MaxElevationAngle { get; set; } = 90;
 	[Export] public bool AllowRotation { get; set; } = true;
 	[Export] public bool AllowZoom { get; set; } = true;
-	[Export] public bool AllowPan { get; set; } = true;
 
 	private Camera3D _camera;
 	private Node3D _elevationNode;
 
 	private bool _isRotating;
-	private bool _isPanning;
 	private Vector2 _lastMousePosition;
 	private float _zoomLevel = 64;
 
@@ -34,13 +31,6 @@ public partial class RtsController : Node3D
 	public override void _Process(double delta)
 	{
 		float deltaSeconds = (float)delta;
-
-		if (_isPanning)
-		{
-			if (AllowPan)
-				HandlePanning();
-			return;
-		}
 
 		HandleKeyboardMovement(deltaSeconds);
 
@@ -61,16 +51,6 @@ public partial class RtsController : Node3D
 		else if (@event.IsActionReleased("camera_rotate"))
 		{
 			_isRotating = false;
-		}
-
-		if (@event.IsActionPressed("camera_pan"))
-		{
-			_isPanning = true;
-			_lastMousePosition = GetViewport().GetMousePosition();
-		}
-		else if (@event.IsActionReleased("camera_pan"))
-		{
-			_isPanning = false;
 		}
 
 		if (@event.IsActionPressed("zoom_in"))
@@ -99,7 +79,7 @@ public partial class RtsController : Node3D
 		if (direction == Vector3.Zero)
 			return;
 
-		GlobalTranslate(direction.Normalized() * MovementSpeed * delta);
+		Translate(direction.Normalized() * MovementSpeed * delta);
 	}
 
 	private void HandleRotation(float delta)
@@ -131,12 +111,6 @@ public partial class RtsController : Node3D
 		Vector3 cameraPosition = _camera.Position;
 		cameraPosition.Y = Mathf.Lerp(cameraPosition.Y, _zoomLevel, ZoomSmoothing);
 		_camera.Position = cameraPosition;
-	}
-
-	private void HandlePanning()
-	{
-		Vector2 displacement = ConsumeMouseDisplacement();
-		GlobalTranslate(new Vector3(-displacement.X, 0, -displacement.Y) * PanSensitivity);
 	}
 
 	private Vector2 ConsumeMouseDisplacement()
