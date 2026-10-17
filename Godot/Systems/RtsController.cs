@@ -5,6 +5,7 @@ public partial class RtsController : Node3D
 	private const float ZoomSmoothing = 0.1f;
 
 	[Export(PropertyHint.Range, "0,1000")] public float MovementSpeed { get; set; } = 64;
+	[Export(PropertyHint.Range, "1,10,0.1")] public float SprintMultiplier { get; set; } = 3;
 	[Export(PropertyHint.Range, "0,1000")] public float RotationSpeed { get; set; } = 5;
 	[Export(PropertyHint.Range, "0,1000,0.1")] public float ZoomSpeed { get; set; } = 50;
 	[Export(PropertyHint.Range, "0,1000")] public float MinZoom { get; set; } = 32;
@@ -79,7 +80,8 @@ public partial class RtsController : Node3D
 		if (direction == Vector3.Zero)
 			return;
 
-		Translate(direction.Normalized() * MovementSpeed * delta);
+		float speed = Input.IsActionPressed("camera_sprint") ? MovementSpeed * SprintMultiplier : MovementSpeed;
+		Translate(direction.Normalized() * speed * delta);
 	}
 
 	private void HandleRotation(float delta)
