@@ -4,7 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="2_s2l8y"]
 [ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://demo/assets/textures/rock023_alb_ht.png" id="3_l775r"]
 [ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://demo/assets/textures/rock023_nrm_rgh.png" id="4_ahyi8"]
+[ext_resource type="Texture2D" uid="uid://r4gnkwojjk5q" path="res://Textures/DirtGround/albedo.png" id="5_ahyi8"]
 [ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="5_s2l8y"]
+[ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Textures/DirtGround/normal.png" id="6_jpeyo"]
+[ext_resource type="ArrayMesh" uid="uid://brcded7s1s1ja" path="res://Models/scorpion.glb" id="8_jpeyo"]
 
 [sub_resource type="Gradient" id="Gradient_5f77f"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -76,9 +79,15 @@ id = 1
 albedo_texture = ExtResource("3_l775r")
 normal_texture = ExtResource("4_ahyi8")
 
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_ahyi8"]
+name = "albedo"
+id = 2
+albedo_texture = ExtResource("5_ahyi8")
+normal_texture = ExtResource("6_jpeyo")
+
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_l775r"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_l775r")])
-texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_jpeyo"), SubResource("Terrain3DTextureAsset_h4u8l")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_jpeyo"), SubResource("Terrain3DTextureAsset_h4u8l"), SubResource("Terrain3DTextureAsset_ahyi8")])
 
 [node name="1v1" type="Node3D" unique_id=800020185]
 
@@ -91,3 +100,7 @@ metadata/_edit_lock_ = true
 
 [node name="RtsController" parent="." unique_id=1007581704 instance=ExtResource("5_s2l8y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.225612, 4.3104305, -104.65922)
+
+[node name="Scorpion2" type="MeshInstance3D" parent="." unique_id=1936917935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.16012, 0.95329815, 98.815506)
+mesh = ExtResource("8_jpeyo")
