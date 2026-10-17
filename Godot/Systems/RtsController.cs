@@ -43,10 +43,13 @@ public partial class RtsController : Node3D
 			return;
 		}
 
-		HandleEdgeMovement(deltaSeconds);
+		if (!_isRotating)
+			HandleEdgeMovement(deltaSeconds);
 		HandleKeyboardMovement(deltaSeconds);
+
 		if (AllowRotation)
 			HandleRotation(deltaSeconds);
+
 		if (AllowZoom)
 			HandleZoom();
 	}
@@ -130,12 +133,12 @@ public partial class RtsController : Node3D
 		Vector2 mouseDisplacement = ConsumeMouseDisplacement();
 
 		Vector3 rotation = Rotation;
-		rotation.Y -= Mathf.DegToRad(mouseDisplacement.X * RotationSpeed * delta);
+		rotation.Y += Mathf.DegToRad(mouseDisplacement.X * RotationSpeed * delta);
 		Rotation = rotation;
 
 		float elevationAngle = Mathf.RadToDeg(_elevationNode.Rotation.X);
 		elevationAngle = Mathf.Clamp(
-			elevationAngle - mouseDisplacement.Y * RotationSpeed * delta,
+			elevationAngle + mouseDisplacement.Y * RotationSpeed * delta,
 			-MaxElevationAngle,
 			-MinElevationAngle);
 
