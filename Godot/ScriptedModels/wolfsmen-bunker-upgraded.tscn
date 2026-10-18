@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dmomqfm2hbtrp"]
+
+[ext_resource type="PackedScene" uid="uid://da41j4nlcekaf" path="res://Models/wolfsmen/buildings/wolfsmen-bunker-upgraded.glb" id="1_c02qk"]
+[ext_resource type="Script" uid="uid://cxv0wuwafs8gx" path="res://ScriptedModels/WolfsmenBunkerUpgraded.cs" id="2_egpbm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vcp2d"]
+radius = 4.663965
+
+[node name="wolfsmen-bunker-upgraded" unique_id=339193742 instance=ExtResource("1_c02qk")]
+script = ExtResource("2_egpbm")
+
+[node name="TurretRange" type="Area3D" parent="." index="1" unique_id=857488152]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretRange" index="0" unique_id=796605126]
+shape = SubResource("SphereShape3D_vcp2d")
