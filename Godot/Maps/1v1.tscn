@@ -1,14 +1,32 @@
 [gd_scene format=3 uid="uid://wx46ljp08jco"]
 
-[ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="1_cr7dl"]
-[ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="2_s2l8y"]
-[ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://demo/assets/textures/rock023_alb_ht.png" id="3_l775r"]
-[ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://demo/assets/textures/rock023_nrm_rgh.png" id="4_ahyi8"]
+[ext_resource type="Texture2D" uid="uid://dnxuagp5wb5e3" path="res://Textures/ground037_alb_ht.png" id="1_cr7dl"]
+[ext_resource type="Texture2D" uid="uid://hmvqf5hfykow" path="res://Textures/ground037_nrm_rgh.png" id="2_s2l8y"]
+[ext_resource type="Texture2D" uid="uid://dcna80wxxqhou" path="res://Textures/rock023_alb_ht.png" id="3_l775r"]
+[ext_resource type="Texture2D" uid="uid://cgko04o4ijal7" path="res://Textures/rock023_nrm_rgh.png" id="4_ahyi8"]
 [ext_resource type="Texture2D" uid="uid://r4gnkwojjk5q" path="res://Textures/DirtGround/albedo.png" id="5_ahyi8"]
 [ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="5_s2l8y"]
 [ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Textures/DirtGround/normal.png" id="6_jpeyo"]
-[ext_resource type="Script" path="res://Systems/MatchSetup.cs" id="7_match"]
+[ext_resource type="Script" uid="uid://b4edclrb5m8qq" path="res://Systems/MatchSetup.cs" id="7_match"]
 [ext_resource type="PackedScene" path="res://UI/Chat.tscn" id="8_chat"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sun"]
+sky_top_color = Color(0.38, 0.52, 0.72, 1)
+sky_horizon_color = Color(0.68, 0.72, 0.76, 1)
+ground_bottom_color = Color(0.22, 0.19, 0.16, 1)
+ground_horizon_color = Color(0.68, 0.72, 0.76, 1)
+
+[sub_resource type="Sky" id="Sky_sun"]
+sky_material = SubResource("ProceduralSkyMaterial_sun")
+
+[sub_resource type="Environment" id="Environment_sun"]
+background_mode = 2
+sky = SubResource("Sky_sun")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_5f77f"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -89,24 +107,6 @@ normal_texture = ExtResource("6_jpeyo")
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_l775r"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_l775r")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_jpeyo"), SubResource("Terrain3DTextureAsset_h4u8l"), SubResource("Terrain3DTextureAsset_ahyi8")])
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sun"]
-sky_top_color = Color(0.38, 0.52, 0.72, 1)
-sky_horizon_color = Color(0.68, 0.72, 0.76, 1)
-ground_bottom_color = Color(0.22, 0.19, 0.16, 1)
-ground_horizon_color = Color(0.68, 0.72, 0.76, 1)
-
-[sub_resource type="Sky" id="Sky_sun"]
-sky_material = SubResource("ProceduralSkyMaterial_sun")
-
-[sub_resource type="Environment" id="Environment_sun"]
-background_mode = 2
-sky = SubResource("Sky_sun")
-ambient_light_source = 3
-reflected_light_source = 2
-tonemap_mode = 2
-ssao_enabled = true
-glow_enabled = true
 
 [node name="1v1" type="Node3D" unique_id=800020185]
 script = ExtResource("7_match")
