@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwwkenhoyk18q"
-path.s3tc="res://.godot/imported/wolfsmen-bow-warrior_tripo_rgb_d1d4cb5a-54a6-4d66-9249-f0828f5017ac.jpg-9430906464e4737b2a1eb3d6f9c81c9b.s3tc.ctex"
+uid="uid://ci8sem8efxt5a"
+path.s3tc="res://.godot/imported/wolfsmen-crossbow-warrior_tripo_rgb_92171225-af7d-4854-aab0-3d4000cb0490.jpg-fb1350a7bb281289b91048f85257a29e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "90ee1662c4db172053f77d9484771257"
+"md5": "f540f0c66db22dd0247daa40b638534b"
 }
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-bow-warrior_tripo_rgb_d1d4cb5a-54a6-4d66-9249-f0828f5017ac.jpg"
-dest_files=["res://.godot/imported/wolfsmen-bow-warrior_tripo_rgb_d1d4cb5a-54a6-4d66-9249-f0828f5017ac.jpg-9430906464e4737b2a1eb3d6f9c81c9b.s3tc.ctex"]
+source_file="res://Models/wolfsmen/units/wolfsmen-crossbow-warrior_tripo_rgb_92171225-af7d-4854-aab0-3d4000cb0490.jpg"
+dest_files=["res://.godot/imported/wolfsmen-crossbow-warrior_tripo_rgb_92171225-af7d-4854-aab0-3d4000cb0490.jpg-fb1350a7bb281289b91048f85257a29e.s3tc.ctex"]
 
 [params]
 

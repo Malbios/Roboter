@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://qnpxr1clvddv"
-path="res://.godot/imported/wolfsmen-training-grounds.glb-d35cef68f88bb97cc45eb423b49f0fed.scn"
+uid="uid://fskweg4rajdd"
+path="res://.godot/imported/wolfsmen-worker.glb-beff3eeb05d670853a45fa99a20d661e.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-training-grounds.glb"
-dest_files=["res://.godot/imported/wolfsmen-training-grounds.glb-d35cef68f88bb97cc45eb423b49f0fed.scn"]
+source_file="res://Models/wolfsmen/units/wolfsmen-worker.glb"
+dest_files=["res://.godot/imported/wolfsmen-worker.glb-beff3eeb05d670853a45fa99a20d661e.scn"]
 
 [params]
 

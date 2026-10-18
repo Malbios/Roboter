@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://kot2ndqw6ok1"
-path="res://.godot/imported/wolfsmen-bow-warrior.glb-d5187497dbb1aa27c5fff0f7892d0cfb.scn"
+uid="uid://ccirerocroywk"
+path="res://.godot/imported/wolfsmen-bunker.glb-aa7ff6c4e2922dfe6181cf9e0764e689.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-bow-warrior.glb"
-dest_files=["res://.godot/imported/wolfsmen-bow-warrior.glb-d5187497dbb1aa27c5fff0f7892d0cfb.scn"]
+source_file="res://Models/wolfsmen/buildings/wolfsmen-bunker.glb"
+dest_files=["res://.godot/imported/wolfsmen-bunker.glb-aa7ff6c4e2922dfe6181cf9e0764e689.scn"]
 
 [params]
 
@@ -19,7 +19,7 @@ nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=2.0
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true

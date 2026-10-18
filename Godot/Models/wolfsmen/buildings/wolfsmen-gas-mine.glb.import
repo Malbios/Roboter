@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://hleh8sqqaupx"
-path="res://.godot/imported/baum.glb-0445d5058cd9b9726ca29e2f5908e9ac.scn"
+uid="uid://cwndsevo7v2jv"
+path="res://.godot/imported/wolfsmen-gas-mine.glb-7199e079482006c9ae6b556411784812.scn"
 
 [deps]
 
-source_file="res://Models/baum.glb"
-dest_files=["res://.godot/imported/baum.glb-0445d5058cd9b9726ca29e2f5908e9ac.scn"]
+source_file="res://Models/wolfsmen/buildings/wolfsmen-gas-mine.glb"
+dest_files=["res://.godot/imported/wolfsmen-gas-mine.glb-7199e079482006c9ae6b556411784812.scn"]
 
 [params]
 
@@ -19,7 +19,7 @@ nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=2.5
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true

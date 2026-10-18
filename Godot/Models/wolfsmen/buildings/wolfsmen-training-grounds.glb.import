@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ccirerocroywk"
-path="res://.godot/imported/wolfsmen-bunker.glb-dc39f0ef5e85fe27f36d2eac1611713f.scn"
+uid="uid://qnpxr1clvddv"
+path="res://.godot/imported/wolfsmen-training-grounds.glb-53873494a98375a2eb4bf3af205775e9.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-bunker.glb"
-dest_files=["res://.godot/imported/wolfsmen-bunker.glb-dc39f0ef5e85fe27f36d2eac1611713f.scn"]
+source_file="res://Models/wolfsmen/buildings/wolfsmen-training-grounds.glb"
+dest_files=["res://.godot/imported/wolfsmen-training-grounds.glb-53873494a98375a2eb4bf3af205775e9.scn"]
 
 [params]
 
@@ -19,7 +19,7 @@ nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=2.0
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true

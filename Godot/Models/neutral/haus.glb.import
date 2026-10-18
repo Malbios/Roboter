@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c62uvilkmoikv"
-path="res://.godot/imported/wolfsmen-crossbow-warrior.glb-fc2f520a47e2ab25eac5c9a1d728f0cd.scn"
+uid="uid://h5l23gkty5dp"
+path="res://.godot/imported/haus.glb-5e0a4f30d8851341e0c049685cec7ae2.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-crossbow-warrior.glb"
-dest_files=["res://.godot/imported/wolfsmen-crossbow-warrior.glb-fc2f520a47e2ab25eac5c9a1d728f0cd.scn"]
+source_file="res://Models/neutral/haus.glb"
+dest_files=["res://.godot/imported/haus.glb-5e0a4f30d8851341e0c049685cec7ae2.scn"]
 
 [params]
 
