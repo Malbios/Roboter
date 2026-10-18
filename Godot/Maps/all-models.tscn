@@ -12,12 +12,14 @@
 [ext_resource type="PackedScene" uid="uid://cwndsevo7v2jv" path="res://Models/wolfsmen/buildings/wolfsmen-gas-mine.glb" id="9_cdkgj"]
 [ext_resource type="PackedScene" uid="uid://qnpxr1clvddv" path="res://Models/wolfsmen/buildings/wolfsmen-training-grounds.glb" id="10_cvulj"]
 [ext_resource type="PackedScene" uid="uid://b48vk500000x" path="res://Models/wolfsmen/buildings/wolfsmen-workshop.glb" id="11_d7c17"]
+[ext_resource type="PackedScene" uid="uid://0hcbtx1vc43e" path="res://Models/wolfsmen/buildings/wolfsmen-storage.glb" id="12_nws3y"]
 [ext_resource type="PackedScene" uid="uid://hleh8sqqaupx" path="res://Models/neutral/baum.glb" id="13_5f6fh"]
 [ext_resource type="PackedScene" uid="uid://br63qepuvif5q" path="res://Models/neutral/palme.glb" id="14_id6o0"]
 [ext_resource type="PackedScene" uid="uid://h5l23gkty5dp" path="res://Models/neutral/haus.glb" id="15_id6o0"]
 [ext_resource type="PackedScene" uid="uid://opa4viod83bf" path="res://Models/neutral/intakt.glb" id="16_hpq2c"]
 [ext_resource type="PackedScene" uid="uid://db1bp7n3nrx5x" path="res://Models/neutral/ruine1.glb" id="17_nws3y"]
 [ext_resource type="PackedScene" uid="uid://73dwrupo3sii" path="res://Models/neutral/schrott.glb" id="18_arwtw"]
+[ext_resource type="PackedScene" uid="uid://bpkpsrknjcn24" path="res://Models/neutral/gas-vulkan.glb" id="19_hpq2c"]
 
 [node name="Node3D" type="Node3D" unique_id=1845230387]
 
@@ -49,10 +51,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82492924, -0.0083402395, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5632753, 0, 3.1220498)
 
 [node name="wolfsmen-training-grounds" parent="." unique_id=21667984 instance=ExtResource("10_cvulj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.146382, 0, 3.1220498)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.085558, 0, 3.1220498)
 
 [node name="wolfsmen-workshop" parent="." unique_id=235145931 instance=ExtResource("11_d7c17")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.230435, 0, 3.1220498)
+
+[node name="wolfsmen-storage" parent="." unique_id=1030159632 instance=ExtResource("12_nws3y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7142515, -7.1525574e-07, 3.578602)
 
 [node name="bridge" parent="." unique_id=677295674 instance=ExtResource("9_b38ra")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.1088343, 0, 6.2704463)
@@ -73,4 +78,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.744674, 0, 6.4635754)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6896925, 0, 6.4635754)
 
 [node name="schrott" parent="." unique_id=970117510 instance=ExtResource("18_arwtw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.870315, 0, 6.4635754)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.147988, 0, 6.4635754)
+
+[node name="gas-vulkan" parent="." unique_id=30538920 instance=ExtResource("19_hpq2c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.17609, 0, 6.265812)
