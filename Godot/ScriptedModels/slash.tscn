@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ScriptedModels/Slash.cs" id="1_slash"]
+[ext_resource type="Texture2D" path="res://Textures/slash.png" id="2_slash"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_slash"]
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slash"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("2_slash")
+
+[node name="slash" type="Node3D"]
+script = ExtResource("1_slash")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_slash")
+surface_material_override/0 = SubResource("StandardMaterial3D_slash")

@@ -10,6 +10,8 @@ public partial class WalkingDummy : CharacterBody3D
 	[Export] public float AttackInterval = 1f;
 	[Export] public float FallTime = 0.5f;
 	[Export] public float FadeTime = 1f;
+	[Export] public PackedScene SlashScene;
+	[Export] public PackedScene SparksScene;
 
 	private Area3D _attackRange;
 	private float _attackTimer;
@@ -37,6 +39,7 @@ public partial class WalkingDummy : CharacterBody3D
 			_attackTimer -= (float)delta;
 			if (_attackTimer <= 0)
 			{
+				ShowAttackEffects();
 				turret.TakeDamage(Damage);
 				_attackTimer = AttackInterval;
 			}
@@ -59,6 +62,17 @@ public partial class WalkingDummy : CharacterBody3D
 		{
 			Die();
 		}
+	}
+
+	private void ShowAttackEffects()
+	{
+		Node3D slash = SlashScene.Instantiate<Node3D>();
+		AddChild(slash);
+		slash.Position = new Vector3(0, 0.8f, 0.4f);
+
+		Node3D sparks = SparksScene.Instantiate<Node3D>();
+		AddChild(sparks);
+		sparks.Position = new Vector3(0, 0.8f, 0.8f);
 	}
 
 	private WolfsmenBunkerUpgraded FindTurretInReach()

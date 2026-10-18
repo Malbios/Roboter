@@ -7,11 +7,13 @@ public partial class WolfsmenBunkerUpgraded : StaticBody3D
 	[Export] public float ShootInterval = 1f;
 	[Export] public PackedScene BulletScene;
 	[Export] public PackedScene ExplosionScene;
+	[Export] public int LowHealth = 5;
 
 	private Area3D _turretRadius;
 	private Marker3D _muzzle;
 	private Node3D _target;
 	private float _shootTimer;
+	private bool _isFlashing;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -71,6 +73,27 @@ public partial class WolfsmenBunkerUpgraded : StaticBody3D
 		{
 			Explode();
 		}
+		else if (Health <= LowHealth && !_isFlashing)
+		{
+			StartLowHealthFlash();
+		}
+	}
+
+	private void StartLowHealthFlash()
+	{
+		_isFlashing = true;
+
+		StandardMaterial3D flash = new StandardMaterial3D();
+		flash.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
+		flash.Transparency = BaseMaterial3D.TransparencyEnum.Alpha;
+		flash.AlbedoColor = new Color(1, 0, 0, 0);
+
+		MeshInstance3D mesh = (MeshInstance3D)GetNode("Model").FindChildren("*", "MeshInstance3D", true, false)[0];
+		mesh.MaterialOverlay = flash;
+
+		Tween tween = CreateTween().SetLoops();
+		tween.TweenProperty(flash, "albedo_color:a", 0.6f, 0.25f);
+		tween.TweenProperty(flash, "albedo_color:a", 0f, 0.25f);
 	}
 
 	private Node3D FindTarget()

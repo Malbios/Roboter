@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://d0kxp6whgd835" path="res://Models/wolfsmen/units/wolfsmen-sword-and-shield-warrior.glb" id="1_ja7m1"]
 [ext_resource type="Script" path="res://ScriptedModels/WalkingDummy.cs" id="2_wdscr"]
+[ext_resource type="PackedScene" path="res://ScriptedModels/slash.tscn" id="3_slash"]
+[ext_resource type="PackedScene" path="res://ScriptedModels/sparks.tscn" id="4_sparks"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wdcap"]
 radius = 0.3
@@ -12,6 +14,8 @@ radius = 0.8
 
 [node name="walking-dummy" type="CharacterBody3D" unique_id=1530716129 groups=["Enemy"]]
 script = ExtResource("2_wdscr")
+SlashScene = ExtResource("3_slash")
+SparksScene = ExtResource("4_sparks")
 
 [node name="Model" parent="." unique_id=1530716130 instance=ExtResource("1_ja7m1")]
 
