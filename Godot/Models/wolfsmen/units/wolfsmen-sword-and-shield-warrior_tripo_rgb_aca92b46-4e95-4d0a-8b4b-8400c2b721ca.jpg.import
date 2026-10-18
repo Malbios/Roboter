@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://do2vbf61xwjxj"
-path.s3tc="res://.godot/imported/wolfsmen-sword-and-shield-warrior_tripo_rgb_aca92b46-4e95-4d0a-8b4b-8400c2b721ca.jpg-ed9f4d404266aded2a63e76cfe67fbda.s3tc.ctex"
+path.s3tc="res://.godot/imported/wolfsmen-sword-and-shield-warrior_tripo_rgb_aca92b46-4e95-4d0a-8b4b-8400c2b721ca.jpg-001a4375613bf93a980c0d808f3b5545.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-sword-and-shield-warrior_tripo_rgb_aca92b46-4e95-4d0a-8b4b-8400c2b721ca.jpg"
-dest_files=["res://.godot/imported/wolfsmen-sword-and-shield-warrior_tripo_rgb_aca92b46-4e95-4d0a-8b4b-8400c2b721ca.jpg-ed9f4d404266aded2a63e76cfe67fbda.s3tc.ctex"]
+source_file="res://Models/wolfsmen/units/wolfsmen-sword-and-shield-warrior_tripo_rgb_aca92b46-4e95-4d0a-8b4b-8400c2b721ca.jpg"
+dest_files=["res://.godot/imported/wolfsmen-sword-and-shield-warrior_tripo_rgb_aca92b46-4e95-4d0a-8b4b-8400c2b721ca.jpg-001a4375613bf93a980c0d808f3b5545.s3tc.ctex"]
 
 [params]
 

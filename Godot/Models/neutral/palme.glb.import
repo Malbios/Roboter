@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://y1uyu3pj8mom"
-path="res://.godot/imported/wolfsmen-ground-vehicle.glb-def2b5f53fb4b6fcfab9c4bbd99f3b17.scn"
+uid="uid://br63qepuvif5q"
+path="res://.godot/imported/palme.glb-92d42443a7c99ceadafd2dbe2fda7bb2.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-ground-vehicle.glb"
-dest_files=["res://.godot/imported/wolfsmen-ground-vehicle.glb-def2b5f53fb4b6fcfab9c4bbd99f3b17.scn"]
+source_file="res://Models/neutral/palme.glb"
+dest_files=["res://.godot/imported/palme.glb-92d42443a7c99ceadafd2dbe2fda7bb2.scn"]
 
 [params]
 

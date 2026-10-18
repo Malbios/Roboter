@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://br63qepuvif5q"
-path="res://.godot/imported/palme.glb-f111ee4a670fe51c69c3cb42d1c93de1.scn"
+uid="uid://73dwrupo3sii"
+path="res://.godot/imported/schrott.glb-3f08660b99d8e56eb52044ab47f2123b.scn"
 
 [deps]
 
-source_file="res://Models/palme.glb"
-dest_files=["res://.godot/imported/palme.glb-f111ee4a670fe51c69c3cb42d1c93de1.scn"]
+source_file="res://Models/neutral/schrott.glb"
+dest_files=["res://.godot/imported/schrott.glb-3f08660b99d8e56eb52044ab47f2123b.scn"]
 
 [params]
 

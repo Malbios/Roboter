@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d0kxp6whgd835"
-path="res://.godot/imported/wolfsmen-sword-and-shield-warrior.glb-e015487601c2bccfee220ea6b63d11c6.scn"
+uid="uid://c62uvilkmoikv"
+path="res://.godot/imported/wolfsmen-crossbow-warrior.glb-f970b8bab11c6bc9502c18ad7864ec83.scn"
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-sword-and-shield-warrior.glb"
-dest_files=["res://.godot/imported/wolfsmen-sword-and-shield-warrior.glb-e015487601c2bccfee220ea6b63d11c6.scn"]
+source_file="res://Models/wolfsmen/units/wolfsmen-crossbow-warrior.glb"
+dest_files=["res://.godot/imported/wolfsmen-crossbow-warrior.glb-f970b8bab11c6bc9502c18ad7864ec83.scn"]
 
 [params]
 
@@ -19,7 +19,7 @@ nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=1.1
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true

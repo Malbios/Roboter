@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd2eekynw3jf5"
-path.s3tc="res://.godot/imported/wolfsmen-training-grounds_tripo_rgb_730d7ee3-7192-45f2-a34e-12ef5289110a.jpg-31359eed4ea11f40dfc7520050bb88f5.s3tc.ctex"
+uid="uid://b76nioustgw5u"
+path.s3tc="res://.godot/imported/wolfsmen-workshop_tripo_rgb_c2324c90-9f82-4e76-bb1e-2ab6186934fb.jpg-444fea42f822104d8d4f654df1982155.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "28f9cabc2be97767313e2c1c47c39551"
+"md5": "24037d5bea1c4936b4df0bef416d4bb5"
 }
 
 [deps]
 
-source_file="res://Models/wolfsmen/wolfsmen-training-grounds_tripo_rgb_730d7ee3-7192-45f2-a34e-12ef5289110a.jpg"
-dest_files=["res://.godot/imported/wolfsmen-training-grounds_tripo_rgb_730d7ee3-7192-45f2-a34e-12ef5289110a.jpg-31359eed4ea11f40dfc7520050bb88f5.s3tc.ctex"]
+source_file="res://Models/wolfsmen/buildings/wolfsmen-workshop_tripo_rgb_c2324c90-9f82-4e76-bb1e-2ab6186934fb.jpg"
+dest_files=["res://.godot/imported/wolfsmen-workshop_tripo_rgb_c2324c90-9f82-4e76-bb1e-2ab6186934fb.jpg-444fea42f822104d8d4f654df1982155.s3tc.ctex"]
 
 [params]
 

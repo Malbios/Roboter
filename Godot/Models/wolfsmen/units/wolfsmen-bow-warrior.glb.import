@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://vr413h8yht0g"
-path="res://.godot/imported/bridge.glb-ddfe492d6c9304e1283c4b4ce082ddcd.scn"
+uid="uid://kot2ndqw6ok1"
+path="res://.godot/imported/wolfsmen-bow-warrior.glb-ab15958812bb653fb3e640051e70f097.scn"
 
 [deps]
 
-source_file="res://Models/bridge.glb"
-dest_files=["res://.godot/imported/bridge.glb-ddfe492d6c9304e1283c4b4ce082ddcd.scn"]
+source_file="res://Models/wolfsmen/units/wolfsmen-bow-warrior.glb"
+dest_files=["res://.godot/imported/wolfsmen-bow-warrior.glb-ab15958812bb653fb3e640051e70f097.scn"]
 
 [params]
 
