@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c28cqgec7rbhn"]
+
+[ext_resource type="PackedScene" uid="uid://dmomqfm2hbtrp" path="res://ScriptedModels/wolfsmen-bunker-upgraded.tscn" id="1_hdlfs"]
+[ext_resource type="PackedScene" uid="uid://c10hvs1t3p0cn" path="res://ScriptedModels/walking-dummy.tscn" id="2_hdlfs"]
+
+[sub_resource type="Environment" id="Environment_tt"]
+background_mode = 1
+background_color = Color(0.25, 0.3, 0.35, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
+
+[node name="TurretTest" type="Node3D" unique_id=1645232362]
+
+[node name="wolfsmen-bunker-upgraded" parent="." unique_id=339193742 instance=ExtResource("1_hdlfs")]
+transform = Transform3D(-0.8387752, 0, -0.5444778, 0, 1, 0, 0.5444778, 0, -0.8387752, -0.09461093, 0, -0.031690955)
+TurnSpeed = 70.0
+
+[node name="walking-dummy1" parent="." unique_id=1530716129 instance=ExtResource("2_hdlfs")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 16.033722)
+
+[node name="walking-dummy2" parent="." unique_id=1475126270 instance=ExtResource("2_hdlfs")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -16.050018, 0, 0)
+
+[node name="walking-dummy3" parent="." unique_id=909749331 instance=ExtResource("2_hdlfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.980858)
+
+[node name="walking-dummy4" parent="." unique_id=1163375229 instance=ExtResource("2_hdlfs")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.995419, 0, 0)
+
+[node name="TopDownCamera" type="Camera3D" parent="." unique_id=1645232401]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 25, 0)
+current = true
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1645232402]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.8660254, 0, -0.8660254, 0.5, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1645232403]
+environment = SubResource("Environment_tt")
