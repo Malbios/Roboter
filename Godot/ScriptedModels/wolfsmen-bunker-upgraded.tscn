@@ -2,15 +2,32 @@
 
 [ext_resource type="PackedScene" uid="uid://da41j4nlcekaf" path="res://Models/wolfsmen/buildings/wolfsmen-bunker-upgraded.glb" id="1_c02qk"]
 [ext_resource type="Script" uid="uid://cxv0wuwafs8gx" path="res://ScriptedModels/WolfsmenBunkerUpgraded.cs" id="2_egpbm"]
+[ext_resource type="PackedScene" path="res://ScriptedModels/bullet.tscn" id="3_bullet"]
+[ext_resource type="PackedScene" path="res://ScriptedModels/explosion.tscn" id="4_explo"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
+height = 4.65
+radius = 1.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vcp2d"]
 radius = 4.663965
 
-[node name="wolfsmen-bunker-upgraded" unique_id=339193742 instance=ExtResource("1_c02qk")]
+[node name="wolfsmen-bunker-upgraded" type="StaticBody3D" unique_id=339193742]
 script = ExtResource("2_egpbm")
+BulletScene = ExtResource("3_bullet")
+ExplosionScene = ExtResource("4_explo")
 
-[node name="TurretRange" type="Area3D" parent="." index="1" unique_id=857488152]
+[node name="Model" parent="." unique_id=339193743 instance=ExtResource("1_c02qk")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=339193744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.325, 0)
+shape = SubResource("CylinderShape3D_body")
+
+[node name="TurretRange" type="Area3D" parent="." unique_id=857488152]
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretRange" index="0" unique_id=796605126]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretRange" unique_id=796605126]
 shape = SubResource("SphereShape3D_vcp2d")
+
+[node name="Muzzle" type="Marker3D" parent="." unique_id=339193745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.6)
