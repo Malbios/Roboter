@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://r4gnkwojjk5q" path="res://Textures/DirtGround/albedo.png" id="5_ahyi8"]
 [ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="5_s2l8y"]
 [ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Textures/DirtGround/normal.png" id="6_jpeyo"]
+[ext_resource type="Script" path="res://Systems/MatchSetup.cs" id="7_match"]
 
 [sub_resource type="Gradient" id="Gradient_5f77f"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -107,6 +108,15 @@ ssao_enabled = true
 glow_enabled = true
 
 [node name="1v1" type="Node3D" unique_id=800020185]
+script = ExtResource("7_match")
+
+[node name="StartPositions" type="Node3D" parent="." unique_id=1318460227]
+
+[node name="Team0" type="Marker3D" parent="StartPositions" unique_id=1772093518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 150)
+
+[node name="Team1" type="Marker3D" parent="StartPositions" unique_id=1046528894]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 150, 0, -150)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1427705113]
 environment = SubResource("Environment_sun")

@@ -1,0 +1,111 @@
+using System.Collections.Generic;
+using Godot;
+
+public partial class NetworkManager : Node
+{
+	public const int Port = 7777;
+	private const int MaxClients = 1;
+	private const int HostTeam = 0;
+	private const int ClientTeam = 1;
+	private const string MatchScenePath = "res://Maps/1v1.tscn";
+	private const string MainMenuScenePath = "res://UI/MainMenu.tscn";
+
+	[Signal] public delegate void StatusChangedEventHandler(string message);
+
+	public static NetworkManager Instance { get; private set; }
+
+	public string LastStatus { get; private set; } = "";
+
+	private readonly Dictionary<long, int> _teamsByPeer = new();
+
+	public int LocalTeam => GetTeam(Multiplayer.GetUniqueId());
+
+	public override void _Ready()
+	{
+		Instance = this;
+		Multiplayer.PeerConnected += OnPeerConnected;
+		Multiplayer.PeerDisconnected += OnPeerDisconnected;
+		Multiplayer.ConnectedToServer += () => SetStatus("Connected, waiting for the host to start...");
+		Multiplayer.ConnectionFailed += () => ReturnToMainMenu("Could not connect to host.");
+		Multiplayer.ServerDisconnected += () => ReturnToMainMenu("Lost connection to host.");
+	}
+
+	public bool Host()
+	{
+		var peer = new ENetMultiplayerPeer();
+		Error error = peer.CreateServer(Port, MaxClients);
+		if (error != Error.Ok)
+		{
+			SetStatus($"Could not host on port {Port}: {error}");
+			return false;
+		}
+
+		Multiplayer.MultiplayerPeer = peer;
+		_teamsByPeer.Clear();
+		_teamsByPeer[Multiplayer.GetUniqueId()] = HostTeam;
+		SetStatus($"Hosting on port {Port}, waiting for opponent...");
+		return true;
+	}
+
+	public bool Join(string address)
+	{
+		var peer = new ENetMultiplayerPeer();
+		Error error = peer.CreateClient(address, Port);
+		if (error != Error.Ok)
+		{
+			SetStatus($"Could not connect to {address}: {error}");
+			return false;
+		}
+
+		Multiplayer.MultiplayerPeer = peer;
+		SetStatus($"Connecting to {address}:{Port}...");
+		return true;
+	}
+
+	// Unknown peers (including the offline peer when a map is run directly) fall back to the host team.
+	public int GetTeam(long peerId) => _teamsByPeer.GetValueOrDefault(peerId, HostTeam);
+
+	private void OnPeerConnected(long peerId)
+	{
+		if (!Multiplayer.IsServer())
+			return;
+
+		_teamsByPeer[peerId] = ClientTeam;
+		Rpc(MethodName.StartMatch, new Godot.Collections.Dictionary<long, int>(_teamsByPeer));
+	}
+
+	private void OnPeerDisconnected(long peerId)
+	{
+		if (Multiplayer.IsServer())
+			ReturnToMainMenu("Opponent disconnected.");
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void StartMatch(Godot.Collections.Dictionary<long, int> teamsByPeer)
+	{
+		_teamsByPeer.Clear();
+		foreach (var (peerId, team) in teamsByPeer)
+			_teamsByPeer[peerId] = team;
+
+		SetStatus("");
+		GetTree().ChangeSceneToFile(MatchScenePath);
+	}
+
+	private void ReturnToMainMenu(string reason)
+	{
+		// Swap the peer out before closing it so its shutdown can't re-trigger these handlers.
+		MultiplayerPeer closingPeer = Multiplayer.MultiplayerPeer;
+		Multiplayer.MultiplayerPeer = new OfflineMultiplayerPeer();
+		closingPeer?.Close();
+
+		_teamsByPeer.Clear();
+		SetStatus(reason);
+		GetTree().ChangeSceneToFile(MainMenuScenePath);
+	}
+
+	private void SetStatus(string message)
+	{
+		LastStatus = message;
+		EmitSignal(SignalName.StatusChanged, message);
+	}
+}
