@@ -2,6 +2,17 @@
 
 [ext_resource type="Script" path="res://UI/Chat.cs" id="1_chat"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_log"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="Chat" type="CanvasLayer"]
 script = ExtResource("1_chat")
 
@@ -23,6 +34,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_log")
 scroll_following = true
 
 [node name="Input" type="LineEdit" parent="Panel"]
