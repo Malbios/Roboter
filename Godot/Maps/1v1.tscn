@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="5_s2l8y"]
 [ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Textures/DirtGround/normal.png" id="6_jpeyo"]
 [ext_resource type="Script" path="res://Systems/MatchSetup.cs" id="7_match"]
+[ext_resource type="PackedScene" path="res://UI/Chat.tscn" id="8_chat"]
 
 [sub_resource type="Gradient" id="Gradient_5f77f"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -136,3 +137,5 @@ metadata/_edit_lock_ = true
 
 [node name="RtsController" parent="." unique_id=1007581704 instance=ExtResource("5_s2l8y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.225612, 4.3104305, -104.65922)
+
+[node name="Chat" parent="." unique_id=1590334871 instance=ExtResource("8_chat")]

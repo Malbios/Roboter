@@ -62,6 +62,9 @@ public partial class RtsController : Node3D
 
 	private void HandleKeyboardMovement(float delta)
 	{
+		if (GetViewport().GuiGetFocusOwner() is LineEdit)
+			return;
+
 		Vector3 direction = Vector3.Zero;
 		if (Input.IsActionPressed("camera_forward"))
 			direction.Z -= 1;

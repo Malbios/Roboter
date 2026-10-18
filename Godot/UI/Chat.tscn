@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://UI/Chat.cs" id="1_chat"]
+
+[node name="Chat" type="CanvasLayer"]
+script = ExtResource("1_chat")
+
+[node name="Panel" type="VBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -236.0
+offset_right = 436.0
+offset_bottom = -16.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Log" type="RichTextLabel" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+scroll_following = true
+
+[node name="Input" type="LineEdit" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Press Enter to chat"
+max_length = 200
