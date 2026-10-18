@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c307hdmos4gtm"
-path.bptc="res://.godot/imported/rock023_nrm_rgh.png-dd524905a15817dac8149681cddc8975.bptc.ctex"
+uid="uid://dcna80wxxqhou"
+path.bptc="res://.godot/imported/rock023_alb_ht.png-b020e178741e7405c0460577b0d83150.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://demo/assets/textures/rock023_nrm_rgh.png"
-dest_files=["res://.godot/imported/rock023_nrm_rgh.png-dd524905a15817dac8149681cddc8975.bptc.ctex"]
+source_file="res://Textures/rock023_alb_ht.png"
+dest_files=["res://.godot/imported/rock023_alb_ht.png-b020e178741e7405c0460577b0d83150.bptc.ctex"]
 
 [params]
 
