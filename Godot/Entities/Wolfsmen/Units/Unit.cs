@@ -18,7 +18,7 @@ public enum UnitState
 public partial class Unit : CharacterBody3D, IDamageable
 {
 	private const float LookForEnemiesInterval = 0.5f;
-	private const float ArrivalDistance = 0.4f;
+	private const float ArrivalDistance = 0.5f;
 
 	[Export] public string DisplayName { get; set; } = "Einheit";
 	[Export] public UnitKind Kind { get; set; }
@@ -167,9 +167,12 @@ public partial class Unit : CharacterBody3D, IDamageable
 		Rotation = rotation;
 	}
 
-	protected bool IsNear(Node3D other, float distance = 0.5f)
+	protected bool HasArrivedAt(Node3D target)
 	{
-		return Entity.EdgeDistance(this, other) <= distance;
+		bool isCloseEnough = Entity.EdgeDistance(this, target) <= ArrivalDistance;
+		bool isWalkingToTarget = NavAgent.TargetPosition.DistanceTo(target.GlobalPosition) <= 0.5f;
+		bool cannotGetAnyCloser = isWalkingToTarget && NavAgent.IsNavigationFinished();
+		return isCloseEnough || cannotGetAnyCloser;
 	}
 
 	private void OnVelocityComputed(Vector3 safeVelocity)
@@ -229,7 +232,7 @@ public partial class Unit : CharacterBody3D, IDamageable
 			return;
 		}
 
-		if (IsNear(TrainingBuilding))
+		if (HasArrivedAt(TrainingBuilding))
 		{
 			StandStill();
 			State = UnitState.WaitingForTraining;

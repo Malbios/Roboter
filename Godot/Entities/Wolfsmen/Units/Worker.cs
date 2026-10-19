@@ -100,7 +100,7 @@ public partial class Worker : Unit
 			}
 		}
 
-		if (!IsNear(_scrapPile))
+		if (!HasArrivedAt(_scrapPile))
 		{
 			_workTimer = 0;
 			WalkTo(_scrapPile.GlobalPosition);
@@ -129,7 +129,7 @@ public partial class Worker : Unit
 			return;
 		}
 
-		if (!IsNear(bunker))
+		if (!HasArrivedAt(bunker))
 		{
 			WalkTo(bunker.GlobalPosition);
 			return;
@@ -148,7 +148,7 @@ public partial class Worker : Unit
 			return;
 		}
 
-		if (!IsNear(_construction))
+		if (!HasArrivedAt(_construction))
 		{
 			WalkTo(_construction.GlobalPosition);
 			return;
@@ -167,7 +167,7 @@ public partial class Worker : Unit
 			return;
 		}
 
-		if (!IsNear(_gasMine))
+		if (!HasArrivedAt(_gasMine))
 		{
 			WalkTo(_gasMine.GlobalPosition);
 			return;
@@ -187,7 +187,7 @@ public partial class Worker : Unit
 			return;
 		}
 
-		if (!IsNear(_gasMine))
+		if (!HasArrivedAt(_gasMine))
 		{
 			_workTimer = 0;
 			WalkTo(_gasMine.GlobalPosition);
@@ -216,7 +216,7 @@ public partial class Worker : Unit
 			return;
 		}
 
-		if (!IsNear(bunker))
+		if (!HasArrivedAt(bunker))
 		{
 			WalkTo(bunker.GlobalPosition);
 			return;
