@@ -49,6 +49,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
 
+[node name="QuitButton" type="Button" parent="Center/BoxContainer/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Verlassen"
+
 [node name="StatusLabel" type="Label" parent="Center/BoxContainer/Menu" unique_id=1415688530]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 1)

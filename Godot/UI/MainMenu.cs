@@ -20,6 +20,7 @@ public partial class MainMenu : Control
 
 		_hostButton.Pressed += OnHostPressed;
 		_joinButton.Pressed += OnJoinPressed;
+		GetNode<Button>("%QuitButton").Pressed += () => GetTree().Quit();
 		NetworkManager.Instance.StatusChanged += ShowStatus;
 		ShowStatus(NetworkManager.Instance.LastStatus);
 		HandleCommandLineOnce();

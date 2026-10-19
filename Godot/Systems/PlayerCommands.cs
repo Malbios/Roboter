@@ -38,6 +38,11 @@ public partial class PlayerCommands : Node
 		RpcId(HostPeerId, MethodName.RequestLetWorkersOut, gasMine.GetPath().ToString());
 	}
 
+	public void Surrender()
+	{
+		RpcId(HostPeerId, MethodName.RequestSurrender);
+	}
+
 	public void AnnounceMissingResources(int team, bool metalMissing, bool gasMissing)
 	{
 		Rpc(MethodName.ReceiveMissingResources, team, metalMissing, gasMissing);
@@ -135,6 +140,15 @@ public partial class PlayerCommands : Node
 
 		if (Match.Instance.ResourcesOf(SenderTeam()).TrySpend(bunker.UpgradeCostMetal, bunker.UpgradeCostGas))
 			bunker.StartUpgrade();
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void RequestSurrender()
+	{
+		if (!Multiplayer.IsServer() || Match.Instance.IsOver)
+			return;
+
+		Match.Instance.Surrender(SenderTeam());
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]

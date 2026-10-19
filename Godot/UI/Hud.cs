@@ -18,6 +18,7 @@ public partial class Hud : CanvasLayer
 	private GridContainer _buttonGrid;
 	private Control _gameOverScreen;
 	private Label _gameOverLabel;
+	private Button _surrenderButton;
 
 	private readonly List<Button> _buildButtons = new();
 	private readonly List<Button> _unitButtons = new();
@@ -43,6 +44,10 @@ public partial class Hud : CanvasLayer
 		_gameOverLabel = GetNode<Label>("%GameOverLabel");
 
 		GetNode<Button>("%MenuButton").Pressed += () => NetworkManager.Instance.LeaveMatch();
+		_surrenderButton = GetNode<Button>("SurrenderButton");
+		var surrenderDialog = GetNode<ConfirmationDialog>("SurrenderDialog");
+		_surrenderButton.Pressed += () => surrenderDialog.PopupCentered();
+		surrenderDialog.Confirmed += () => Commands.Surrender();
 		Match.Instance.GameOver += ShowGameOver;
 		CreateCommandButtons();
 	}
@@ -241,5 +246,6 @@ public partial class Hud : CanvasLayer
 	{
 		_gameOverLabel.Text = losingTeam == LocalTeam ? "Verloren!" : "Gewonnen!";
 		_gameOverScreen.Visible = true;
+		_surrenderButton.Visible = false;
 	}
 }

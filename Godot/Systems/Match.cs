@@ -328,6 +328,11 @@ public partial class Match : Node3D
 		return new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * distance;
 	}
 
+	public void Surrender(int team)
+	{
+		Rpc(MethodName.EndMatch, team);
+	}
+
 	private void CheckForLosers()
 	{
 		for (int team = 0; team < TeamCount; team++)
