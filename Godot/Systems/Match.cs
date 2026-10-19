@@ -46,6 +46,7 @@ public partial class Match : Node3D
 	{
 		_entities = GetNode<Node3D>("Entities");
 		_scrapPiles = GetNode<Node3D>("ScrapPiles");
+		GetNode<RtsController>("RtsController").MovementLimits = new Rect2(MapCenter - Vector2.One * MapSize / 2, Vector2.One * MapSize);
 		Commands = GetNode<PlayerCommands>("Commands");
 		NetworkManager.Instance.ReportSceneLoaded();
 	}

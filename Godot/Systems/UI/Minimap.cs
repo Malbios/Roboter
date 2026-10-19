@@ -16,6 +16,10 @@ public partial class Minimap : Control
 	private SubViewport _terrainPhoto;
 	private Node3D _cameraRig;
 
+	// The minimap turns with the camera, so up on the minimap is always up on the screen.
+	private float ViewRotation => _cameraRig.GlobalRotation.Y;
+	private Vector2 Center => Size / 2;
+
 	public override void _Ready()
 	{
 		_terrainPhoto = GetNode<SubViewport>("TerrainPhoto");
@@ -48,10 +52,11 @@ public partial class Minimap : Control
 
 	public override void _Draw()
 	{
-		var area = new Rect2(Vector2.Zero, Size);
-		DrawTextureRect(_terrainPhoto.GetTexture(), area, false);
-
-		DrawTextureRect(FogOfWar.Instance.FogTexture, area, false, FogColor);
+		DrawSetTransform(Center, ViewRotation);
+		var turnedArea = new Rect2(-Center, Size);
+		DrawTextureRect(_terrainPhoto.GetTexture(), turnedArea, false);
+		DrawTextureRect(FogOfWar.Instance.FogTexture, turnedArea, false, FogColor);
+		DrawSetTransform(Vector2.Zero);
 
 		foreach (ScrapPile pile in GetTree().GetNodesInGroup("ScrapPiles").OfType<ScrapPile>().Where(pile => pile.Visible))
 			DrawCircle(ToMinimap(pile.GlobalPosition), 1.5f, ScrapColor);
@@ -69,7 +74,7 @@ public partial class Minimap : Control
 			DrawCircle(ToMinimap(unit.GlobalPosition), 2, TeamColor(unit.Team));
 
 		DrawRect(new Rect2(ToMinimap(_cameraRig.GlobalPosition) - new Vector2(8, 8), new Vector2(16, 16)), CameraColor, false, 1.5f);
-		DrawRect(area, BorderColor, false, 2);
+		DrawRect(new Rect2(Vector2.Zero, Size), BorderColor, false, 2);
 	}
 
 	private void DrawBuilding(Vector3 position, int team)
@@ -96,12 +101,14 @@ public partial class Minimap : Control
 	private Vector2 ToMinimap(Vector3 worldPosition)
 	{
 		Vector2 fromCorner = new Vector2(worldPosition.X, worldPosition.Z) - TopLeftCornerInWorld();
-		return fromCorner / Match.Instance.MapSize * Size;
+		Vector2 northUp = fromCorner / Match.Instance.MapSize * Size;
+		return Center + (northUp - Center).Rotated(ViewRotation);
 	}
 
 	private Vector3 ToWorld(Vector2 minimapPosition)
 	{
-		Vector2 world = TopLeftCornerInWorld() + minimapPosition / Size * Match.Instance.MapSize;
+		Vector2 northUp = Center + (minimapPosition - Center).Rotated(-ViewRotation);
+		Vector2 world = TopLeftCornerInWorld() + northUp / Size * Match.Instance.MapSize;
 		return new Vector3(world.X, 0, world.Y);
 	}
 }

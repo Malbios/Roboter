@@ -16,6 +16,7 @@ public partial class RtsController : Node3D
 	[Export] public bool AllowZoom { get; set; } = true;
 	[Export] public bool AllowEdgePanning { get; set; } = true;
 	[Export(PropertyHint.Range, "0,200")] public float EdgePanMargin { get; set; } = 16;
+	[Export] public Rect2 MovementLimits { get; set; }
 
 	private Camera3D _camera;
 	private Node3D _elevationNode;
@@ -23,6 +24,7 @@ public partial class RtsController : Node3D
 	private bool _isRotating;
 	private Vector2 _lastMousePosition;
 	private float _zoomLevel = 64;
+	private bool _isMouseInsideWindow;
 
 	public override void _Ready()
 	{
@@ -36,12 +38,21 @@ public partial class RtsController : Node3D
 		float deltaSeconds = (float)delta;
 
 		HandleKeyboardMovement(deltaSeconds);
+		StayInsideLimits();
 
 		if (AllowRotation)
 			HandleRotation(deltaSeconds);
 
 		if (AllowZoom)
 			HandleZoom();
+	}
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationWMMouseEnter)
+			_isMouseInsideWindow = true;
+		else if (what == NotificationWMMouseExit)
+			_isMouseInsideWindow = false;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -82,7 +93,7 @@ public partial class RtsController : Node3D
 
 	private Vector3 EdgePanDirection()
 	{
-		if (!AllowEdgePanning || !DisplayServer.WindowIsFocused())
+		if (!AllowEdgePanning || !_isMouseInsideWindow || !DisplayServer.WindowIsFocused())
 			return Vector3.Zero;
 
 		Rect2 screen = GetViewport().GetVisibleRect();
@@ -97,6 +108,17 @@ public partial class RtsController : Node3D
 		if (mouse.Y >= screen.End.Y - EdgePanMargin)
 			direction.Z += 1;
 		return direction;
+	}
+
+	private void StayInsideLimits()
+	{
+		if (!MovementLimits.HasArea())
+			return;
+
+		Vector3 position = GlobalPosition;
+		position.X = Mathf.Clamp(position.X, MovementLimits.Position.X, MovementLimits.End.X);
+		position.Z = Mathf.Clamp(position.Z, MovementLimits.Position.Y, MovementLimits.End.Y);
+		GlobalPosition = position;
 	}
 
 	private void MoveInDirection(Vector3 direction, float delta)
