@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Systems/Match.tscn" id="1_match"]
+[ext_resource type="NavigationMesh" path="res://Testing/gameplay-test-navmesh.res" id="4_navmesh"]
+[ext_resource type="PackedScene" uid="uid://b0hon6dsgyoif" path="res://Entities/Wolfsmen/Units/warrior-sword.tscn" id="5_sword"]
+[ext_resource type="PackedScene" uid="uid://hruchvfkdfhd" path="res://Entities/Wolfsmen/Units/warrior-spear.tscn" id="6_spear"]
+[ext_resource type="PackedScene" uid="uid://fhyonl3jvcql" path="res://Entities/Wolfsmen/Units/warrior-bow.tscn" id="7_bow"]
+[ext_resource type="PackedScene" uid="uid://bc8dayomxe3fa" path="res://Entities/Wolfsmen/Units/warrior-crossbow.tscn" id="8_crossbow"]
+[ext_resource type="PackedScene" uid="uid://dnokpd1yjnnyj" path="res://Entities/Wolfsmen/Units/ground-vehicle.tscn" id="9_vehicle"]
+[ext_resource type="PackedScene" uid="uid://d342dbtvdhlci" path="res://Entities/Wolfsmen/Units/mech.tscn" id="10_mech"]
+
+[sub_resource type="Environment" id="Environment_test"]
+background_mode = 1
+background_color = Color(0.25, 0.3, 0.35, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.32, 0.42, 0.25, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+material = SubResource("StandardMaterial3D_ground")
+size = Vector2(80, 80)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(80, 1, 80)
+
+[node name="CombatTest" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.8660254, 0, -0.8660254, 0.5, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_test")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("4_navmesh")
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["navigation_source"]]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
+mesh = SubResource("PlaneMesh_ground")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ground")
+
+[node name="StartPositions" type="Node3D" parent="."]
+
+[node name="Team0" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="Team1" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 8, 0, 0)
+
+[node name="NeutralObjects" type="Node3D" parent="."]
+
+[node name="Match" parent="." node_paths=PackedStringArray("StartPositions") instance=ExtResource("1_match")]
+StartPositions = NodePath("../StartPositions")
+ShuffleStartPositions = false
+StartWorkers = 3
+StartMetal = 1000
+StartGas = 50
+ExtraStartUnits = [ExtResource("5_sword"), ExtResource("5_sword"), ExtResource("6_spear"), ExtResource("7_bow"), ExtResource("8_crossbow"), ExtResource("9_vehicle"), ExtResource("10_mech")]
+MapSize = 80.0
