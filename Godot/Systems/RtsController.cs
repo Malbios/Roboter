@@ -14,6 +14,8 @@ public partial class RtsController : Node3D
 	[Export(PropertyHint.Range, "0,90")] public float MaxElevationAngle { get; set; } = 90;
 	[Export] public bool AllowRotation { get; set; } = true;
 	[Export] public bool AllowZoom { get; set; } = true;
+	[Export] public bool AllowEdgePanning { get; set; } = true;
+	[Export(PropertyHint.Range, "0,200")] public float EdgePanMargin { get; set; } = 16;
 
 	private Camera3D _camera;
 	private Node3D _elevationNode;
@@ -75,7 +77,26 @@ public partial class RtsController : Node3D
 		if (Input.IsActionPressed("camera_right"))
 			direction.X += 1;
 
-		MoveInDirection(direction, delta);
+		MoveInDirection(direction + EdgePanDirection(), delta);
+	}
+
+	private Vector3 EdgePanDirection()
+	{
+		if (!AllowEdgePanning || !DisplayServer.WindowIsFocused())
+			return Vector3.Zero;
+
+		Rect2 screen = GetViewport().GetVisibleRect();
+		Vector2 mouse = GetViewport().GetMousePosition();
+		Vector3 direction = Vector3.Zero;
+		if (mouse.X <= screen.Position.X + EdgePanMargin)
+			direction.X -= 1;
+		if (mouse.X >= screen.End.X - EdgePanMargin)
+			direction.X += 1;
+		if (mouse.Y <= screen.Position.Y + EdgePanMargin)
+			direction.Z -= 1;
+		if (mouse.Y >= screen.End.Y - EdgePanMargin)
+			direction.Z += 1;
+		return direction;
 	}
 
 	private void MoveInDirection(Vector3 direction, float delta)
