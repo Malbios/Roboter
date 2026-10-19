@@ -58,6 +58,7 @@ public partial class Unit : CharacterBody3D, IDamageable
 		NavAgent.VelocityComputed += OnVelocityComputed;
 		NavAgent.AvoidanceEnabled = Multiplayer.IsServer();
 		_selectionCircle = SelectionCircle.AddTo(this, Radius);
+		FogOfWar.Instance.ShowOrHide(this);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -266,7 +267,7 @@ public partial class Unit : CharacterBody3D, IDamageable
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void ShowAttack(Vector3 targetPosition)
 	{
-		if (AttackEffect == null)
+		if (AttackEffect == null || !Visible)
 			return;
 
 		Node3D effect = AttackEffect.Instantiate<Node3D>();

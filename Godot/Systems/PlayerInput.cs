@@ -16,7 +16,7 @@ public partial class PlayerInput : Control
 	{
 		get
 		{
-			_selected.RemoveAll(entity => !Entity.IsAlive(entity));
+			_selected.RemoveAll(entity => !Entity.IsAlive(entity) || !entity.IsVisibleInTree());
 			return _selected;
 		}
 	}
@@ -197,7 +197,8 @@ public partial class PlayerInput : Control
 			return null;
 
 		hitPoint = (Vector3)hit["position"];
-		return hit["collider"].As<Node3D>();
+		Node3D hitEntity = hit["collider"].As<Node3D>();
+		return hitEntity.IsVisibleInTree() ? hitEntity : null;
 	}
 
 	private Node3D CreateGhost(BuildingType type)

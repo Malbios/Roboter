@@ -13,6 +13,7 @@ public partial class Building : StaticBody3D, IDamageable
 	[Export] public int Health { get; set; } = 10;
 	[Export] public float Radius { get; set; } = 1;
 	[Export] public float HealthBarHeight { get; set; } = 2;
+	[Export] public float SightRange { get; set; } = 10;
 	[Export] public float BuildTime { get; set; } = 10;
 	[Export] public float AttackRange { get; set; }
 	[Export] public int AttackDamage { get; set; }
@@ -27,23 +28,31 @@ public partial class Building : StaticBody3D, IDamageable
 
 	public bool IsFinished => BuildProgress >= 1;
 
+	public bool IsSeenByLocalPlayer { get; set; }
+	public bool IsKnownToLocalPlayer { get; private set; }
+	public int ShownHealth => IsSeenByLocalPlayer ? Health : _lastSeenHealth;
+	public float ShownBuildProgress => IsSeenByLocalPlayer ? BuildProgress : _lastSeenBuildProgress;
+
 	private readonly Queue<UnitType> _trainingQueue = new();
 	private float _trainingTimer;
 	private float _attackCooldown;
 	private ulong _lastBuildFrame;
 	private Node3D _model;
 	private MeshInstance3D _selectionCircle;
+	private int _lastSeenHealth;
+	private float _lastSeenBuildProgress;
 
 	public override void _Ready()
 	{
 		AddToGroup("Buildings");
 		_model = GetNode<Node3D>("Model");
 		_selectionCircle = SelectionCircle.AddTo(this, Radius);
+		FogOfWar.Instance.ShowOrHide(this);
 	}
 
 	public override void _Process(double delta)
 	{
-		float scale = Mathf.Lerp(SmallestConstructionScale, 1f, Mathf.Clamp(BuildProgress, 0, 1));
+		float scale = Mathf.Lerp(SmallestConstructionScale, 1f, Mathf.Clamp(ShownBuildProgress, 0, 1));
 		_model.Scale = Vector3.One * scale;
 	}
 
@@ -63,8 +72,14 @@ public partial class Building : StaticBody3D, IDamageable
 		_selectionCircle.Visible = selected;
 	}
 
-	public void Build(float delta)
+	public void RememberWhatIsSeen()
 	{
+		IsKnownToLocalPlayer = true;
+		_lastSeenHealth = Health;
+		_lastSeenBuildProgress = BuildProgress;
+	}
+
+	public void Build(float delta)	{
 		ulong frame = Engine.GetPhysicsFrames();
 		bool someoneAlreadyBuiltThisFrame = frame == _lastBuildFrame;
 		if (someoneAlreadyBuiltThisFrame)
@@ -104,8 +119,13 @@ public partial class Building : StaticBody3D, IDamageable
 	{
 	}
 
-	protected void UpdateTraining(float delta)
+	protected void RemoveFromMap()
 	{
+		FogOfWar.Instance.RememberIfDestroyedUnseen(this);
+		QueueFree();
+	}
+
+	protected void UpdateTraining(float delta)	{
 		if (_trainingQueue.Count == 0)
 		{
 			WorkProgress = 0;
@@ -171,13 +191,13 @@ public partial class Building : StaticBody3D, IDamageable
 	{
 		OnDestroyed();
 		Match.Instance.EntityDestroyed(this);
-		QueueFree();
+		RemoveFromMap();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void ShowAttack(Vector3 targetPosition)
 	{
-		if (AttackEffect == null)
+		if (AttackEffect == null || !IsSeenByLocalPlayer)
 			return;
 
 		Projectile projectile = AttackEffect.Instantiate<Projectile>();

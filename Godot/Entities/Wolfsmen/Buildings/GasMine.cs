@@ -19,13 +19,13 @@ public partial class GasMine : Building
 		base._Ready();
 		Volcano = Match.Instance.FindVolcanoAt(GlobalPosition);
 		if (Volcano != null)
-			Volcano.HasMine = true;
+			Volcano.Mine = this;
 	}
 
 	public override void _ExitTree()
 	{
-		if (Entity.IsInstanceValid(Volcano))
-			Volcano.HasMine = false;
+		if (Entity.IsInstanceValid(Volcano) && Volcano.Mine == this)
+			Volcano.Mine = null;
 	}
 
 	public bool HasFreeSlot()

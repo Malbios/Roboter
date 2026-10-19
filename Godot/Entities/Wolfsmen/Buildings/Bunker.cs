@@ -68,6 +68,6 @@ public partial class Bunker : Building
 		int damageTaken = MaxHealth - Health;
 		upgraded.Health = upgraded.MaxHealth - damageTaken;
 		Match.Instance.AddEntity(upgraded);
-		QueueFree();
+		RemoveFromMap();
 	}
 }

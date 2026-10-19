@@ -5,22 +5,22 @@ public partial class GasVolcano : StaticBody3D, IEntity
 	[Export] public int Gas { get; set; } = 1000;
 	[Export] public float Radius { get; set; } = 2;
 
-	public bool HasMine
-	{
-		get => _hasMine;
-		set
-		{
-			_hasMine = value;
-			GetNode<Node3D>("Model").Visible = !value;
-			CollisionLayer = value ? 0 : Entity.NeutralLayer;
-		}
-	}
+	public GasMine Mine { get; set; }
+	public bool HasMine => Entity.IsInstanceValid(Mine) && !Mine.IsQueuedForDeletion();
 
-	private bool _hasMine;
+	private Node3D _model;
 
 	public override void _Ready()
 	{
 		AddToGroup("GasVolcanoes");
+		_model = GetNode<Node3D>("Model");
+	}
+
+	public override void _Process(double delta)
+	{
+		bool mineIsShownOnTop = HasMine && Mine.Visible;
+		_model.Visible = !mineIsShownOnTop;
+		CollisionLayer = mineIsShownOnTop ? 0 : Entity.NeutralLayer;
 	}
 
 	public int Take(int wanted)

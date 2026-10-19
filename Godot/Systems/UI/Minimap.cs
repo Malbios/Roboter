@@ -11,6 +11,7 @@ public partial class Minimap : Control
 	private static readonly Color VolcanoColor = new(0.4f, 1f, 0.4f);
 	private static readonly Color CameraColor = Colors.White;
 	private static readonly Color BorderColor = new(0, 0, 0, 0.8f);
+	private static readonly Color FogColor = new(1, 1, 1, 0.6f);
 
 	private SubViewport _terrainPhoto;
 	private Node3D _cameraRig;
@@ -22,6 +23,7 @@ public partial class Minimap : Control
 
 		Camera3D photoCamera = _terrainPhoto.GetNode<Camera3D>("Camera3D");
 		photoCamera.Size = Match.Instance.MapSize;
+		photoCamera.SetCullMaskValue(FogOfWar.DarkeningRenderLayer, false);
 		photoCamera.Position = new Vector3(Match.Instance.MapCenter.X, CameraHeight, Match.Instance.MapCenter.Y);
 
 		TakeTerrainPhotoSoon();
@@ -49,20 +51,30 @@ public partial class Minimap : Control
 		var area = new Rect2(Vector2.Zero, Size);
 		DrawTextureRect(_terrainPhoto.GetTexture(), area, false);
 
-		foreach (ScrapPile pile in GetTree().GetNodesInGroup("ScrapPiles").OfType<ScrapPile>())
+		DrawTextureRect(FogOfWar.Instance.FogTexture, area, false, FogColor);
+
+		foreach (ScrapPile pile in GetTree().GetNodesInGroup("ScrapPiles").OfType<ScrapPile>().Where(pile => pile.Visible))
 			DrawCircle(ToMinimap(pile.GlobalPosition), 1.5f, ScrapColor);
 
 		foreach (GasVolcano volcano in GetTree().GetNodesInGroup("GasVolcanoes").OfType<GasVolcano>())
 			DrawCircle(ToMinimap(volcano.GlobalPosition), 3, VolcanoColor);
 
-		foreach (Building building in GetTree().GetNodesInGroup("Buildings").OfType<Building>())
-			DrawRect(new Rect2(ToMinimap(building.GlobalPosition) - new Vector2(3, 3), new Vector2(6, 6)), TeamColor(building.Team));
+		foreach (Building building in GetTree().GetNodesInGroup("Buildings").OfType<Building>().Where(building => building.Visible))
+			DrawBuilding(building.GlobalPosition, building.Team);
 
-		foreach (Unit unit in GetTree().GetNodesInGroup("Units").OfType<Unit>())
+		foreach (BuildingGhost ghost in GetTree().GetNodesInGroup("BuildingGhosts").OfType<BuildingGhost>())
+			DrawBuilding(ghost.GlobalPosition, ghost.Team);
+
+		foreach (Unit unit in GetTree().GetNodesInGroup("Units").OfType<Unit>().Where(unit => unit.Visible))
 			DrawCircle(ToMinimap(unit.GlobalPosition), 2, TeamColor(unit.Team));
 
 		DrawRect(new Rect2(ToMinimap(_cameraRig.GlobalPosition) - new Vector2(8, 8), new Vector2(16, 16)), CameraColor, false, 1.5f);
 		DrawRect(area, BorderColor, false, 2);
+	}
+
+	private void DrawBuilding(Vector3 position, int team)
+	{
+		DrawRect(new Rect2(ToMinimap(position) - new Vector2(3, 3), new Vector2(6, 6)), TeamColor(team));
 	}
 
 	private async void TakeTerrainPhotoSoon()

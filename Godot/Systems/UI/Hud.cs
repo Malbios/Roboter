@@ -176,7 +176,10 @@ public partial class Hud : CanvasLayer
 
 	private static string DescribeBuilding(Building building)
 	{
-		string text = $"{building.DisplayName}  {building.Health}/{building.MaxHealth} LP";
+		string text = $"{building.DisplayName}  {building.ShownHealth}/{building.MaxHealth} LP";
+		if (building.Team != LocalTeam)
+			return text;
+
 		if (!building.IsFinished)
 			return text + $"\nwird gebaut: {Mathf.RoundToInt(building.BuildProgress * 100)}%";
 

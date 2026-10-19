@@ -325,6 +325,9 @@ public partial class Match : Node3D
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void ShowExplosion(Vector3 position)
 	{
+		if (!FogOfWar.Instance.IsVisible(position))
+			return;
+
 		Node3D explosion = ExplosionScene.Instantiate<Node3D>();
 		AddChild(explosion);
 		explosion.GlobalPosition = position + Vector3.Up * 0.5f;
@@ -335,6 +338,7 @@ public partial class Match : Node3D
 	{
 		ScrapPile pile = ScrapPileScene.Instantiate<ScrapPile>();
 		pile.Name = name;
+		pile.Visible = FogOfWar.Instance.IsVisible(position);
 		_scrapPiles.AddChild(pile);
 		pile.GlobalPosition = position;
 	}

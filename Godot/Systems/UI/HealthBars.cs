@@ -22,14 +22,17 @@ public partial class HealthBars : Control
 		if (camera == null)
 			return;
 
-		foreach (Unit unit in GetTree().GetNodesInGroup("Units").OfType<Unit>())
+		foreach (Unit unit in GetTree().GetNodesInGroup("Units").OfType<Unit>().Where(unit => unit.Visible))
 			DrawBars(camera, unit.GlobalPosition + Vector3.Up * unit.HealthBarHeight, UnitBarWidth, unit.Health, unit.MaxHealth, unit.Team, 0);
 
-		foreach (Building building in GetTree().GetNodesInGroup("Buildings").OfType<Building>())
+		foreach (Building building in GetTree().GetNodesInGroup("Buildings").OfType<Building>().Where(building => building.Visible))
 		{
-			float progress = building.IsFinished ? building.WorkProgress : building.BuildProgress;
-			DrawBars(camera, building.GlobalPosition + Vector3.Up * building.HealthBarHeight, BuildingBarWidth, building.Health, building.MaxHealth, building.Team, progress);
+			float progress = !building.IsSeenByLocalPlayer ? 0 : building.IsFinished ? building.WorkProgress : building.BuildProgress;
+			DrawBars(camera, building.GlobalPosition + Vector3.Up * building.HealthBarHeight, BuildingBarWidth, building.ShownHealth, building.MaxHealth, building.Team, progress);
 		}
+
+		foreach (BuildingGhost ghost in GetTree().GetNodesInGroup("BuildingGhosts").OfType<BuildingGhost>())
+			DrawBars(camera, ghost.GlobalPosition + Vector3.Up * ghost.HealthBarHeight, BuildingBarWidth, ghost.Health, ghost.MaxHealth, ghost.Team, 0);
 	}
 
 	private void DrawBars(Camera3D camera, Vector3 worldPosition, float width, int health, int maxHealth, int team, float progress)

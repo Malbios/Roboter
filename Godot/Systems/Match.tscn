@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" path="res://Systems/UI/Hud.tscn" id="19_hud"]
 [ext_resource type="PackedScene" path="res://Systems/UI/Chat.tscn" id="20_chat"]
 [ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="21_camera"]
+[ext_resource type="Script" path="res://Systems/FogOfWar.cs" id="22_fog"]
+[ext_resource type="Shader" path="res://Systems/UI/fog-of-war.gdshader" id="23_fog_shader"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_resources"]
 properties/0/path = NodePath(".:Metal")
@@ -46,6 +48,12 @@ _spawnable_scenes = PackedStringArray("res://Entities/Wolfsmen/Units/worker.tscn
 spawn_path = NodePath("../Entities")
 
 [node name="ScrapPiles" type="Node3D" parent="."]
+
+[node name="BuildingGhosts" type="Node3D" parent="."]
+
+[node name="FogOfWar" type="Node" parent="."]
+script = ExtResource("22_fog")
+DarkeningShader = ExtResource("23_fog_shader")
 
 [node name="Team0" type="Node" parent="."]
 script = ExtResource("17_resources")
