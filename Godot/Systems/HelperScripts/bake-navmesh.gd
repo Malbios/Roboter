@@ -1,6 +1,7 @@
 extends SceneTree
 ## Bakes the navigation mesh of a map and saves it as a resource file.
 ## Walkable ground = the Terrain3D (if any) + every node in the "navigation_source" group (with children).
+## Terrain lower than LOWEST_WALKABLE_GROUND is river bed and not walkable, so rivers can only be crossed on bridges.
 ##
 ## Usage (from the repo root):
 ##   Godot_console.exe --headless --path Godot --script res://Systems/HelperScripts/bake-navmesh.gd -- res://Maps/1v1.tscn res://Maps/MapData/1v1/navmesh.res
@@ -8,6 +9,7 @@ extends SceneTree
 const SOURCE_GROUP := "navigation_source"
 const FRAMES_TO_WAIT_FOR_TERRAIN := 3
 const MAX_DISTANCE_FROM_NAVMESH := 1.0
+const LOWEST_WALKABLE_GROUND := -1.0
 
 var map: Node
 var output_path: String
@@ -47,7 +49,8 @@ func bake() -> void:
 	var source := NavigationMeshSourceGeometryData3D.new()
 	NavigationServer3D.parse_source_geometry_data(nav_mesh, source, map)
 	for terrain in map.find_children("*", "Terrain3D", true, false):
-		source.add_faces(terrain.generate_nav_mesh_source_geometry(terrain_bounds(terrain), false), Transform3D.IDENTITY)
+		var terrain_faces: PackedVector3Array = terrain.generate_nav_mesh_source_geometry(terrain_bounds(terrain), false)
+		source.add_faces(without_river_beds(terrain_faces), Transform3D.IDENTITY)
 
 	var start := Time.get_ticks_msec()
 	NavigationServer3D.bake_from_source_geometry_data(nav_mesh, source)
@@ -86,18 +89,28 @@ func warn_about_unreachable_objects() -> void:
 	for object in objects:
 		var position: Vector3 = object.global_position
 		var closest := NavigationServer3D.map_get_closest_point(nav_map, position)
-		var distance := Vector2(closest.x - position.x, closest.z - position.z).length()
+		var radius: float = object.get("Radius") if "Radius" in object else 0.0
+		var distance := Vector2(closest.x - position.x, closest.z - position.z).length() - radius
 		if distance > MAX_DISTANCE_FROM_NAVMESH:
 			unreachable_count += 1
-			push_warning("%s at %s is %.1f m away from walkable ground" % [object.name, position, distance])
+			push_warning("%s at %s is %.1f m (from its edge) away from walkable ground" % [object.name, position, distance])
 	print("Unreachable scrap piles, gas volcanoes and start positions: %d" % unreachable_count)
+
+
+func without_river_beds(faces: PackedVector3Array) -> PackedVector3Array:
+	var dry_faces := PackedVector3Array()
+	for i in range(0, faces.size(), 3):
+		var lowest := minf(faces[i].y, minf(faces[i + 1].y, faces[i + 2].y))
+		if lowest >= LOWEST_WALKABLE_GROUND:
+			dry_faces.append_array([faces[i], faces[i + 1], faces[i + 2]])
+	return dry_faces
 
 
 func create_nav_mesh() -> NavigationMesh:
 	var nav_mesh := NavigationMesh.new()
 	nav_mesh.cell_size = 0.5
 	nav_mesh.cell_height = 0.25
-	nav_mesh.agent_radius = 0.5
+	nav_mesh.agent_radius = 0.25
 	nav_mesh.agent_height = 1.5
 	nav_mesh.agent_max_climb = 1.0
 	nav_mesh.agent_max_slope = 50.0

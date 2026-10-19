@@ -104,8 +104,26 @@ public partial class Match : Node3D
 
 	public Vector3 SnapToGround(Vector3 position)
 	{
-		Vector3 onNavigationMesh = NavigationServer3D.MapGetClosestPoint(GetWorld3D().NavigationMap, position);
-		return GroundBelow(onNavigationMesh) ?? onNavigationMesh;
+		return GroundUnder(WalkablePointUnder(position));
+	}
+
+	public Vector3 ClosestPointOnNavigationMesh(Vector3 position)
+	{
+		return NavigationServer3D.MapGetClosestPoint(GetWorld3D().NavigationMap, position);
+	}
+
+	// Looks straight up and down from the position, so things placed on the ground find the walkable
+	// surface right under them instead of the edge of a slope next to them.
+	public Vector3 WalkablePointUnder(Vector3 position)
+	{
+		Vector3 above = position + Vector3.Up * 2;
+		Vector3 below = position + Vector3.Down * 2;
+		return NavigationServer3D.MapGetClosestPointToSegment(GetWorld3D().NavigationMap, above, below);
+	}
+
+	public Vector3 GroundUnder(Vector3 pointOnNavigationMesh)
+	{
+		return GroundBelow(pointOnNavigationMesh) ?? pointOnNavigationMesh;
 	}
 
 	public Unit CreateUnit(PackedScene scene, int team, Vector3 position)

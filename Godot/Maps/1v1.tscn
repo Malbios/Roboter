@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Assets/Textures/DirtGround/normal.png" id="6_jpeyo"]
 [ext_resource type="PackedScene" path="res://Systems/Match.tscn" id="7_match"]
 [ext_resource type="NavigationMesh" path="res://Maps/MapData/1v1/navmesh.res" id="17_navmesh"]
-[ext_resource type="PackedScene" uid="uid://vr413h8yht0g" path="res://Assets/Models/neutral/bridge.glb" id="9_h4u8l"]
+[ext_resource type="PackedScene" uid="uid://dc87gx1vct52c" path="res://Entities/Neutral/bridge.tscn" id="9_h4u8l"]
 [ext_resource type="PackedScene" uid="uid://cmgsfukevyqjy" path="res://Entities/Neutral/brick-house-ruin.tscn" id="10_v7mwd"]
 [ext_resource type="PackedScene" uid="uid://ch4wobl1p608x" path="res://Entities/Neutral/overgrown-ruin.tscn" id="11_d8knh"]
 [ext_resource type="PackedScene" uid="uid://5fbofhxfbs1l" path="res://Entities/Neutral/ancient-ruin.tscn" id="12_untq4"]
@@ -148,13 +148,13 @@ metadata/_edit_lock_ = true
 
 [node name="NeutralObjects" type="Node3D" parent="." unique_id=1085229026]
 
-[node name="bridge1" parent="NeutralObjects" unique_id=1516621050 instance=ExtResource("9_h4u8l") groups=["navigation_source"]]
+[node name="bridge1" parent="NeutralObjects" unique_id=1516621050 instance=ExtResource("9_h4u8l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.522196, -0.10475439, -27.55343)
 
-[node name="bridge2" parent="NeutralObjects" unique_id=38988104 instance=ExtResource("9_h4u8l") groups=["navigation_source"]]
+[node name="bridge2" parent="NeutralObjects" unique_id=38988104 instance=ExtResource("9_h4u8l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.52858, -0.10475439, -27.55343)
 
-[node name="bridge3" parent="NeutralObjects" unique_id=42543529 instance=ExtResource("9_h4u8l") groups=["navigation_source"]]
+[node name="bridge3" parent="NeutralObjects" unique_id=42543529 instance=ExtResource("9_h4u8l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.538332, -0.10475439, -27.55343)
 
 [node name="StartPositions" type="Node3D" parent="." unique_id=1318460227]
@@ -243,13 +243,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130.27354, -0.02797079, -160.
 [node name="gas-vulkan10" parent="." unique_id=2119730432 instance=ExtResource("15_2t4tu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.692085, 0, -161.27641)
 
-[node name="bridge" parent="." unique_id=1088345210 instance=ExtResource("9_h4u8l") groups=["navigation_source"]]
+[node name="bridge" parent="." unique_id=1088345210 instance=ExtResource("9_h4u8l")]
 transform = Transform3D(0.25881898, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.25881898, 124.267586, 0, -150.24677)
 
-[node name="bridge2" parent="." unique_id=216991828 instance=ExtResource("9_h4u8l") groups=["navigation_source"]]
+[node name="bridge2" parent="." unique_id=216991828 instance=ExtResource("9_h4u8l")]
 transform = Transform3D(0.2705006, 0, 0.9627198, 0, 1, 0, -0.9627198, 0, 0.2705006, 123.53882, 0, -147.59425)
 
-[node name="bridge3" parent="." unique_id=1281984607 instance=ExtResource("9_h4u8l") groups=["navigation_source"]]
+[node name="bridge3" parent="." unique_id=1281984607 instance=ExtResource("9_h4u8l")]
 transform = Transform3D(0.27340898, 0, 0.9618979, 0, 1, 0, -0.9618979, 0, 0.27340898, 125.0321, 0, -153.09785)
 
 [node name="baum2" parent="." unique_id=786095081 instance=ExtResource("14_jllw5")]
