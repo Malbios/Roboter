@@ -213,6 +213,7 @@ public partial class Hud : CanvasLayer
 				+ (worker.CarriedGas > 0 ? $"\nträgt {worker.CarriedGas} Gas" : ""),
 			Unit unit => $"{unit.DisplayName}  {unit.Health}/{unit.MaxHealth} LP",
 			Building building => DescribeBuilding(building),
+			ScrapPile scrapPile => $"Schrotthaufen\nSchrott: {scrapPile.Amount}",
 			_ => "",
 		};
 	}

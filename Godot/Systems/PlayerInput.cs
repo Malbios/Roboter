@@ -16,7 +16,7 @@ public partial class PlayerInput : Control
 	{
 		get
 		{
-			_selected.RemoveAll(entity => !Entity.IsAlive(entity) || !entity.IsVisibleInTree());
+			_selected.RemoveAll(entity => !CanStaySelected(entity));
 			return _selected;
 		}
 	}
@@ -134,7 +134,7 @@ public partial class PlayerInput : Control
 			ClearSelection();
 
 		Node3D clicked = RaycastFromMouse(ClickableLayers, out _);
-		if (clicked is Unit or Building)
+		if (clicked is Unit or Building or ScrapPile)
 			AddToSelection(clicked);
 		Voices.Instance.PlaySelectedLine(SelectedOwnUnits());
 	}
@@ -179,6 +179,17 @@ public partial class PlayerInput : Control
 			unit.SetSelected(visible);
 		else if (entity is Building building)
 			building.SetSelected(visible);
+		else if (entity is ScrapPile scrapPile)
+			scrapPile.SetSelected(visible);
+	}
+
+	// Scrap piles have no health, so they stay selected for as long as they exist.
+	private static bool CanStaySelected(Node3D entity)
+	{
+		bool stillExists = entity is ScrapPile scrapPile
+			? Entity.IsInstanceValid(scrapPile) && !scrapPile.IsQueuedForDeletion()
+			: Entity.IsAlive(entity);
+		return stillExists && entity.IsVisibleInTree();
 	}
 
 	private Rect2 DragBox()

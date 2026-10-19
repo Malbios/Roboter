@@ -5,9 +5,17 @@ public partial class ScrapPile : StaticBody3D, IEntity
 	[Export] public int Amount { get; set; } = 70;
 	[Export] public float Radius { get; set; } = 0.4f;
 
+	private MeshInstance3D _selectionCircle;
+
 	public override void _Ready()
 	{
 		AddToGroup("ScrapPiles");
+		_selectionCircle = SelectionCircle.AddTo(this, Radius);
+	}
+
+	public void SetSelected(bool selected)
+	{
+		_selectionCircle.Visible = selected;
 	}
 
 	public int Take(int wanted)
