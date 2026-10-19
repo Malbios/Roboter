@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://0og4oxum3rkp" path="res://Entities/Wolfsmen/Buildings/bunker.tscn" id="3_bunker"]
 [ext_resource type="PackedScene" uid="uid://bjk84wdw44wgg" path="res://Entities/Neutral/scrap-pile.tscn" id="4_scrap"]
 [ext_resource type="PackedScene" path="res://Entities/Effects/explosion.tscn" id="5_explosion"]
+[ext_resource type="AudioStream" uid="uid://bh6qq4krdv8pm" path="res://Assets/Sounds/death-explosion.wav" id="death_sound"]
 [ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/worker.tres" id="6_worker_type"]
 [ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/warrior-sword.tres" id="7_sword_type"]
 [ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/warrior-spear.tres" id="8_spear_type"]
@@ -38,6 +39,7 @@ WorkerScene = ExtResource("2_worker")
 BunkerScene = ExtResource("3_bunker")
 ScrapPileScene = ExtResource("4_scrap")
 ExplosionScene = ExtResource("5_explosion")
+DeathSound = ExtResource("death_sound")
 UnitTypes = [ExtResource("6_worker_type"), ExtResource("7_sword_type"), ExtResource("8_spear_type"), ExtResource("9_bow_type"), ExtResource("10_crossbow_type"), ExtResource("11_vehicle_type"), ExtResource("12_mech_type")]
 BuildingTypes = [ExtResource("13_bunker_type"), ExtResource("14_mine_type"), ExtResource("15_training_type"), ExtResource("16_workshop_type")]
 

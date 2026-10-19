@@ -20,6 +20,7 @@ public partial class Building : StaticBody3D, IDamageable
 	[Export] public float AttackInterval { get; set; } = 1;
 	[Export] public PackedScene AttackEffect { get; set; }
 	[Export] public PackedScene ProjectileModel { get; set; }
+	[Export] public AudioStream AttackSound { get; set; }
 
 	[Export] public float BuildProgress { get; set; } = 1;
 	[Export] public float WorkProgress { get; set; }
@@ -208,7 +209,11 @@ public partial class Building : StaticBody3D, IDamageable
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void ShowAttack(Vector3 targetPosition)
 	{
-		if (AttackEffect == null || !IsSeenByLocalPlayer)
+		if (!IsSeenByLocalPlayer)
+			return;
+
+		SoundEffect.PlayAt(AttackSound, GlobalPosition);
+		if (AttackEffect == null)
 			return;
 
 		Projectile projectile = AttackEffect.Instantiate<Projectile>();

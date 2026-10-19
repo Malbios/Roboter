@@ -38,6 +38,7 @@ public partial class Unit : CharacterBody3D, IDamageable
 	[Export] public bool AttacksEnemiesNearby { get; set; } = true;
 	[Export] public PackedScene AttackEffect { get; set; }
 	[Export] public PackedScene ProjectileModel { get; set; }
+	[Export] public AudioStream AttackSound { get; set; }
 	[Export] public Texture2D Portrait { get; set; }
 	[Export] public AudioStream SelectedSound { get; set; }
 	[Export] public AudioStream CommandSound { get; set; }
@@ -343,7 +344,11 @@ public partial class Unit : CharacterBody3D, IDamageable
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void ShowAttack(Vector3 targetPosition)
 	{
-		if (AttackEffect == null || !Visible)
+		if (!Visible)
+			return;
+
+		SoundEffect.PlayAt(AttackSound, GlobalPosition);
+		if (AttackEffect == null)
 			return;
 
 		Node3D effect = AttackEffect.Instantiate<Node3D>();

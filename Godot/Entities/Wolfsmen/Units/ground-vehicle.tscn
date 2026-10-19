@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Entities/Wolfsmen/Units/Unit.cs" id="2_script"]
 [ext_resource type="PackedScene" path="res://Entities/Effects/bullet.tscn" id="3_effect"]
 [ext_resource type="Texture2D" uid="uid://bx11i7lsh8qfd" path="res://Assets/Portrait/ground-vehicle.png" id="4_portrait"]
+[ext_resource type="AudioStream" uid="uid://b2dm4n4wdwpch" path="res://Assets/Sounds/attack-shot.wav" id="attack_sound"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.9
@@ -40,6 +41,7 @@ AttackInterval = 1
 SightRange = 8.5
 AttacksEnemiesNearby = true
 AttackEffect = ExtResource("3_effect")
+AttackSound = ExtResource("attack_sound")
 Portrait = ExtResource("4_portrait")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]

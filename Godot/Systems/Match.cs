@@ -24,6 +24,7 @@ public partial class Match : Node3D
 	[Export] public PackedScene BunkerScene { get; set; }
 	[Export] public PackedScene ScrapPileScene { get; set; }
 	[Export] public PackedScene ExplosionScene { get; set; }
+	[Export] public AudioStream DeathSound { get; set; }
 	[Export] public UnitType[] UnitTypes { get; set; } = [];
 	[Export] public BuildingType[] BuildingTypes { get; set; } = [];
 	[Export] public Vector2 MapCenter { get; set; }
@@ -362,6 +363,7 @@ public partial class Match : Node3D
 		Node3D explosion = ExplosionScene.Instantiate<Node3D>();
 		AddChild(explosion);
 		explosion.GlobalPosition = position + Vector3.Up * 0.5f;
+		SoundEffect.PlayAt(DeathSound, position);
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]

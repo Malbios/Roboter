@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Entities/Wolfsmen/Units/Unit.cs" id="2_script"]
 [ext_resource type="PackedScene" path="res://Entities/Effects/slash.tscn" id="3_effect"]
 [ext_resource type="Texture2D" uid="uid://j2wyqg5mgrrw" path="res://Assets/Portrait/warrior-spear.png" id="4_portrait"]
+[ext_resource type="AudioStream" uid="uid://b02s8kqrmrmb2" path="res://Assets/Sounds/attack-slash.wav" id="attack_sound"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -40,6 +41,7 @@ AttackInterval = 1
 SightRange = 8
 AttacksEnemiesNearby = true
 AttackEffect = ExtResource("3_effect")
+AttackSound = ExtResource("attack_sound")
 Portrait = ExtResource("4_portrait")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]
