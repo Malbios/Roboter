@@ -39,6 +39,8 @@ public partial class Unit : CharacterBody3D, IDamageable
 	[Export] public PackedScene AttackEffect { get; set; }
 	[Export] public PackedScene ProjectileModel { get; set; }
 	[Export] public Texture2D Portrait { get; set; }
+	[Export] public AudioStream SelectedSound { get; set; }
+	[Export] public AudioStream CommandSound { get; set; }
 
 	public UnitState State { get; protected set; } = UnitState.Idle;
 	public Building TrainingBuilding { get; private set; }

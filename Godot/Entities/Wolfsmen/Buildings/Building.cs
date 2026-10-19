@@ -41,6 +41,7 @@ public partial class Building : StaticBody3D, IDamageable
 	private MeshInstance3D _selectionCircle;
 	private int _lastSeenHealth;
 	private float _lastSeenBuildProgress;
+	private bool _toldTeamResourcesAreMissing;
 
 	public override void _Ready()
 	{
@@ -150,14 +151,21 @@ public partial class Building : StaticBody3D, IDamageable
 			.Where(unit => unit.State == UnitState.WaitingForTraining && unit.TrainingBuilding == this && Entity.IsAlive(unit))
 			.ToList();
 
+		bool someoneWaitsForResources = false;
 		foreach (var group in waitingUnits.GroupBy(unit => unit.TrainingType))
 		{
 			UnitType type = group.Key;
 			List<Unit> units = group.ToList();
 			while (units.Count >= type.MadeFromCount)
 			{
-				if (!Match.Instance.ResourcesOf(Team).TrySpend(type.CostMetal, type.CostGas))
+				TeamResources resources = Match.Instance.ResourcesOf(Team);
+				if (!resources.TrySpend(type.CostMetal, type.CostGas))
+				{
+					if (!_toldTeamResourcesAreMissing)
+						Match.Instance.Commands.AnnounceMissingResources(Team, !resources.HasEnoughMetal(type.CostMetal), !resources.HasEnoughGas(type.CostGas));
+					someoneWaitsForResources = true;
 					break;
+				}
 
 				for (int i = 0; i < type.MadeFromCount; i++)
 				{
@@ -167,6 +175,9 @@ public partial class Building : StaticBody3D, IDamageable
 				AddToTrainingQueue(type);
 			}
 		}
+
+		// Remembered so the team hears it once, not every frame while the units wait.
+		_toldTeamResourcesAreMissing = someoneWaitsForResources;
 	}
 
 	private void UpdateAttacking(float delta)

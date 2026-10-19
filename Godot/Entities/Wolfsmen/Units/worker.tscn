@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://Entities/Wolfsmen/Units/Worker.cs" id="2_script"]
 [ext_resource type="PackedScene" path="res://Entities/Effects/slash.tscn" id="3_effect"]
 [ext_resource type="Texture2D" uid="uid://bge7udp6tcyka" path="res://Assets/Portrait/worker.png" id="4_portrait"]
+[ext_resource type="AudioStream" uid="uid://cibdit5yvenac" path="res://Assets/Sounds/worker-selected.ogg" id="5_selected"]
+[ext_resource type="AudioStream" uid="uid://caveixmhxrjxv" path="res://Assets/Sounds/worker-command.ogg" id="6_command"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -47,6 +49,8 @@ SightRange = 8
 AttacksEnemiesNearby = false
 AttackEffect = ExtResource("3_effect")
 Portrait = ExtResource("4_portrait")
+SelectedSound = ExtResource("5_selected")
+CommandSound = ExtResource("6_command")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]
 

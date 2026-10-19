@@ -38,6 +38,18 @@ public partial class PlayerCommands : Node
 		RpcId(HostPeerId, MethodName.RequestLetWorkersOut, gasMine.GetPath().ToString());
 	}
 
+	public void AnnounceMissingResources(int team, bool metalMissing, bool gasMissing)
+	{
+		Rpc(MethodName.ReceiveMissingResources, team, metalMissing, gasMissing);
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void ReceiveMissingResources(int team, bool metalMissing, bool gasMissing)
+	{
+		if (team == PlayerInput.LocalTeam)
+			Voices.Instance.SayMissing(false, metalMissing, gasMissing);
+	}
+
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void RequestRightClick(string[] unitPaths, string targetPath, Vector3 point)
 	{

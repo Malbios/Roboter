@@ -5,6 +5,7 @@ using Godot;
 public partial class Hud : CanvasLayer
 {
 	private static readonly Vector2 ButtonSize = new(170, 56);
+	private static readonly Color NotPossibleTint = new(1, 1, 1, 0.45f);
 
 	private PlayerInput _playerInput;
 	private Label _scrapLabel;
@@ -59,7 +60,7 @@ public partial class Hud : CanvasLayer
 		{
 			BuildingType type = Match.Instance.BuildingTypes[i];
 			int typeIndex = i;
-			Button button = AddButton($"{type.Name}\n{type.CostText()}", () => _playerInput.StartPlacingBuilding(typeIndex));
+			Button button = AddButton($"{type.Name}\n{type.CostText()}", () => StartPlacingBuilding(typeIndex));
 			_buildButtons.Add(button);
 		}
 
@@ -71,7 +72,7 @@ public partial class Hud : CanvasLayer
 			_unitButtons.Add(button);
 		}
 
-		_upgradeButton = AddButton("Bunker verbessern", () => Commands.UpgradeBunker(SelectedOwn<Bunker>()));
+		_upgradeButton = AddButton("Bunker verbessern", UpgradeBunker);
 		_letWorkersOutButton = AddButton("Arbeiter rausholen", () => Commands.LetWorkersOut(SelectedOwn<GasMine>()));
 	}
 
@@ -83,13 +84,46 @@ public partial class Hud : CanvasLayer
 		return button;
 	}
 
+	private void StartPlacingBuilding(int typeIndex)
+	{
+		BuildingType type = Match.Instance.BuildingTypes[typeIndex];
+		if (OwnResources.CanAfford(type.CostMetal, type.CostGas))
+			_playerInput.StartPlacingBuilding(typeIndex);
+		else
+			Voices.Instance.SayWhatIsMissingFor(type.CostMetal, type.CostGas);
+	}
+
 	private void TrainUnit(int typeIndex)
 	{
 		UnitType type = Match.Instance.UnitTypes[typeIndex];
 		if (type.MadeFromCount == 0)
-			Commands.TrainInBuilding(SelectedOwn<Bunker>(), typeIndex);
+		{
+			if (OwnResources.CanAfford(type.CostMetal, type.CostGas))
+				Commands.TrainInBuilding(SelectedOwn<Bunker>(), typeIndex);
+			else
+				Voices.Instance.SayWhatIsMissingFor(type.CostMetal, type.CostGas);
+			return;
+		}
+
+		List<Unit> units = _playerInput.SelectedOwnUnits().Where(unit => unit.Kind == type.MadeFrom).ToList();
+		bool workersMissing = units.Count < type.MadeFromCount;
+		if (workersMissing || !OwnResources.CanAfford(type.CostMetal, type.CostGas))
+		{
+			Voices.Instance.SayWhatIsMissingFor(type.CostMetal, type.CostGas, workersMissing);
+			return;
+		}
+
+		Commands.TrainUnits(units, typeIndex);
+		Voices.Instance.PlayCommandLine(units);
+	}
+
+	private void UpgradeBunker()
+	{
+		Bunker bunker = SelectedOwn<Bunker>();
+		if (OwnResources.CanAfford(bunker.UpgradeCostMetal, bunker.UpgradeCostGas))
+			Commands.UpgradeBunker(bunker);
 		else
-			Commands.TrainUnits(_playerInput.SelectedOwnUnits(), typeIndex);
+			Voices.Instance.SayWhatIsMissingFor(bunker.UpgradeCostMetal, bunker.UpgradeCostGas);
 	}
 
 	private void UpdateResourceBar()
@@ -107,7 +141,7 @@ public partial class Hud : CanvasLayer
 		{
 			BuildingType type = Match.Instance.BuildingTypes[i];
 			_buildButtons[i].Visible = hasWorkers;
-			_buildButtons[i].Disabled = !OwnResources.CanAfford(type.CostMetal, type.CostGas);
+			ShowAsPossible(_buildButtons[i], OwnResources.CanAfford(type.CostMetal, type.CostGas));
 		}
 
 		for (int i = 0; i < _unitButtons.Count; i++)
@@ -117,7 +151,8 @@ public partial class Hud : CanvasLayer
 		_upgradeButton.Visible = bunker != null && bunker.UpgradedScene != null;
 		if (bunker != null)
 			_upgradeButton.Text = $"Bunker verbessern\n{bunker.UpgradeCostMetal} Blech, {bunker.UpgradeCostGas} Gas";
-		_upgradeButton.Disabled = bunker == null || !bunker.CanBeUpgraded || !OwnResources.CanAfford(bunker.UpgradeCostMetal, bunker.UpgradeCostGas);
+		_upgradeButton.Disabled = bunker == null || !bunker.CanBeUpgraded;
+		ShowAsPossible(_upgradeButton, bunker != null && OwnResources.CanAfford(bunker.UpgradeCostMetal, bunker.UpgradeCostGas));
 
 		GasMine gasMine = SelectedOwn<GasMine>();
 		_letWorkersOutButton.Visible = gasMine != null;
@@ -132,14 +167,22 @@ public partial class Hud : CanvasLayer
 		{
 			Building building = _playerInput.Selected.OfType<Building>().FirstOrDefault(b => b.Team == LocalTeam && b.Kind == type.TrainedAt);
 			button.Visible = building != null && building.IsFinished;
-			button.Disabled = !canAfford || building == null || !building.CanTrain(type);
+			button.Disabled = building == null || !building.CanTrain(type);
+			ShowAsPossible(button, canAfford);
 			return;
 		}
 
 		int ingredientCount = _playerInput.SelectedOwnUnits().Count(unit => unit.Kind == type.MadeFrom);
 		bool hasTrainingBuilding = Match.Instance.BuildingsOf(LocalTeam).Any(building => building.CanTrain(type));
 		button.Visible = ingredientCount > 0;
-		button.Disabled = ingredientCount < type.MadeFromCount || !hasTrainingBuilding || !canAfford;
+		button.Disabled = !hasTrainingBuilding;
+		ShowAsPossible(button, canAfford && ingredientCount >= type.MadeFromCount);
+	}
+
+	// Buttons for things the player can't afford stay clickable, so clicking them can say what is missing.
+	private static void ShowAsPossible(Button button, bool possible)
+	{
+		button.Modulate = possible ? Colors.White : NotPossibleTint;
 	}
 
 	private T SelectedOwn<T>() where T : Building

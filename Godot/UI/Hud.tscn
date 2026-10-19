@@ -4,6 +4,11 @@
 [ext_resource type="Script" uid="uid://48swv4minwq4" path="res://UI/HealthBars.cs" id="2_bars"]
 [ext_resource type="Script" uid="uid://drqrc4hc16m26" path="res://Systems/PlayerInput.cs" id="3_input"]
 [ext_resource type="Script" uid="uid://brchoqicboqa7" path="res://UI/Minimap.cs" id="4_minimap"]
+[ext_resource type="Script" path="res://UI/Voices.cs" id="5_voices"]
+[ext_resource type="AudioStream" uid="uid://du1adairu8y07" path="res://Assets/Sounds/no-metal.ogg" id="6_no_metal"]
+[ext_resource type="AudioStream" uid="uid://c1m455ysxk7ro" path="res://Assets/Sounds/no-gas.ogg" id="7_no_gas"]
+[ext_resource type="AudioStream" uid="uid://dn6pgiin4y4j6" path="res://Assets/Sounds/no-resources.ogg" id="8_no_resources"]
+[ext_resource type="AudioStream" uid="uid://chf3ma6e0axup" path="res://Assets/Sounds/no-workers.ogg" id="9_no_workers"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 12.0
@@ -173,3 +178,14 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Zurück zum Menü"
+
+[node name="Voices" type="Node" parent="."]
+script = ExtResource("5_voices")
+NoMetalSound = ExtResource("6_no_metal")
+NoGasSound = ExtResource("7_no_gas")
+NoResourcesSound = ExtResource("8_no_resources")
+NoWorkersSound = ExtResource("9_no_workers")
+
+[node name="Announcer" type="AudioStreamPlayer" parent="Voices"]
+
+[node name="UnitVoice" type="AudioStreamPlayer" parent="Voices"]

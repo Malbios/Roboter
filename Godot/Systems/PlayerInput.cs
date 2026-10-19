@@ -116,6 +116,7 @@ public partial class PlayerInput : Control
 		Node3D target = RaycastFromMouse(ClickableLayers, out _);
 		RaycastFromMouse(Entity.WorldLayer, out Vector3 groundPoint);
 		Match.Instance.Commands.RightClick(units, target, groundPoint);
+		Voices.Instance.PlayCommandLine(units);
 		GetViewport().SetInputAsHandled();
 	}
 
@@ -135,6 +136,7 @@ public partial class PlayerInput : Control
 		Node3D clicked = RaycastFromMouse(ClickableLayers, out _);
 		if (clicked is Unit or Building)
 			AddToSelection(clicked);
+		Voices.Instance.PlaySelectedLine(SelectedOwnUnits());
 	}
 
 	private void SelectUnitsInBox(Rect2 box, bool addToSelection)
@@ -151,6 +153,7 @@ public partial class PlayerInput : Control
 			if (box.HasPoint(camera.UnprojectPosition(unit.GlobalPosition)))
 				AddToSelection(unit);
 		}
+		Voices.Instance.PlaySelectedLine(SelectedOwnUnits());
 	}
 
 	private void AddToSelection(Node3D entity)
@@ -235,12 +238,21 @@ public partial class PlayerInput : Control
 	private void PlaceBuilding()
 	{
 		RaycastFromMouse(Entity.WorldLayer, out Vector3 groundPoint);
-		BuildingType type = Match.Instance.BuildingTypes[_placingBuildingType];
+		int typeIndex = _placingBuildingType;
+		BuildingType type = Match.Instance.BuildingTypes[typeIndex];
 		if (!Match.Instance.CanPlaceBuilding(type, groundPoint, out _, out _))
 			return;
 
-		Match.Instance.Commands.PlaceBuilding(SelectedOwnUnits().OfType<Worker>(), _placingBuildingType, groundPoint);
 		CancelPlacing();
+		if (!Match.Instance.ResourcesOf(LocalTeam).CanAfford(type.CostMetal, type.CostGas))
+		{
+			Voices.Instance.SayWhatIsMissingFor(type.CostMetal, type.CostGas);
+			return;
+		}
+
+		List<Worker> workers = SelectedOwnUnits().OfType<Worker>().ToList();
+		Match.Instance.Commands.PlaceBuilding(workers, typeIndex, groundPoint);
+		Voices.Instance.PlayCommandLine(workers);
 	}
 
 	private void CancelPlacing()
