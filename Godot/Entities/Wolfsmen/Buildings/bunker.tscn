@@ -1,5 +1,67 @@
 [gd_scene format=3 uid="uid://0og4oxum3rkp"]
 
-[ext_resource type="PackedScene" uid="uid://ccirerocroywk" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-bunker.glb" id="1_qk5r3"]
+[ext_resource type="PackedScene" uid="uid://ccirerocroywk" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-bunker.glb" id="1_model"]
+[ext_resource type="Script" path="res://Entities/Wolfsmen/Buildings/Bunker.cs" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://bglw6i81a8hca" path="res://Entities/Wolfsmen/Buildings/bunker-upgraded.tscn" id="3_extra"]
 
-[node name="wolfsmen-bunker" unique_id=1410002510 instance=ExtResource("1_qk5r3")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
+height = 1
+radius = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sync"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+properties/2/path = NodePath(".:Team")
+properties/2/spawn = true
+properties/2/replication_mode = 0
+properties/3/path = NodePath(".:SpawnNumber")
+properties/3/spawn = true
+properties/3/replication_mode = 0
+properties/4/path = NodePath(".:Health")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:BuildProgress")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:WorkProgress")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:QueueLength")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath(".:StoredScrap")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath(".:IsUpgrading")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+
+[node name="Bunker" type="StaticBody3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_script")
+DisplayName = "Bunker"
+Kind = 0
+MaxHealth = 40
+Health = 40
+Radius = 1.1
+HealthBarHeight = 1
+BuildTime = 30
+UpgradedScene = ExtResource("3_extra")
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_body")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+radius = 1.1
+avoidance_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_sync")

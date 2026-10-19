@@ -80,6 +80,18 @@ camera_sprint={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Units"
+3d_physics/layer_3="Buildings"
+3d_physics/layer_4="Neutral"
+3d_physics/layer_5="Obstacles"
+
+[navigation]
+
+3d/default_cell_size=0.5
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

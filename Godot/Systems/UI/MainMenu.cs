@@ -2,6 +2,10 @@ using Godot;
 
 public partial class MainMenu : Control
 {
+	private const string JoinArgument = "--join=";
+
+	private static bool _commandLineHandled;
+
 	private Button _hostButton;
 	private Button _joinButton;
 	private LineEdit _addressInput;
@@ -18,6 +22,7 @@ public partial class MainMenu : Control
 		_joinButton.Pressed += OnJoinPressed;
 		NetworkManager.Instance.StatusChanged += ShowStatus;
 		ShowStatus(NetworkManager.Instance.LastStatus);
+		HandleCommandLineOnce();
 	}
 
 	public override void _ExitTree()
@@ -35,6 +40,26 @@ public partial class MainMenu : Control
 	{
 		if (NetworkManager.Instance.Join(_addressInput.Text.StripEdges()))
 			DisableButtons();
+	}
+
+	private void HandleCommandLineOnce()
+	{
+		if (_commandLineHandled)
+			return;
+
+		_commandLineHandled = true;
+		foreach (string argument in OS.GetCmdlineUserArgs())
+		{
+			if (argument == "--host")
+			{
+				OnHostPressed();
+			}
+			else if (argument.StartsWith(JoinArgument))
+			{
+				_addressInput.Text = argument[JoinArgument.Length..];
+				OnJoinPressed();
+			}
+		}
 	}
 
 	private void DisableButtons()

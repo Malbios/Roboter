@@ -1,5 +1,21 @@
 [gd_scene format=3 uid="uid://bjk84wdw44wgg"]
 
-[ext_resource type="PackedScene" uid="uid://73dwrupo3sii" path="res://Assets/Models/neutral/schrott.glb" id="1_koajv"]
+[ext_resource type="PackedScene" uid="uid://73dwrupo3sii" path="res://Assets/Models/neutral/schrott.glb" id="1_model"]
+[ext_resource type="Script" path="res://Entities/Neutral/ScrapPile.cs" id="2_script"]
 
-[node name="schrott" unique_id=949263348 instance=ExtResource("1_koajv")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
+height = 0.7
+radius = 0.4
+
+[node name="ScrapPile" type="StaticBody3D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_script")
+Amount = 70
+Radius = 0.4
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("CylinderShape3D_body")

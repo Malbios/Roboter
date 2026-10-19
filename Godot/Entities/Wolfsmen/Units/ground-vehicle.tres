@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UnitType" format=3]
+
+[ext_resource type="Script" path="res://Systems/UnitType.cs" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://dnokpd1yjnnyj" path="res://Entities/Wolfsmen/Units/ground-vehicle.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_script")
+Name = "Bodenfahrzeug"
+Scene = ExtResource("2_scene")
+CostMetal = 100
+CostGas = 2
+TrainingTime = 20
+TrainedAt = 3
+MadeFrom = 0
+MadeFromCount = 2

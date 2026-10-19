@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BuildingType" format=3]
+
+[ext_resource type="Script" path="res://Systems/BuildingType.cs" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bfs4gkppx77j0" path="res://Entities/Wolfsmen/Buildings/gas-mine.tscn" id="2_scene"]
+[ext_resource type="PackedScene" uid="uid://cwndsevo7v2jv" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-gas-mine.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_script")
+Name = "Gas-Mine"
+Scene = ExtResource("2_scene")
+Model = ExtResource("3_model")
+Kind = 1
+CostMetal = 50
+CostGas = 0
+Radius = 1.3

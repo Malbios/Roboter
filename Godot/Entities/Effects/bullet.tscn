@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Entities/Effects/Projectile.cs" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bullet"]
+albedo_color = Color(0.8, 0.82, 0.86, 1)
+metallic = 1.0
+roughness = 0.25
+emission_enabled = true
+emission = Color(0.75, 0.78, 0.82, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_placeholder"]
+material = SubResource("StandardMaterial3D_bullet")
+radius = 0.1
+height = 0.2
+
+[node name="Projectile" type="Node3D"]
+script = ExtResource("1_script")
+Speed = 20
+
+[node name="PlaceholderModel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("Mesh_placeholder")

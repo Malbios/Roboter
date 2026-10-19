@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BuildingType" format=3]
+
+[ext_resource type="Script" path="res://Systems/BuildingType.cs" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bsiv5wx0jcmng" path="res://Entities/Wolfsmen/Buildings/workshop.tscn" id="2_scene"]
+[ext_resource type="PackedScene" uid="uid://b48vk500000x" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-workshop.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_script")
+Name = "Werkstatt"
+Scene = ExtResource("2_scene")
+Model = ExtResource("3_model")
+Kind = 3
+CostMetal = 200
+CostGas = 5
+Radius = 1.4

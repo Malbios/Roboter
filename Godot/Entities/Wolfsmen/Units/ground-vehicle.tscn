@@ -1,5 +1,58 @@
 [gd_scene format=3 uid="uid://dnokpd1yjnnyj"]
 
-[ext_resource type="PackedScene" uid="uid://y1uyu3pj8mom" path="res://Assets/Models/wolfsmen/units/wolfsmen-ground-vehicle.glb" id="1_coi5j"]
+[ext_resource type="PackedScene" uid="uid://y1uyu3pj8mom" path="res://Assets/Models/wolfsmen/units/wolfsmen-ground-vehicle.glb" id="1_model"]
+[ext_resource type="Script" path="res://Entities/Wolfsmen/Units/Unit.cs" id="2_script"]
+[ext_resource type="PackedScene" path="res://Entities/Effects/bullet.tscn" id="3_effect"]
 
-[node name="wolfsmen-ground-vehicle" unique_id=2055678134 instance=ExtResource("1_coi5j")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.9
+height = 1.9
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sync"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:Team")
+properties/2/spawn = true
+properties/2/replication_mode = 0
+properties/3/path = NodePath(".:Health")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[node name="GroundVehicle" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_script")
+DisplayName = "Bodenfahrzeug"
+Kind = 5
+MaxHealth = 30
+Health = 30
+Speed = 3
+Radius = 0.9
+HealthBarHeight = 2.3
+AttackRange = 5.5
+AttackDamage = 10
+AttackInterval = 1
+SightRange = 8.5
+AttacksEnemiesNearby = true
+AttackEffect = ExtResource("3_effect")
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 1.0
+target_desired_distance = 0.4
+path_height_offset = 0.5
+avoidance_enabled = true
+radius = 0.9
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.05
+replication_config = SubResource("SceneReplicationConfig_sync")

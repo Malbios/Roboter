@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BuildingType" format=3]
+
+[ext_resource type="Script" path="res://Systems/BuildingType.cs" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://0og4oxum3rkp" path="res://Entities/Wolfsmen/Buildings/bunker.tscn" id="2_scene"]
+[ext_resource type="PackedScene" uid="uid://ccirerocroywk" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-bunker.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_script")
+Name = "Bunker"
+Scene = ExtResource("2_scene")
+Model = ExtResource("3_model")
+Kind = 0
+CostMetal = 300
+CostGas = 15
+Radius = 1.1

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BuildingType" format=3]
+
+[ext_resource type="Script" path="res://Systems/BuildingType.cs" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bai28pmwqi08m" path="res://Entities/Wolfsmen/Buildings/training-center.tscn" id="2_scene"]
+[ext_resource type="PackedScene" uid="uid://qnpxr1clvddv" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-training-grounds.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_script")
+Name = "Ausbildungszentrum"
+Scene = ExtResource("2_scene")
+Model = ExtResource("3_model")
+Kind = 2
+CostMetal = 150
+CostGas = 0
+Radius = 1.1

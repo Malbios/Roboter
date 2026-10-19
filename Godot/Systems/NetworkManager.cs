@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public partial class NetworkManager : Node
@@ -17,8 +18,11 @@ public partial class NetworkManager : Node
 	public string LastStatus { get; private set; } = "";
 
 	private readonly Dictionary<long, int> _teamsByPeer = new();
+	private readonly HashSet<long> _peersWithLoadedMatch = new();
 
 	public int LocalTeam => GetTeam(Multiplayer.GetUniqueId());
+
+	public bool AllPeersLoaded => Multiplayer.GetPeers().All(peerId => _peersWithLoadedMatch.Contains(peerId));
 
 	public override void _Ready()
 	{
@@ -62,6 +66,17 @@ public partial class NetworkManager : Node
 		return true;
 	}
 
+	public void ReportSceneLoaded()
+	{
+		if (!Multiplayer.IsServer())
+			RpcId(1, MethodName.PeerLoadedMatch);
+	}
+
+	public void LeaveMatch()
+	{
+		ReturnToMainMenu("");
+	}
+
 	// Unknown peers (including the offline peer when a map is run directly) fall back to the host team.
 	public int GetTeam(long peerId) => _teamsByPeer.GetValueOrDefault(peerId, HostTeam);
 
@@ -80,10 +95,17 @@ public partial class NetworkManager : Node
 			ReturnToMainMenu("Opponent disconnected.");
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void PeerLoadedMatch()
+	{
+		_peersWithLoadedMatch.Add(Multiplayer.GetRemoteSenderId());
+	}
+
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartMatch(Godot.Collections.Dictionary<long, int> teamsByPeer)
 	{
 		_teamsByPeer.Clear();
+		_peersWithLoadedMatch.Clear();
 		foreach (var (peerId, team) in teamsByPeer)
 			_teamsByPeer[peerId] = team;
 
@@ -99,6 +121,7 @@ public partial class NetworkManager : Node
 		closingPeer?.Close();
 
 		_teamsByPeer.Clear();
+		_peersWithLoadedMatch.Clear();
 		SetStatus(reason);
 		GetTree().ChangeSceneToFile(MainMenuScenePath);
 	}

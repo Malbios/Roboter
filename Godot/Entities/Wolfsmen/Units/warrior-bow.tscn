@@ -1,5 +1,58 @@
 [gd_scene format=3 uid="uid://fhyonl3jvcql"]
 
-[ext_resource type="PackedScene" uid="uid://kot2ndqw6ok1" path="res://Assets/Models/wolfsmen/units/wolfsmen-bow-warrior.glb" id="1_xbgfo"]
+[ext_resource type="PackedScene" uid="uid://kot2ndqw6ok1" path="res://Assets/Models/wolfsmen/units/wolfsmen-bow-warrior.glb" id="1_model"]
+[ext_resource type="Script" path="res://Entities/Wolfsmen/Units/Unit.cs" id="2_script"]
+[ext_resource type="PackedScene" path="res://Entities/Effects/arrow.tscn" id="3_effect"]
 
-[node name="wolfsmen-bow-warrior" unique_id=1209570124 instance=ExtResource("1_xbgfo")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.3
+height = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sync"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:Team")
+properties/2/spawn = true
+properties/2/replication_mode = 0
+properties/3/path = NodePath(".:Health")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[node name="Archer" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_script")
+DisplayName = "Bogenschütze"
+Kind = 3
+MaxHealth = 8
+Health = 8
+Speed = 1
+Radius = 0.3
+HealthBarHeight = 1.3
+AttackRange = 4.5
+AttackDamage = 6
+AttackInterval = 0.5
+SightRange = 8
+AttacksEnemiesNearby = true
+AttackEffect = ExtResource("3_effect")
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 1.0
+target_desired_distance = 0.4
+path_height_offset = 0.5
+avoidance_enabled = true
+radius = 0.3
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.05
+replication_config = SubResource("SceneReplicationConfig_sync")

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UnitType" format=3]
+
+[ext_resource type="Script" path="res://Systems/UnitType.cs" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://d342dbtvdhlci" path="res://Entities/Wolfsmen/Units/mech.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_script")
+Name = "Mech"
+Scene = ExtResource("2_scene")
+CostMetal = 120
+CostGas = 5
+TrainingTime = 12
+TrainedAt = 3
+MadeFrom = 1
+MadeFromCount = 1

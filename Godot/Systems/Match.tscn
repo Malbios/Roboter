@@ -1,0 +1,84 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Systems/Match.cs" id="1_match"]
+[ext_resource type="PackedScene" uid="uid://x5gn1libtikb" path="res://Entities/Wolfsmen/Units/worker.tscn" id="2_worker"]
+[ext_resource type="PackedScene" uid="uid://0og4oxum3rkp" path="res://Entities/Wolfsmen/Buildings/bunker.tscn" id="3_bunker"]
+[ext_resource type="PackedScene" uid="uid://bjk84wdw44wgg" path="res://Entities/Neutral/scrap-pile.tscn" id="4_scrap"]
+[ext_resource type="PackedScene" path="res://Entities/Effects/explosion.tscn" id="5_explosion"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/worker.tres" id="6_worker_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/warrior-sword.tres" id="7_sword_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/warrior-spear.tres" id="8_spear_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/warrior-bow.tres" id="9_bow_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/warrior-crossbow.tres" id="10_crossbow_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/ground-vehicle.tres" id="11_vehicle_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Units/mech.tres" id="12_mech_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Buildings/bunker.tres" id="13_bunker_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Buildings/gas-mine.tres" id="14_mine_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Buildings/training-center.tres" id="15_training_type"]
+[ext_resource type="Resource" path="res://Entities/Wolfsmen/Buildings/workshop.tres" id="16_workshop_type"]
+[ext_resource type="Script" path="res://Systems/TeamResources.cs" id="17_resources"]
+[ext_resource type="Script" path="res://Systems/PlayerCommands.cs" id="18_commands"]
+[ext_resource type="PackedScene" path="res://Systems/UI/Hud.tscn" id="19_hud"]
+[ext_resource type="PackedScene" path="res://Systems/UI/Chat.tscn" id="20_chat"]
+[ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="21_camera"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_resources"]
+properties/0/path = NodePath(".:Metal")
+properties/0/spawn = false
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:Gas")
+properties/1/spawn = false
+properties/1/replication_mode = 2
+
+[node name="Match" type="Node3D"]
+script = ExtResource("1_match")
+WorkerScene = ExtResource("2_worker")
+BunkerScene = ExtResource("3_bunker")
+ScrapPileScene = ExtResource("4_scrap")
+ExplosionScene = ExtResource("5_explosion")
+UnitTypes = [ExtResource("6_worker_type"), ExtResource("7_sword_type"), ExtResource("8_spear_type"), ExtResource("9_bow_type"), ExtResource("10_crossbow_type"), ExtResource("11_vehicle_type"), ExtResource("12_mech_type")]
+BuildingTypes = [ExtResource("13_bunker_type"), ExtResource("14_mine_type"), ExtResource("15_training_type"), ExtResource("16_workshop_type")]
+
+[node name="Entities" type="Node3D" parent="."]
+
+[node name="EntitySpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Entities/Wolfsmen/Units/worker.tscn", "res://Entities/Wolfsmen/Units/warrior-sword.tscn", "res://Entities/Wolfsmen/Units/warrior-spear.tscn", "res://Entities/Wolfsmen/Units/warrior-bow.tscn", "res://Entities/Wolfsmen/Units/warrior-crossbow.tscn", "res://Entities/Wolfsmen/Units/ground-vehicle.tscn", "res://Entities/Wolfsmen/Units/mech.tscn", "res://Entities/Wolfsmen/Buildings/bunker.tscn", "res://Entities/Wolfsmen/Buildings/bunker-upgraded.tscn", "res://Entities/Wolfsmen/Buildings/gas-mine.tscn", "res://Entities/Wolfsmen/Buildings/training-center.tscn", "res://Entities/Wolfsmen/Buildings/workshop.tscn")
+spawn_path = NodePath("../Entities")
+
+[node name="ScrapPiles" type="Node3D" parent="."]
+
+[node name="Team0" type="Node" parent="."]
+script = ExtResource("17_resources")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Team0"]
+public_visibility = false
+replication_config = SubResource("SceneReplicationConfig_resources")
+
+[node name="Team1" type="Node" parent="."]
+script = ExtResource("17_resources")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Team1"]
+public_visibility = false
+replication_config = SubResource("SceneReplicationConfig_resources")
+
+[node name="Commands" type="Node" parent="."]
+script = ExtResource("18_commands")
+
+[node name="RtsController" parent="." instance=ExtResource("21_camera")]
+MovementSpeed = 30.0
+ZoomSpeed = 4.0
+MinZoom = 6.0
+MaxZoom = 120.0
+AllowRotation = false
+
+[node name="Elevation" parent="RtsController" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0)
+
+[node name="Camera3D" parent="RtsController/Elevation" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 20, 0)
+
+[node name="Hud" parent="." instance=ExtResource("19_hud")]
+
+[node name="Chat" parent="." instance=ExtResource("20_chat")]
+
+[editable path="RtsController"]
