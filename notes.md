@@ -2,6 +2,7 @@ Jede Einheit und jedes Gebäude hinterlassen einen Schrotthaufen mit 70 Schrott 
 
 Arbeiter (50 Blech, 20 Sekunden Ausbildungszeit)
 - kann gehen (1 m/s)
+- kann angreifen (0.5 m Reichweite, 2 Schaden, alle 1 Sekunden)
 - kann sterben (5 LP)
 - kann Gebäude bauen
 - kann Schrott sammeln
@@ -26,63 +27,66 @@ Speerkämpfer (1 Arbeiter, 50 Blech, 1 Gas, 10 Sekunden Ausbildungszeit)
 
 Bogenschütze (1 Arbeiter, 75 Blech, 11 Sekunden Ausbildungszeit)
 - kann gehen (1 m/s)
-- kann angreifen (4.5 m Reichweite, ? Schaden, alle ? Sekunden)
-- kann sterben (? LP, hinterlässt ? Schrott)
+- kann angreifen (4.5 m Reichweite, 6 Schaden, alle 0.5 Sekunden)
+- kann sterben (8 LP)
 - WaechterKai macht Modell für Pfeil
 
 Armbrustschütze (1 Arbeiter, 75 Blech, 11 Sekunden Ausbildungszeit)
 - kann gehen (1 m/s)
-- kann angreifen (4.5 m Reichweite, ? Schaden, alle ? Sekunden)
-- kann sterben (? LP, hinterlässt ? Schrott)
+- kann angreifen (4.5 m Reichweite, 7 Schaden, alle 1 Sekunden)
+- kann sterben (8 LP)
 - WaechterKai macht Modell für Bolzen
 
-Fernkämpfer
-- Bogenschützen schießen schneller
-- Armbrustschützen machen mehr Schaden
+Bodenfahrzeug (2 Arbeiter, 100 Blech, 2 Gas, 20 Sekunden Ausbildungszeit)
+- kann fahren (3 m/s)
+- kann angreifen (5.5 m Reichweite, 10 Schaden, alle 1 Sekunden)
+- kann sterben (30 LP)
 
-Bodenfahrzeug (2 Arbeiter, ? Blech, ? Gas, ? Sekunden Ausbildungszeit)
-- kann fahren (? m/s)
-- kann angreifen (? m Reichweite, ? Schaden, alle ? Sekunden)
-- kann sterben (? LP, hinterlässt ? Schrott)
+Mech (1 Schwertkämpfer, 120 Blech, 5 Gas, 12 Sekunden Ausbildungszeit)
+- kann gehen (2 m/s)
+- kann angreifen (3 m Reichweite, 8 Schaden, alle 0.5 Sekunden)
+- kann sterben (20 LP)
 
-Mech (1 Schwertkämpfer, ? Blech, ? Gas, ? Sekunden Ausbildungszeit)
-- kann gehen (? m/s)
-- kann angreifen (? m Reichweite, ? Schaden, alle ? Sekunden)
-- kann sterben (? LP, hinterlässt ? Schrott)
-
-Bunker (300 Blech, 15 Gas, ? Sekunden Bauzeit)
-- kann zerstört werden (? LP, hinterlässt ? Schrott)
+Bunker (300 Blech, 15 Gas, 30 Sekunden Bauzeit)
+- kann zerstört werden (40 LP)
 - kann neue Arbeiter ausbilden
-- verarbeitet Schrott automatisch zu Blech (? Schrott zu ? Blech in ? Sekunden)
+- verarbeitet Schrott automatisch zu Blech (beliebig viel Schrott wird 1 zu 1 in Blech verwandelt, aber dauert jeweils 1 Sekunde, neuer Schrott wartet dann im Bunker auf Verarbeitung)
 - kann verbessert werden
 
-Verbesserter Bunker (100 Blech, 5 Gas, ? Sekunden Bauzeit)
+Verbesserter Bunker (100 Blech, 5 Gas, 10 Sekunden Bauzeit)
 - kann nicht direkt gebaut werden
-- kann zerstört werden (? LP, hinterlässt ? Schrott)
-- kann angreifen (? m Reichweite, ? Schaden, alle ? Sekunden)
-- kann neue Arbeiter ausbilden
-- verarbeitet Schrott automatisch zu Blech
+- kann zerstört werden (50 LP)
+- kann angreifen (4.5 m Reichweite, 8 Schaden, alle 1 Sekunden)
+- kann wie ein normaler Bunker Arbeiter ausbilden und Schrott zu Blech verarbeiten
 
-Gas-Mine (? Blech, ? Gas, ? Sekunden Bauzeit)
-- kann zerstört werden (? LP, hinterlässt ? Schrott)
+Gas-Mine (50 Blech, 10 Sekunden Bauzeit)
+- kann zerstört werden (10 LP)
+- kann nur an einem Gas-Vulkan gebaut werden
 - bis zu 2 Arbeiter können in die Mine geschickt werden
 - - jeder Arbeiter braucht 5 Sekunden um 5 Gas zu produzieren, das liegt dann in der Mine bereit aber muss noch von einem anderen Arbeiter zum Bunker gebracht werden
-- startet mit 1000 Gas
 
-Ausbildungszentrum (150 Blech, ? Sekunden Bauzeit)
-- kann zerstört werden (? LP, hinterlässt ? Schrott)
+Ausbildungszentrum (150 Blech, 10 Sekunden Bauzeit)
+- kann zerstört werden (10 LP)
 - kann Einheiten ausbilden
 
-Werkstatt (200 Blech, 5 Gas, ? Sekunden Bauzeit)
-- kann zerstört werden (? LP, hinterlässt ? Schrott)
+Werkstatt (200 Blech, 5 Gas, 10 Sekunden Bauzeit)
+- kann zerstört werden (10 LP)
 - kann Fahrzeuge bauen
 
 Schrotthaufen
 - startet mit 70 Schrott
 
+Gas-Vulkan
+- startet mit 1000 Gas
+
 UI
 - UI zeigt aktuelle Mengen an Schrott, Blech, Gas und Einheiten (irgendwo am oberen Bildschirmrand)
 - UI zeigt aktuelle Lebensenergie bei allen Einheiten und Gebäuden
+- unten links gibt's ne Minimap
+- unten rechts gibt's Buttons für das Bauen von Gebäuden und Einheiten
+- wenn man eine Einheit bauen will muss man den (oder die) Arbeiter/Schwertkämpfer dafür auswählen und erst dann geht der bzw. gehen die zu dem Ausbildungszentrum oder der Werkstatt um ausgebildet zu werden
+- Einheiten/Gebäude können mit Linksklick ausgewählt werden (mehrere gleichzeitig mit Box-Drag wie üblich bei RTS) und mit Rechtsklick bewegt werden oder etwas angreifen
+- ausgewählte Einheiten/Gebäude haben einen leicht durchsichtigen hellblauen Kreis unten um sie herum
 
 Start
 - man startet mit 12 Arbeitern und einem Bunker

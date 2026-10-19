@@ -8,7 +8,7 @@ public partial class NetworkManager : Node
 	private const int HostTeam = 0;
 	private const int ClientTeam = 1;
 	private const string MatchScenePath = "res://Maps/1v1.tscn";
-	private const string MainMenuScenePath = "res://UI/MainMenu.tscn";
+	private const string MainMenuScenePath = "res://Systems/UI/MainMenu.tscn";
 
 	[Signal] public delegate void StatusChangedEventHandler(string message);
 

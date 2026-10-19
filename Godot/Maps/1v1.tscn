@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://r4gnkwojjk5q" path="res://Assets/Textures/DirtGround/albedo.png" id="5_ahyi8"]
 [ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Assets/Textures/DirtGround/normal.png" id="6_jpeyo"]
 [ext_resource type="Script" uid="uid://b4edclrb5m8qq" path="res://Systems/MatchSetup.cs" id="7_match"]
-[ext_resource type="PackedScene" path="res://UI/Chat.tscn" id="8_chat"]
+[ext_resource type="PackedScene" path="res://Systems/UI/Chat.tscn" id="8_chat"]
 [ext_resource type="PackedScene" uid="uid://vr413h8yht0g" path="res://Assets/Models/neutral/bridge.glb" id="9_h4u8l"]
 [ext_resource type="PackedScene" uid="uid://h5l23gkty5dp" path="res://Assets/Models/neutral/haus.glb" id="10_v7mwd"]
 [ext_resource type="PackedScene" uid="uid://opa4viod83bf" path="res://Assets/Models/neutral/intakt.glb" id="11_d8knh"]
