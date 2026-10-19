@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Assets/Textures/DirtGround/normal.png" id="6_jpeyo"]
 [ext_resource type="Script" uid="uid://b4edclrb5m8qq" path="res://Systems/MatchSetup.cs" id="7_match"]
 [ext_resource type="PackedScene" path="res://UI/Chat.tscn" id="8_chat"]
+[ext_resource type="PackedScene" uid="uid://vr413h8yht0g" path="res://Assets/Models/neutral/bridge.glb" id="9_h4u8l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sun"]
 sky_top_color = Color(0.38, 0.52, 0.72, 1)
@@ -134,11 +135,22 @@ shadow_enabled = true
 directional_shadow_max_distance = 400.0
 
 [node name="Terrain3D" type="Terrain3D" parent="." unique_id=1185256570]
-data_directory = "res://MapData/1v1"
+data_directory = "res://Maps/MapData/1v1"
 material = SubResource("Terrain3DMaterial_h4u8l")
 assets = SubResource("Terrain3DAssets_t12tn")
 top_level = true
 metadata/_edit_lock_ = true
+
+[node name="NeutralObjects" type="Node3D" parent="." unique_id=1085229026]
+
+[node name="bridge1" parent="NeutralObjects" unique_id=1516621050 instance=ExtResource("9_h4u8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.522196, -0.10475439, -27.55343)
+
+[node name="bridge2" parent="NeutralObjects" unique_id=38988104 instance=ExtResource("9_h4u8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.52858, -0.10475439, -27.55343)
+
+[node name="bridge3" parent="NeutralObjects" unique_id=42543529 instance=ExtResource("9_h4u8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.538332, -0.10475439, -27.55343)
 
 [node name="StartPositions" type="Node3D" parent="." unique_id=1318460227]
 
