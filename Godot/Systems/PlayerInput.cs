@@ -226,8 +226,9 @@ public partial class PlayerInput : Control
 	{
 		RaycastFromMouse(Entity.WorldLayer, out Vector3 groundPoint);
 		BuildingType type = Match.Instance.BuildingTypes[_placingBuildingType];
-		bool canPlace = Match.Instance.CanPlaceBuilding(type, groundPoint, out Vector3 placedPosition);
+		bool canPlace = Match.Instance.CanPlaceBuilding(type, groundPoint, out Vector3 placedPosition, out float placedRotation);
 		_ghost.GlobalPosition = placedPosition;
+		_ghost.Rotation = new Vector3(0, placedRotation, 0);
 		_ghostRingMaterial.AlbedoColor = canPlace ? CanPlaceColor : CannotPlaceColor;
 	}
 
@@ -235,7 +236,7 @@ public partial class PlayerInput : Control
 	{
 		RaycastFromMouse(Entity.WorldLayer, out Vector3 groundPoint);
 		BuildingType type = Match.Instance.BuildingTypes[_placingBuildingType];
-		if (!Match.Instance.CanPlaceBuilding(type, groundPoint, out _))
+		if (!Match.Instance.CanPlaceBuilding(type, groundPoint, out _, out _))
 			return;
 
 		Match.Instance.Commands.PlaceBuilding(SelectedOwnUnits().OfType<Worker>(), _placingBuildingType, groundPoint);

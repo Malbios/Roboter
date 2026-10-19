@@ -59,7 +59,7 @@ public partial class PlayerCommands : Node
 
 		List<Worker> workers = OwnUnits(workerPaths).OfType<Worker>().ToList();
 		BuildingType type = Match.Instance.BuildingTypes[buildingTypeIndex];
-		if (workers.Count == 0 || !Match.Instance.CanPlaceBuilding(type, position, out Vector3 placedPosition))
+		if (workers.Count == 0 || !Match.Instance.CanPlaceBuilding(type, position, out Vector3 placedPosition, out float placedRotation))
 			return;
 
 		if (!Match.Instance.ResourcesOf(SenderTeam()).TrySpend(type.CostMetal, type.CostGas))
@@ -67,6 +67,7 @@ public partial class PlayerCommands : Node
 
 		Building building = Match.Instance.CreateBuilding<Building>(type.Scene, SenderTeam(), placedPosition);
 		building.BuildProgress = 0;
+		building.Rotation = new Vector3(0, placedRotation, 0);
 		Match.Instance.AddEntity(building);
 
 		foreach (Worker worker in workers)

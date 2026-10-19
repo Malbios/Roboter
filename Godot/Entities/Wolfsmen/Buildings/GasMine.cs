@@ -17,7 +17,7 @@ public partial class GasMine : Building
 	public override void _Ready()
 	{
 		base._Ready();
-		Volcano = Match.Instance.FindVolcanoAt(GlobalPosition);
+		Volcano = Match.Instance.FindVolcanoWithMineDockAt(GlobalPosition);
 		if (Volcano != null)
 			Volcano.Mine = this;
 	}
