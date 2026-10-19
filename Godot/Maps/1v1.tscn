@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://wx46ljp08jco"]
 
-[ext_resource type="Texture2D" uid="uid://dnxuagp5wb5e3" path="res://Textures/ground037_alb_ht.png" id="1_cr7dl"]
-[ext_resource type="Texture2D" uid="uid://hmvqf5hfykow" path="res://Textures/ground037_nrm_rgh.png" id="2_s2l8y"]
-[ext_resource type="Texture2D" uid="uid://dcna80wxxqhou" path="res://Textures/rock023_alb_ht.png" id="3_l775r"]
-[ext_resource type="Texture2D" uid="uid://cgko04o4ijal7" path="res://Textures/rock023_nrm_rgh.png" id="4_ahyi8"]
-[ext_resource type="Texture2D" uid="uid://r4gnkwojjk5q" path="res://Textures/DirtGround/albedo.png" id="5_ahyi8"]
-[ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="5_s2l8y"]
-[ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Textures/DirtGround/normal.png" id="6_jpeyo"]
+[ext_resource type="Texture2D" uid="uid://dnxuagp5wb5e3" path="res://Assets/Textures/ground037_alb_ht.png" id="1_cr7dl"]
+[ext_resource type="Texture2D" uid="uid://hmvqf5hfykow" path="res://Assets/Textures/ground037_nrm_rgh.png" id="2_s2l8y"]
+[ext_resource type="Texture2D" uid="uid://dcna80wxxqhou" path="res://Assets/Textures/rock023_alb_ht.png" id="3_l775r"]
+[ext_resource type="Texture2D" uid="uid://cgko04o4ijal7" path="res://Assets/Textures/rock023_nrm_rgh.png" id="4_ahyi8"]
+[ext_resource type="Texture2D" uid="uid://r4gnkwojjk5q" path="res://Assets/Textures/DirtGround/albedo.png" id="5_ahyi8"]
+[ext_resource type="Texture2D" uid="uid://dpu3sp22kgj4p" path="res://Assets/Textures/DirtGround/normal.png" id="6_jpeyo"]
 [ext_resource type="Script" uid="uid://b4edclrb5m8qq" path="res://Systems/MatchSetup.cs" id="7_match"]
 [ext_resource type="PackedScene" path="res://UI/Chat.tscn" id="8_chat"]
 
@@ -28,11 +27,11 @@ tonemap_mode = 2
 ssao_enabled = true
 glow_enabled = true
 
-[sub_resource type="Gradient" id="Gradient_5f77f"]
+[sub_resource type="Gradient" id="Gradient_8ynj1"]
 offsets = PackedFloat32Array(0.2, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5satc"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hf21m"]
 noise_type = 2
 frequency = 0.03
 cellular_jitter = 3.0
@@ -44,12 +43,12 @@ domain_warp_fractal_type = 2
 domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4ngd7"]
-noise = SubResource("FastNoiseLite_5satc")
-color_ramp = SubResource("Gradient_5f77f")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jjysl"]
+noise = SubResource("FastNoiseLite_hf21m")
+color_ramp = SubResource("Gradient_8ynj1")
 seamless = true
 
-[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_bvhng"]
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_h4u8l"]
 _shader_parameters = {
 &"bias_distance": null,
 &"blend_sharpness": null,
@@ -65,9 +64,18 @@ _shader_parameters = {
 &"noise1_offset": null,
 &"noise1_scale": null,
 &"noise2_scale": null,
-&"noise_texture": SubResource("NoiseTexture2D_4ngd7"),
-&"projection_threshold": null
+&"noise_texture": SubResource("NoiseTexture2D_jjysl"),
+&"projection_threshold": null,
+&"world_noise_fragment_normals": null,
+&"world_noise_height": null,
+&"world_noise_lod_distance": null,
+&"world_noise_max_octaves": null,
+&"world_noise_min_octaves": null,
+&"world_noise_offset": null,
+&"world_noise_region_blend": null,
+&"world_noise_scale": null
 }
+world_background = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s2l8y"]
 transparency = 4
@@ -91,51 +99,51 @@ lod0_range = 128.0
 name = "ground037_alb_ht"
 albedo_texture = ExtResource("1_cr7dl")
 normal_texture = ExtResource("2_s2l8y")
+uv_scale = 1.0
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_h4u8l"]
 name = "rock023_alb_ht"
 id = 1
 albedo_texture = ExtResource("3_l775r")
 normal_texture = ExtResource("4_ahyi8")
+uv_scale = 1.0
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_ahyi8"]
 name = "albedo"
 id = 2
 albedo_texture = ExtResource("5_ahyi8")
 normal_texture = ExtResource("6_jpeyo")
+uv_scale = 1.0
 
-[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_l775r"]
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_t12tn"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_l775r")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_jpeyo"), SubResource("Terrain3DTextureAsset_h4u8l"), SubResource("Terrain3DTextureAsset_ahyi8")])
 
 [node name="1v1" type="Node3D" unique_id=800020185]
 script = ExtResource("7_match")
 
-[node name="StartPositions" type="Node3D" parent="." unique_id=1318460227]
-
-[node name="Team0" type="Marker3D" parent="StartPositions" unique_id=1772093518]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 150)
-
-[node name="Team1" type="Marker3D" parent="StartPositions" unique_id=1046528894]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 150, 0, -150)
+[node name="Chat" parent="." unique_id=1590334871 instance=ExtResource("8_chat")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1427705113]
 environment = SubResource("Environment_sun")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1680213347]
-transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 50, 0)
+transform = Transform3D(0.8660253, -0.35355332, 0.35355374, 0, 0.70710725, 0.7071064, -0.50000024, -0.61237204, 0.61237276, 35.343784, 119.834404, -67.3988)
 light_color = Color(0.5294118, 0.36862746, 0.11372549, 1)
 shadow_enabled = true
 directional_shadow_max_distance = 400.0
 
-[node name="Terrain3D" type="Terrain3D" parent="." unique_id=1939374240]
-data_directory = "res://MapData"
-material = SubResource("Terrain3DMaterial_bvhng")
-assets = SubResource("Terrain3DAssets_l775r")
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=1185256570]
+data_directory = "res://MapData/1v1"
+material = SubResource("Terrain3DMaterial_h4u8l")
+assets = SubResource("Terrain3DAssets_t12tn")
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="RtsController" parent="." unique_id=1007581704 instance=ExtResource("5_s2l8y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.225612, 4.3104305, -104.65922)
+[node name="StartPositions" type="Node3D" parent="." unique_id=1318460227]
 
-[node name="Chat" parent="." unique_id=1590334871 instance=ExtResource("8_chat")]
+[node name="Team0" type="Marker3D" parent="StartPositions" unique_id=1772093518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.723068, -1.5258789e-05, -156.76683)
+
+[node name="Team1" type="Marker3D" parent="StartPositions" unique_id=1046528894]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 119.920845, 0, -27.7751)

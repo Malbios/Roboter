@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c10hvs1t3p0cn"]
 
-[ext_resource type="PackedScene" uid="uid://d0kxp6whgd835" path="res://Models/wolfsmen/units/wolfsmen-sword-and-shield-warrior.glb" id="1_ja7m1"]
-[ext_resource type="Script" path="res://ScriptedModels/WalkingDummy.cs" id="2_wdscr"]
+[ext_resource type="PackedScene" uid="uid://d0kxp6whgd835" path="res://Assets/Models/wolfsmen/units/wolfsmen-sword-and-shield-warrior.glb" id="1_ja7m1"]
+[ext_resource type="Script" uid="uid://b8cdo3mtlq438" path="res://ScriptedModels/WalkingDummy.cs" id="2_wdscr"]
 [ext_resource type="PackedScene" path="res://ScriptedModels/slash.tscn" id="3_slash"]
 [ext_resource type="PackedScene" path="res://ScriptedModels/sparks.tscn" id="4_sparks"]
 

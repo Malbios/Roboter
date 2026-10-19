@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://u0pdp4xhniao"]
 
-[ext_resource type="PackedScene" uid="uid://0hcbtx1vc43e" path="res://Models/wolfsmen/buildings/wolfsmen-storage.glb" id="1_elqth"]
+[ext_resource type="PackedScene" uid="uid://0hcbtx1vc43e" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-storage.glb" id="1_elqth"]
 
 [node name="StorageAnimationTest" type="Node3D" unique_id=650133649]
 
