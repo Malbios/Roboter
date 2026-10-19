@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwhdctyxelhi8"
-path="res://.godot/imported/gekreuzte-schwerter.svg-4bcf57d1d99eb34a9a8a63cbde51c3ff.ctex"
+path="res://.godot/imported/gekreuzte-schwerter.svg-f2f1cf319946d0c3e11d3ee51cd3d8f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gekreuzte-schwerter.svg"
-dest_files=["res://.godot/imported/gekreuzte-schwerter.svg-4bcf57d1d99eb34a9a8a63cbde51c3ff.ctex"]
+source_file="res://Assets/gekreuzte-schwerter.svg"
+dest_files=["res://.godot/imported/gekreuzte-schwerter.svg-f2f1cf319946d0c3e11d3ee51cd3d8f4.ctex"]
 
 [params]
 
