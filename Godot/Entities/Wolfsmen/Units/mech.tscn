@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://d342dbtvdhlci"]
+
+[ext_resource type="PackedScene" uid="uid://ccqau7i4tan8w" path="res://Assets/Models/wolfsmen/units/wolfsmen-mech-vehicle.glb" id="1_g3rl2"]
+
+[node name="wolfsmen-mech-vehicle" unique_id=1440922708 instance=ExtResource("1_g3rl2")]

@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b0hon6dsgyoif"]
+
+[ext_resource type="PackedScene" uid="uid://d0kxp6whgd835" path="res://Assets/Models/wolfsmen/units/wolfsmen-sword-and-shield-warrior.glb" id="1_yr55x"]
+
+[node name="wolfsmen-sword-and-shield-warrior" unique_id=1126963107 instance=ExtResource("1_yr55x")]

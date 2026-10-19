@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://dmomqfm2hbtrp"]
 
 [ext_resource type="PackedScene" uid="uid://da41j4nlcekaf" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-bunker-upgraded.glb" id="1_c02qk"]
-[ext_resource type="Script" uid="uid://cxv0wuwafs8gx" path="res://ScriptedModels/WolfsmenBunkerUpgraded.cs" id="2_egpbm"]
-[ext_resource type="PackedScene" path="res://ScriptedModels/bullet.tscn" id="3_bullet"]
-[ext_resource type="PackedScene" path="res://ScriptedModels/explosion.tscn" id="4_explo"]
+[ext_resource type="Script" uid="uid://cxv0wuwafs8gx" path="res://Testing/WolfsmenBunkerUpgraded.cs" id="2_egpbm"]
+[ext_resource type="PackedScene" path="res://Testing/bullet.tscn" id="3_bullet"]
+[ext_resource type="PackedScene" path="res://Testing/explosion.tscn" id="4_explo"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
 height = 4.65
 radius = 1.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vcp2d"]
-radius = 4.663965
+radius = 4.5
 
 [node name="wolfsmen-bunker-upgraded" type="StaticBody3D" unique_id=339193742]
 script = ExtResource("2_egpbm")

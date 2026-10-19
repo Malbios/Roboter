@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bfs4gkppx77j0"]
+
+[ext_resource type="PackedScene" uid="uid://cwndsevo7v2jv" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-gas-mine.glb" id="1_srxd0"]
+
+[node name="wolfsmen-gas-mine" unique_id=791156885 instance=ExtResource("1_srxd0")]

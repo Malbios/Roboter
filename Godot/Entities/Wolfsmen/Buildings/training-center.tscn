@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bai28pmwqi08m"]
+
+[ext_resource type="PackedScene" uid="uid://qnpxr1clvddv" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-training-grounds.glb" id="1_k03tt"]
+
+[node name="wolfsmen-training-grounds" unique_id=1728590721 instance=ExtResource("1_k03tt")]

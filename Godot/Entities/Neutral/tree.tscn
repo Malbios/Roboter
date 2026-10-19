@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://3w8l1ors8ou4"]
+
+[ext_resource type="PackedScene" uid="uid://hleh8sqqaupx" path="res://Assets/Models/neutral/baum.glb" id="1_gerwm"]
+
+[node name="baum" unique_id=65572792 instance=ExtResource("1_gerwm")]

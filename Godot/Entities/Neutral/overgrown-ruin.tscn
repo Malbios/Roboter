@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ch4wobl1p608x"]
+
+[ext_resource type="PackedScene" uid="uid://opa4viod83bf" path="res://Assets/Models/neutral/intakt.glb" id="1_mjrlg"]
+
+[node name="intakt" unique_id=257788569 instance=ExtResource("1_mjrlg")]

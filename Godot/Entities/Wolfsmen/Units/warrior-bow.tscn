@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://fhyonl3jvcql"]
+
+[ext_resource type="PackedScene" uid="uid://kot2ndqw6ok1" path="res://Assets/Models/wolfsmen/units/wolfsmen-bow-warrior.glb" id="1_xbgfo"]
+
+[node name="wolfsmen-bow-warrior" unique_id=1209570124 instance=ExtResource("1_xbgfo")]

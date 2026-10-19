@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c28cqgec7rbhn"]
 
-[ext_resource type="PackedScene" uid="uid://dmomqfm2hbtrp" path="res://ScriptedModels/wolfsmen-bunker-upgraded.tscn" id="1_hdlfs"]
-[ext_resource type="PackedScene" uid="uid://c10hvs1t3p0cn" path="res://ScriptedModels/walking-dummy.tscn" id="2_hdlfs"]
+[ext_resource type="PackedScene" uid="uid://dmomqfm2hbtrp" path="res://Testing/wolfsmen-bunker-upgraded.tscn" id="1_hdlfs"]
+[ext_resource type="PackedScene" uid="uid://c10hvs1t3p0cn" path="res://Testing/walking-dummy.tscn" id="2_hdlfs"]
 [ext_resource type="PackedScene" uid="uid://bmyecm564mn5l" path="res://Systems/RtsController.tscn" id="3_rts"]
 
 [sub_resource type="Environment" id="Environment_tt"]

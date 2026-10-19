@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://ScriptedModels/Slash.cs" id="1_slash"]
-[ext_resource type="Texture2D" path="res://Textures/slash.png" id="2_slash"]
+[ext_resource type="Script" uid="uid://bbo0x8j47ur4o" path="res://Testing/Slash.cs" id="1_slash"]
+[ext_resource type="Texture2D" uid="uid://sa3pise17fr4" path="res://Assets/Textures/slash.png" id="2_slash"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_slash"]
 size = Vector2(1.4, 1.4)
