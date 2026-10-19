@@ -8,6 +8,9 @@ public partial class NetworkManager : Node
 	private const int MaxClients = 1;
 	private const int HostTeam = 0;
 	private const int ClientTeam = 1;
+	private const int HostPeerId = 1;
+	private const int ENetTimeoutLimit = 32;
+	private const int PeerTimeoutMilliseconds = 60000;
 	private const string MatchScenePath = "res://Maps/1v1.tscn";
 	private const string MainMenuScenePath = "res://UI/MainMenu.tscn";
 	private const string LoadingScreenScenePath = "res://UI/LoadingScreen.tscn";
@@ -34,7 +37,7 @@ public partial class NetworkManager : Node
 		AddChild(_loadingScreen);
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
-		Multiplayer.ConnectedToServer += () => SetStatus("Connected, waiting for the host to start...");
+		Multiplayer.ConnectedToServer += OnConnectedToServer;
 		Multiplayer.ConnectionFailed += () => ReturnToMainMenu("Could not connect to host.");
 		Multiplayer.ServerDisconnected += () => ReturnToMainMenu("Lost connection to host.");
 	}
@@ -102,7 +105,21 @@ public void MatchHasStarted()
 			return;
 
 		_teamsByPeer[peerId] = ClientTeam;
+		WaitLongerBeforeGivingUpOn(peerId);
 		Rpc(MethodName.StartMatch, new Godot.Collections.Dictionary<long, int>(_teamsByPeer));
+	}
+
+	private void OnConnectedToServer()
+	{
+		WaitLongerBeforeGivingUpOn(HostPeerId);
+		SetStatus("Connected, waiting for the host to start...");
+	}
+
+	// While a game builds the big map it can't answer for a few seconds, and ENet would drop it after about 5 s.
+	private void WaitLongerBeforeGivingUpOn(long peerId)
+	{
+		var enet = (ENetMultiplayerPeer)Multiplayer.MultiplayerPeer;
+		enet.GetPeer((int)peerId).SetTimeout(ENetTimeoutLimit, PeerTimeoutMilliseconds, PeerTimeoutMilliseconds);
 	}
 
 	private void OnPeerDisconnected(long peerId)
