@@ -39,6 +39,9 @@ properties/8/replication_mode = 2
 properties/9/path = NodePath(".:StoredGas")
 properties/9/spawn = true
 properties/9/replication_mode = 2
+properties/10/path = NodePath(".:CarrierCount")
+properties/10/spawn = true
+properties/10/replication_mode = 2
 
 [node name="GasMine" type="StaticBody3D"]
 collision_layer = 4

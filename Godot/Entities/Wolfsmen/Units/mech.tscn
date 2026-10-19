@@ -31,7 +31,7 @@ DisplayName = "Mech"
 Kind = 6
 MaxHealth = 20
 Health = 20
-Speed = 2
+Speed = 10
 Radius = 1
 HealthBarHeight = 2.3
 AttackRange = 3
@@ -49,9 +49,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.005, 0)
 shape = SubResource("CapsuleShape3D_body")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_desired_distance = 1.0
-target_desired_distance = 0.4
-path_height_offset = 0.5
 avoidance_enabled = true
 radius = 1
 

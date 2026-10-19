@@ -19,6 +19,9 @@ public partial class Unit : CharacterBody3D, IDamageable
 {
 	private const float LookForEnemiesInterval = 0.5f;
 	private const float ArrivalDistance = 0.5f;
+	private const float WaypointReachedMargin = 0.1f;
+	private const float GiveUpOnWaypointAfter = 0.5f;
+	private const float NoticeableProgress = 0.05f;
 
 	[Export] public string DisplayName { get; set; } = "Einheit";
 	[Export] public UnitKind Kind { get; set; }
@@ -48,6 +51,13 @@ public partial class Unit : CharacterBody3D, IDamageable
 	private float _attackCooldown;
 	private float _lookForEnemiesTimer;
 	private MeshInstance3D _selectionCircle;
+	private Vector3[] _path = [];
+	private int _nextWaypoint;
+	private Vector3 _pathDestination;
+	private float _closestDistanceToWaypoint;
+	private float _noProgressTimer;
+	private Vector3 _positionOnNavigationMesh;
+	private float _climbSpeed;
 
 	public override void _Ready()
 	{
@@ -57,6 +67,7 @@ public partial class Unit : CharacterBody3D, IDamageable
 		NavAgent.MaxSpeed = Speed;
 		NavAgent.VelocityComputed += OnVelocityComputed;
 		NavAgent.AvoidanceEnabled = Multiplayer.IsServer();
+		_positionOnNavigationMesh = Match.Instance.WalkablePointUnder(GlobalPosition);
 		_selectionCircle = SelectionCircle.AddTo(this, Radius);
 		FogOfWar.Instance.ShowOrHide(this);
 	}
@@ -87,7 +98,7 @@ public partial class Unit : CharacterBody3D, IDamageable
 	public void MoveTo(Vector3 point)
 	{
 		_moveTarget = point;
-		NavAgent.TargetPosition = point;
+		FindPathTo(point);
 		State = UnitState.Moving;
 	}
 
@@ -141,20 +152,52 @@ public partial class Unit : CharacterBody3D, IDamageable
 		}
 	}
 
+	// The unit walks from waypoint to waypoint along a path on the navigation mesh.
+	// It also follows the height of the path, so it stays on the right level (on a bridge, not under it).
 	protected void WalkTo(Vector3 destination)
 	{
-		if (NavAgent.TargetPosition.DistanceTo(destination) > 0.5f)
-			NavAgent.TargetPosition = destination;
+		float delta = (float)GetPhysicsProcessDeltaTime();
+		bool destinationMoved = Entity.FlatDistance(_pathDestination, destination) > 0.5f;
+		if (destinationMoved)
+			FindPathTo(destination);
 
-		Vector3 nextPoint = NavAgent.GetNextPathPosition();
-		Vector3 direction = nextPoint - GlobalPosition;
-		direction.Y = 0;
-		NavAgent.Velocity = direction.Normalized() * Speed;
+		// A waypoint only counts when the unit really is there, otherwise it could cut a corner into a wall.
+		float waypointReachedDistance = WaypointReachedMargin + Speed * delta;
+		while (!IsPathFinished() && Entity.FlatDistance(GlobalPosition, _path[_nextWaypoint]) <= waypointReachedDistance)
+			GoToNextWaypoint();
+
+		if (!IsPathFinished() && IsStuckOnWaypoint(delta))
+			GoToNextWaypoint();
+
+		if (IsPathFinished())
+		{
+			StandStill();
+			return;
+		}
+
+		Vector3 nextWaypoint = _path[_nextWaypoint];
+		Vector3 flatDirection = new Vector3(nextWaypoint.X - GlobalPosition.X, 0, nextWaypoint.Z - GlobalPosition.Z).Normalized();
+		float flatDistance = Entity.FlatDistance(_positionOnNavigationMesh, nextWaypoint);
+		_climbSpeed = (nextWaypoint.Y - _positionOnNavigationMesh.Y) / flatDistance * Speed;
+		RequestVelocity(flatDirection * Speed);
+	}
+
+	protected bool IsPathFinished()
+	{
+		return _nextWaypoint >= _path.Length;
 	}
 
 	protected void StandStill()
 	{
-		NavAgent.Velocity = Vector3.Zero;
+		_climbSpeed = 0;
+		RequestVelocity(Vector3.Zero);
+	}
+
+	// The navigation server adjusts the wanted velocity so units walk around each other
+	// and sends the result back to OnVelocityComputed.
+	private void RequestVelocity(Vector3 wantedVelocity)
+	{
+		NavigationServer3D.AgentSetVelocity(NavAgent.GetRid(), wantedVelocity);
 	}
 
 	protected void FaceTowards(Vector3 point)
@@ -171,9 +214,40 @@ public partial class Unit : CharacterBody3D, IDamageable
 	protected bool HasArrivedAt(Node3D target)
 	{
 		bool isCloseEnough = Entity.EdgeDistance(this, target) <= ArrivalDistance;
-		bool isWalkingToTarget = NavAgent.TargetPosition.DistanceTo(target.GlobalPosition) <= 0.5f;
-		bool cannotGetAnyCloser = isWalkingToTarget && NavAgent.IsNavigationFinished();
+		bool isWalkingToTarget = Entity.FlatDistance(_pathDestination, target.GlobalPosition) <= 0.5f;
+		bool cannotGetAnyCloser = isWalkingToTarget && IsPathFinished();
 		return isCloseEnough || cannotGetAnyCloser;
+	}
+
+	private void FindPathTo(Vector3 destination)
+	{
+		_path = NavigationServer3D.MapGetPath(GetWorld3D().NavigationMap, _positionOnNavigationMesh, destination, true);
+		_nextWaypoint = -1;
+		_pathDestination = destination;
+		GoToNextWaypoint();
+	}
+
+	private void GoToNextWaypoint()
+	{
+		_nextWaypoint += 1;
+		_closestDistanceToWaypoint = float.MaxValue;
+		_noProgressTimer = 0;
+	}
+
+	// Other units or a tight corner can keep a unit from ever reaching a waypoint.
+	// If it doesn't get any closer for a moment, it gives up on that waypoint and walks to the next one.
+	private bool IsStuckOnWaypoint(float delta)
+	{
+		float distance = Entity.FlatDistance(GlobalPosition, _path[_nextWaypoint]);
+		if (distance < _closestDistanceToWaypoint - NoticeableProgress)
+		{
+			_closestDistanceToWaypoint = distance;
+			_noProgressTimer = 0;
+			return false;
+		}
+
+		_noProgressTimer += delta;
+		return _noProgressTimer > GiveUpOnWaypointAfter;
 	}
 
 	private void OnVelocityComputed(Vector3 safeVelocity)
@@ -181,22 +255,22 @@ public partial class Unit : CharacterBody3D, IDamageable
 		if (safeVelocity.Length() < 0.01f)
 			return;
 
+		// Units move along the navigation mesh, and their model stands on the real ground below it.
 		float delta = (float)GetPhysicsProcessDeltaTime();
-		Vector3 newPosition = GlobalPosition + safeVelocity * delta;
-		GlobalPosition = Match.Instance.SnapToGround(newPosition);
+		Vector3 step = (safeVelocity + Vector3.Up * _climbSpeed) * delta;
+		_positionOnNavigationMesh = Match.Instance.ClosestPointOnNavigationMesh(_positionOnNavigationMesh + step);
+		GlobalPosition = Match.Instance.GroundUnder(_positionOnNavigationMesh);
 		FaceTowards(GlobalPosition + safeVelocity);
 	}
 
 	private void UpdateMoving()
 	{
-		if (Entity.FlatDistance(GlobalPosition, _moveTarget) <= ArrivalDistance || NavAgent.IsNavigationFinished())
+		WalkTo(_moveTarget);
+		if (Entity.FlatDistance(GlobalPosition, _moveTarget) <= ArrivalDistance || IsPathFinished())
 		{
 			State = UnitState.Idle;
 			StandStill();
-			return;
 		}
-
-		WalkTo(_moveTarget);
 	}
 
 	private void UpdateAttacking()

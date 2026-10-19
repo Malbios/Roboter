@@ -4,23 +4,16 @@ public partial class GasVolcano : StaticBody3D, IEntity
 {
 	[Export] public int Gas { get; set; } = 1000;
 	[Export] public float Radius { get; set; } = 2;
+	// The gas mine is built against the volcano: its back (-Z side) touches the volcano's front (+Z side).
+	[Export] public float MineDockingDistance { get; set; } = 2.85f;
 
 	public GasMine Mine { get; set; }
 	public bool HasMine => Entity.IsInstanceValid(Mine) && !Mine.IsQueuedForDeletion();
-
-	private Node3D _model;
+	public Vector3 MineDockPosition => GlobalPosition + GlobalBasis.Z.Normalized() * MineDockingDistance;
 
 	public override void _Ready()
 	{
 		AddToGroup("GasVolcanoes");
-		_model = GetNode<Node3D>("Model");
-	}
-
-	public override void _Process(double delta)
-	{
-		bool mineIsShownOnTop = HasMine && Mine.Visible;
-		_model.Visible = !mineIsShownOnTop;
-		CollisionLayer = mineIsShownOnTop ? 0 : Entity.NeutralLayer;
 	}
 
 	public int Take(int wanted)

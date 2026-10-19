@@ -8,6 +8,7 @@ public partial class Match : Node3D
 	private const float LoseCheckInterval = 1;
 	private const float WorkerRingDistance = 2;
 	private const float ExtraUnitRingDistance = 4.5f;
+	private const float VolcanoSearchDistance = 4;
 
 	[Signal] public delegate void GameOverEventHandler(int losingTeam);
 
@@ -104,8 +105,26 @@ public partial class Match : Node3D
 
 	public Vector3 SnapToGround(Vector3 position)
 	{
-		Vector3 onNavigationMesh = NavigationServer3D.MapGetClosestPoint(GetWorld3D().NavigationMap, position);
-		return GroundBelow(onNavigationMesh) ?? onNavigationMesh;
+		return GroundUnder(WalkablePointUnder(position));
+	}
+
+	public Vector3 ClosestPointOnNavigationMesh(Vector3 position)
+	{
+		return NavigationServer3D.MapGetClosestPoint(GetWorld3D().NavigationMap, position);
+	}
+
+	// Looks straight up and down from the position, so things placed on the ground find the walkable
+	// surface right under them instead of the edge of a slope next to them.
+	public Vector3 WalkablePointUnder(Vector3 position)
+	{
+		Vector3 above = position + Vector3.Up * 2;
+		Vector3 below = position + Vector3.Down * 2;
+		return NavigationServer3D.MapGetClosestPointToSegment(GetWorld3D().NavigationMap, above, below);
+	}
+
+	public Vector3 GroundUnder(Vector3 pointOnNavigationMesh)
+	{
+		return GroundBelow(pointOnNavigationMesh) ?? pointOnNavigationMesh;
 	}
 
 	public Unit CreateUnit(PackedScene scene, int team, Vector3 position)
@@ -195,39 +214,48 @@ public partial class Match : Node3D
 			.FirstOrDefault();
 	}
 
-	public GasVolcano FindVolcanoAt(Vector3 position)
+	public GasVolcano FindVolcanoNear(Vector3 position)
 	{
 		return GetTree().GetNodesInGroup("GasVolcanoes").OfType<GasVolcano>()
-			.Where(volcano => Entity.FlatDistance(volcano.GlobalPosition, position) <= volcano.Radius + 1)
+			.Where(volcano => Entity.FlatDistance(volcano.GlobalPosition, position) <= volcano.Radius + VolcanoSearchDistance)
 			.OrderBy(volcano => Entity.FlatDistance(volcano.GlobalPosition, position))
 			.FirstOrDefault();
 	}
 
-	public bool CanPlaceBuilding(BuildingType type, Vector3 position, out Vector3 placedPosition)
+	public GasVolcano FindVolcanoWithMineDockAt(Vector3 minePosition)
+	{
+		return GetTree().GetNodesInGroup("GasVolcanoes").OfType<GasVolcano>()
+			.FirstOrDefault(volcano => Entity.FlatDistance(volcano.MineDockPosition, minePosition) < 0.5f);
+	}
+
+	public bool CanPlaceBuilding(BuildingType type, Vector3 position, out Vector3 placedPosition, out float placedRotation)
 	{
 		placedPosition = position;
+		placedRotation = 0;
+		GasVolcano dockingVolcano = null;
 
 		if (type.Kind == BuildingKind.GasMine)
 		{
-			GasVolcano volcano = FindVolcanoAt(position);
-			if (volcano == null || volcano.HasMine)
+			dockingVolcano = FindVolcanoNear(position);
+			if (dockingVolcano == null || dockingVolcano.HasMine)
 				return false;
 
-			placedPosition = volcano.GlobalPosition;
-			return true;
+			placedPosition = dockingVolcano.MineDockPosition;
+			placedRotation = dockingVolcano.GlobalRotation.Y;
 		}
 
-		if (Entity.FlatDistance(SnapToGround(position), position) > 0.5f)
+		if (Entity.FlatDistance(SnapToGround(placedPosition), placedPosition) > 0.5f)
 			return false;
 
 		IEnumerable<Node3D> obstacles = GetTree().GetNodesInGroup("Buildings").OfType<Node3D>()
 			.Concat(GetTree().GetNodesInGroup("ScrapPiles").OfType<Node3D>())
 			.Concat(GetTree().GetNodesInGroup("GasVolcanoes").OfType<Node3D>())
-			.Concat(GetTree().GetNodesInGroup("Obstacles").OfType<Node3D>());
+			.Concat(GetTree().GetNodesInGroup("Obstacles").OfType<Node3D>())
+			.Where(obstacle => obstacle != dockingVolcano);
 
 		foreach (Node3D obstacle in obstacles)
 		{
-			if (Entity.FlatDistance(obstacle.GlobalPosition, position) < type.Radius + Entity.RadiusOf(obstacle))
+			if (Entity.FlatDistance(obstacle.GlobalPosition, placedPosition) < type.Radius + Entity.RadiusOf(obstacle))
 				return false;
 		}
 		return true;
@@ -317,6 +345,8 @@ public partial class Match : Node3D
 	{
 		if (team != NetworkManager.Instance.LocalTeam)
 			return;
+
+		NetworkManager.Instance.MatchHasStarted();
 
 		Node3D camera = GetNode<Node3D>("RtsController");
 		camera.GlobalPosition = position;
