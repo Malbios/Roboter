@@ -1,5 +1,19 @@
 [gd_scene format=3 uid="uid://5fbofhxfbs1l"]
 
-[ext_resource type="PackedScene" uid="uid://db1bp7n3nrx5x" path="res://Assets/Models/neutral/ruine1.glb" id="1_5dx3j"]
+[ext_resource type="PackedScene" uid="uid://db1bp7n3nrx5x" path="res://Assets/Models/neutral/ruine1.glb" id="1_model"]
+[ext_resource type="Script" path="res://Entities/Neutral/Obstacle.cs" id="2_script"]
 
-[node name="ruine1" unique_id=1555941842 instance=ExtResource("1_5dx3j")]
+[sub_resource type="BoxShape3D" id="Shape_body"]
+size = Vector3(2.87, 2.79, 1.67)
+
+[node name="AncientRuin" type="StaticBody3D" groups=["navigation_source"]]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("2_script")
+Radius = 1.6
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 1.4, -0.19)
+shape = SubResource("Shape_body")

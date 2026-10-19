@@ -1,5 +1,20 @@
 [gd_scene format=3 uid="uid://3w8l1ors8ou4"]
 
-[ext_resource type="PackedScene" uid="uid://hleh8sqqaupx" path="res://Assets/Models/neutral/baum.glb" id="1_gerwm"]
+[ext_resource type="PackedScene" uid="uid://hleh8sqqaupx" path="res://Assets/Models/neutral/baum.glb" id="1_model"]
+[ext_resource type="Script" path="res://Entities/Neutral/Obstacle.cs" id="2_script"]
 
-[node name="baum" unique_id=65572792 instance=ExtResource("1_gerwm")]
+[sub_resource type="CylinderShape3D" id="Shape_body"]
+height = 3.0
+radius = 0.35
+
+[node name="Tree" type="StaticBody3D" groups=["navigation_source"]]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("2_script")
+Radius = 0.5
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("Shape_body")
