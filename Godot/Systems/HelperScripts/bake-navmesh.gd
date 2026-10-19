@@ -7,10 +7,13 @@ extends SceneTree
 
 const SOURCE_GROUP := "navigation_source"
 const FRAMES_TO_WAIT_FOR_TERRAIN := 3
+const MAX_DISTANCE_FROM_NAVMESH := 1.0
 
 var map: Node
 var output_path: String
 var frames_waited := 0
+var is_baked := false
+var navigation_iteration_at_bake := 0
 
 
 func _init() -> void:
@@ -31,9 +34,15 @@ func _init() -> void:
 
 func _process(_delta: float) -> bool:
 	frames_waited += 1
-	if frames_waited < FRAMES_TO_WAIT_FOR_TERRAIN:
-		return false
+	if frames_waited == FRAMES_TO_WAIT_FOR_TERRAIN:
+		bake()
+	elif is_baked and NavigationServer3D.map_get_iteration_id(navigation_map()) > navigation_iteration_at_bake:
+		warn_about_unreachable_objects()
+		quit()
+	return false
 
+
+func bake() -> void:
 	var nav_mesh := create_nav_mesh()
 	var source := NavigationMeshSourceGeometryData3D.new()
 	NavigationServer3D.parse_source_geometry_data(nav_mesh, source, map)
@@ -47,8 +56,41 @@ func _process(_delta: float) -> bool:
 
 	var error := ResourceSaver.save(nav_mesh, output_path, ResourceSaver.FLAG_COMPRESS)
 	print("Saved %s: %s" % [output_path, error_string(error)])
-	quit(0 if error == OK else 1)
-	return true
+	if error != OK:
+		quit(1)
+		return
+
+	var region := map.get_node_or_null("NavigationRegion3D")
+	if region == null:
+		region = NavigationRegion3D.new()
+		map.add_child(region)
+	navigation_iteration_at_bake = NavigationServer3D.map_get_iteration_id(navigation_map())
+	region.navigation_mesh = nav_mesh
+	is_baked = true
+
+
+func navigation_map() -> RID:
+	return map.get_world_3d().navigation_map
+
+
+func warn_about_unreachable_objects() -> void:
+	var nav_map := navigation_map()
+	var objects: Array[Node] = []
+	objects.append_array(get_nodes_in_group("ScrapPiles"))
+	objects.append_array(get_nodes_in_group("GasVolcanoes"))
+	var start_positions := map.get_node_or_null("StartPositions")
+	if start_positions:
+		objects.append_array(start_positions.get_children())
+
+	var unreachable_count := 0
+	for object in objects:
+		var position: Vector3 = object.global_position
+		var closest := NavigationServer3D.map_get_closest_point(nav_map, position)
+		var distance := Vector2(closest.x - position.x, closest.z - position.z).length()
+		if distance > MAX_DISTANCE_FROM_NAVMESH:
+			unreachable_count += 1
+			push_warning("%s at %s is %.1f m away from walkable ground" % [object.name, position, distance])
+	print("Unreachable scrap piles, gas volcanoes and start positions: %d" % unreachable_count)
 
 
 func create_nav_mesh() -> NavigationMesh:
@@ -57,8 +99,8 @@ func create_nav_mesh() -> NavigationMesh:
 	nav_mesh.cell_height = 0.25
 	nav_mesh.agent_radius = 0.5
 	nav_mesh.agent_height = 1.5
-	nav_mesh.agent_max_climb = 0.5
-	nav_mesh.agent_max_slope = 40.0
+	nav_mesh.agent_max_climb = 1.0
+	nav_mesh.agent_max_slope = 50.0
 	nav_mesh.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_BOTH
 	nav_mesh.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	nav_mesh.geometry_source_group_name = SOURCE_GROUP
