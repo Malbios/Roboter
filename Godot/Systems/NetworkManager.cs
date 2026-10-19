@@ -25,8 +25,10 @@ public partial class NetworkManager : Node
 	private readonly HashSet<long> _peersWithLoadedMatch = new();
 	private LoadingScreen _loadingScreen;
 	private bool _isLoadingMatch;
+	private bool _matchIsOver;
 
-	public int LocalTeam => GetTeam(Multiplayer.GetUniqueId());
+	// Remembered at match start, because after the other player left the closed connection can't be asked anymore.
+	public int LocalTeam { get; private set; } = HostTeam;
 
 	public bool AllPeersLoaded => Multiplayer.GetPeers().All(peerId => _peersWithLoadedMatch.Contains(peerId));
 
@@ -39,7 +41,7 @@ public partial class NetworkManager : Node
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
 		Multiplayer.ConnectedToServer += OnConnectedToServer;
 		Multiplayer.ConnectionFailed += () => ReturnToMainMenu("Could not connect to host.");
-		Multiplayer.ServerDisconnected += () => ReturnToMainMenu("Lost connection to host.");
+		Multiplayer.ServerDisconnected += OnServerDisconnected;
 	}
 
 public override void _Process(double delta)
@@ -91,6 +93,13 @@ public void MatchHasStarted()
 		_loadingScreen.HideScreen();
 	}
 
+	// Once the match is decided, the other player leaving no longer sends this player back to the menu,
+	// so the game-over screen stays until this player leaves too.
+	public void MatchHasEnded()
+	{
+		_matchIsOver = true;
+	}
+
 	public void LeaveMatch()
 	{
 		ReturnToMainMenu("");
@@ -124,8 +133,22 @@ public void MatchHasStarted()
 
 	private void OnPeerDisconnected(long peerId)
 	{
-		if (Multiplayer.IsServer())
+		if (Multiplayer.IsServer() && !_matchIsOver)
 			ReturnToMainMenu("Opponent disconnected.");
+	}
+
+	private void OnServerDisconnected()
+	{
+		if (!_matchIsOver)
+		{
+			ReturnToMainMenu("Lost connection to host.");
+			return;
+		}
+
+		// The closed connection complains every time it is asked something, so the rest of the match runs offline.
+		MultiplayerPeer closedPeer = Multiplayer.MultiplayerPeer;
+		Multiplayer.MultiplayerPeer = new OfflineMultiplayerPeer();
+		closedPeer.Close();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
@@ -139,8 +162,10 @@ public void MatchHasStarted()
 	{
 		_teamsByPeer.Clear();
 		_peersWithLoadedMatch.Clear();
+		_matchIsOver = false;
 		foreach (var (peerId, team) in teamsByPeer)
 			_teamsByPeer[peerId] = team;
+		LocalTeam = GetTeam(Multiplayer.GetUniqueId());
 
 		SetStatus("");
 		_loadingScreen.ShowLoading(0);
@@ -180,6 +205,8 @@ public void MatchHasStarted()
 		_teamsByPeer.Clear();
 		_peersWithLoadedMatch.Clear();
 		_isLoadingMatch = false;
+		_matchIsOver = false;
+		LocalTeam = HostTeam;
 		_loadingScreen.HideScreen();
 		SetStatus(reason);
 		GetTree().ChangeSceneToFile(MainMenuScenePath);

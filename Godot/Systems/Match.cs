@@ -385,6 +385,7 @@ public partial class Match : Node3D
 	private void EndMatch(int losingTeam)
 	{
 		IsOver = true;
+		NetworkManager.Instance.MatchHasEnded();
 		EmitSignal(SignalName.GameOver, losingTeam);
 	}
 }
