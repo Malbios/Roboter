@@ -10,6 +10,7 @@ public partial class NetworkManager : Node
 	private const int ClientTeam = 1;
 	private const string MatchScenePath = "res://Maps/1v1.tscn";
 	private const string MainMenuScenePath = "res://Systems/UI/MainMenu.tscn";
+	private const string LoadingScreenScenePath = "res://Systems/UI/LoadingScreen.tscn";
 
 	[Signal] public delegate void StatusChangedEventHandler(string message);
 
@@ -19,6 +20,8 @@ public partial class NetworkManager : Node
 
 	private readonly Dictionary<long, int> _teamsByPeer = new();
 	private readonly HashSet<long> _peersWithLoadedMatch = new();
+	private LoadingScreen _loadingScreen;
+	private bool _isLoadingMatch;
 
 	public int LocalTeam => GetTeam(Multiplayer.GetUniqueId());
 
@@ -27,11 +30,19 @@ public partial class NetworkManager : Node
 	public override void _Ready()
 	{
 		Instance = this;
+		_loadingScreen = GD.Load<PackedScene>(LoadingScreenScenePath).Instantiate<LoadingScreen>();
+		AddChild(_loadingScreen);
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
 		Multiplayer.ConnectedToServer += () => SetStatus("Connected, waiting for the host to start...");
 		Multiplayer.ConnectionFailed += () => ReturnToMainMenu("Could not connect to host.");
 		Multiplayer.ServerDisconnected += () => ReturnToMainMenu("Lost connection to host.");
+	}
+
+public override void _Process(double delta)
+	{
+		if (_isLoadingMatch)
+			ContinueLoadingMatch();
 	}
 
 	public bool Host()
@@ -72,6 +83,11 @@ public partial class NetworkManager : Node
 			RpcId(1, MethodName.PeerLoadedMatch);
 	}
 
+public void MatchHasStarted()
+	{
+		_loadingScreen.HideScreen();
+	}
+
 	public void LeaveMatch()
 	{
 		ReturnToMainMenu("");
@@ -110,7 +126,31 @@ public partial class NetworkManager : Node
 			_teamsByPeer[peerId] = team;
 
 		SetStatus("");
-		GetTree().ChangeSceneToFile(MatchScenePath);
+		_loadingScreen.ShowLoading(0);
+		ResourceLoader.LoadThreadedRequest(MatchScenePath);
+		_isLoadingMatch = true;
+	}
+
+	// The map is big, so it is loaded in the background while the loading screen shows the progress.
+	private void ContinueLoadingMatch()
+	{
+		var progress = new Godot.Collections.Array();
+		ResourceLoader.ThreadLoadStatus status = ResourceLoader.LoadThreadedGetStatus(MatchScenePath, progress);
+		if (status == ResourceLoader.ThreadLoadStatus.InProgress)
+		{
+			_loadingScreen.ShowLoading((float)progress[0]);
+			return;
+		}
+
+		_isLoadingMatch = false;
+		if (status != ResourceLoader.ThreadLoadStatus.Loaded)
+		{
+			ReturnToMainMenu("Could not load the map.");
+			return;
+		}
+
+		_loadingScreen.ShowWaitingForOtherPlayer();
+		GetTree().ChangeSceneToPacked((PackedScene)ResourceLoader.LoadThreadedGet(MatchScenePath));
 	}
 
 	private void ReturnToMainMenu(string reason)
@@ -122,6 +162,8 @@ public partial class NetworkManager : Node
 
 		_teamsByPeer.Clear();
 		_peersWithLoadedMatch.Clear();
+		_isLoadingMatch = false;
+		_loadingScreen.HideScreen();
 		SetStatus(reason);
 		GetTree().ChangeSceneToFile(MainMenuScenePath);
 	}

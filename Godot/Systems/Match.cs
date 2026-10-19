@@ -336,6 +336,8 @@ public partial class Match : Node3D
 		if (team != NetworkManager.Instance.LocalTeam)
 			return;
 
+		NetworkManager.Instance.MatchHasStarted();
+
 		Node3D camera = GetNode<Node3D>("RtsController");
 		camera.GlobalPosition = position;
 		camera.GlobalRotation = new Vector3(0, yRotation, 0);
