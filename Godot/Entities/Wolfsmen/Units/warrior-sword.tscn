@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d0kxp6whgd835" path="res://Assets/Models/wolfsmen/units/wolfsmen-sword-and-shield-warrior.glb" id="1_model"]
 [ext_resource type="Script" path="res://Entities/Wolfsmen/Units/Unit.cs" id="2_script"]
 [ext_resource type="PackedScene" path="res://Entities/Effects/slash.tscn" id="3_effect"]
+[ext_resource type="Texture2D" uid="uid://dfyn7gn5y65jc" path="res://Assets/Portrait/warrior-sword.png" id="4_portrait"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.35
@@ -39,6 +40,7 @@ AttackInterval = 1
 SightRange = 8
 AttacksEnemiesNearby = true
 AttackEffect = ExtResource("3_effect")
+Portrait = ExtResource("4_portrait")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]
 

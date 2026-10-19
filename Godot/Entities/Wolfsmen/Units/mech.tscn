@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ccqau7i4tan8w" path="res://Assets/Models/wolfsmen/units/wolfsmen-mech-vehicle.glb" id="1_model"]
 [ext_resource type="Script" path="res://Entities/Wolfsmen/Units/Unit.cs" id="2_script"]
 [ext_resource type="PackedScene" path="res://Entities/Effects/slash.tscn" id="3_effect"]
+[ext_resource type="Texture2D" uid="uid://c32rq26pk0nf8" path="res://Assets/Portrait/mech.png" id="4_portrait"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 1
@@ -39,6 +40,7 @@ AttackInterval = 0.5
 SightRange = 8
 AttacksEnemiesNearby = true
 AttackEffect = ExtResource("3_effect")
+Portrait = ExtResource("4_portrait")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]
 
