@@ -14,7 +14,7 @@ config/name="Roboter"
 config/version="0.1"
 run/main_scene="res://Systems/UI/MainMenu.tscn"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://bwhdctyxelhi8"
 
 [autoload]
 
