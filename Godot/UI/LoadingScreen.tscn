@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Systems/UI/LoadingScreen.cs" id="1_loading"]
+[ext_resource type="Script" uid="uid://ck0heeohgdsi8" path="res://UI/LoadingScreen.cs" id="1_loading"]
 
 [node name="LoadingScreen" type="CanvasLayer"]
 layer = 100

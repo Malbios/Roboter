@@ -1,9 +1,9 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Systems/UI/Hud.cs" id="1_hud"]
-[ext_resource type="Script" path="res://Systems/UI/HealthBars.cs" id="2_bars"]
-[ext_resource type="Script" path="res://Systems/PlayerInput.cs" id="3_input"]
-[ext_resource type="Script" path="res://Systems/UI/Minimap.cs" id="4_minimap"]
+[ext_resource type="Script" uid="uid://ojcrrelf0myi" path="res://UI/Hud.cs" id="1_hud"]
+[ext_resource type="Script" uid="uid://48swv4minwq4" path="res://UI/HealthBars.cs" id="2_bars"]
+[ext_resource type="Script" uid="uid://drqrc4hc16m26" path="res://Systems/PlayerInput.cs" id="3_input"]
+[ext_resource type="Script" uid="uid://brchoqicboqa7" path="res://UI/Minimap.cs" id="4_minimap"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 12.0

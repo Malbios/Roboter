@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://4eju4mcn7ld1"]
+
+[ext_resource type="Script" uid="uid://cakkdsb21rikq" path="res://UI/MainMenu.cs" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://bgtuvle4o7yxm" path="res://Assets/logo.png" id="2_b37jj"]
+
+[node name="MainMenu" type="Control" unique_id=2131060166]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1107196670]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="VBoxContainer" parent="Center" unique_id=1953201169]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="Center/BoxContainer" unique_id=337510942]
+layout_mode = 2
+texture = ExtResource("2_b37jj")
+
+[node name="Menu" type="VBoxContainer" parent="Center/BoxContainer" unique_id=1931795127]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HostButton" type="Button" parent="Center/BoxContainer/Menu" unique_id=1488889590]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Host"
+
+[node name="AddressInput" type="LineEdit" parent="Center/BoxContainer/Menu" unique_id=407290161]
+unique_name_in_owner = true
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "Host IP address"
+
+[node name="JoinButton" type="Button" parent="Center/BoxContainer/Menu" unique_id=1180099929]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Join"
+
+[node name="StatusLabel" type="Label" parent="Center/BoxContainer/Menu" unique_id=1415688530]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
