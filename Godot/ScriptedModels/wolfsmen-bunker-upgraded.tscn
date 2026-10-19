@@ -10,7 +10,7 @@ height = 4.65
 radius = 1.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vcp2d"]
-radius = 4.663965
+radius = 4.5
 
 [node name="wolfsmen-bunker-upgraded" type="StaticBody3D" unique_id=339193742]
 script = ExtResource("2_egpbm")
