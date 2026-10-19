@@ -20,9 +20,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="Center" unique_id=754013373]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+color = Color(0.24705882, 0.24705882, 0.24705882, 1)
+
 [node name="BoxContainer" type="VBoxContainer" parent="Center" unique_id=1953201169]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+theme_override_constants/separation = 67
+alignment = 1
 
 [node name="Logo" type="TextureRect" parent="Center/BoxContainer" unique_id=337510942]
 layout_mode = 2
