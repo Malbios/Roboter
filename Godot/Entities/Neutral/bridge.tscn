@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://dc87gx1vct52c"]
 
-[ext_resource type="PackedScene" uid="uid://vr413h8yht0g" path="res://Assets/Models/neutral/bridge.glb" id="1_ml6mm"]
+[ext_resource type="PackedScene" uid="uid://vr413h8yht0g" path="res://Assets/Models/neutral/bridge.glb" id="1_model"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_deck"]
 size = Vector3(3.4, 0.2, 2)
 
-[node name="bridge" unique_id=1516621050 instance=ExtResource("1_ml6mm")]
+[node name="Bridge" type="Node3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
 
 [node name="WalkableDeck" type="StaticBody3D" parent="." groups=["navigation_source"]]
 collision_mask = 0
