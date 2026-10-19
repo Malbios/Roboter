@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://0og4oxum3rkp"]
+
+[ext_resource type="PackedScene" uid="uid://ccirerocroywk" path="res://Assets/Models/wolfsmen/buildings/wolfsmen-bunker.glb" id="1_qk5r3"]
+
+[node name="wolfsmen-bunker" unique_id=1410002510 instance=ExtResource("1_qk5r3")]

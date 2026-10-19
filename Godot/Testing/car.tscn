@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bciublfesnbbm"]
 
-[ext_resource type="PackedScene" uid="uid://cgjg7spdny4eu" path="res://TestScenes/box.tscn" id="1_fbcgl"]
-[ext_resource type="PackedScene" uid="uid://bcnogd3tfk8cv" path="res://TestScenes/wheel.tscn" id="2_sds8h"]
+[ext_resource type="PackedScene" uid="uid://cgjg7spdny4eu" path="res://Testing/box.tscn" id="1_fbcgl"]
+[ext_resource type="PackedScene" uid="uid://bcnogd3tfk8cv" path="res://Testing/wheel.tscn" id="2_sds8h"]
 
 [node name="Car" type="Node3D" unique_id=355793286]
 

@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bjk84wdw44wgg"]
+
+[ext_resource type="PackedScene" uid="uid://73dwrupo3sii" path="res://Assets/Models/neutral/schrott.glb" id="1_koajv"]
+
+[node name="schrott" unique_id=949263348 instance=ExtResource("1_koajv")]

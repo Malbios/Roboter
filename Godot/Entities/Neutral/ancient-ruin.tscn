@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://5fbofhxfbs1l"]
+
+[ext_resource type="PackedScene" uid="uid://db1bp7n3nrx5x" path="res://Assets/Models/neutral/ruine1.glb" id="1_5dx3j"]
+
+[node name="ruine1" unique_id=1555941842 instance=ExtResource("1_5dx3j")]

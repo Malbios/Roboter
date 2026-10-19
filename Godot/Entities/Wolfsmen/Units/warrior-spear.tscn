@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://hruchvfkdfhd"]
+
+[ext_resource type="PackedScene" uid="uid://b6wks5vou828o" path="res://Assets/Models/wolfsmen/units/wolfsmen-spear-warrior.glb" id="1_pleqy"]
+
+[node name="wolfsmen-spear-warrior" unique_id=1839846624 instance=ExtResource("1_pleqy")]

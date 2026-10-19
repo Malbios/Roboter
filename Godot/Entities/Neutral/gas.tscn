@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bn1mare12y6mh"]
+
+[ext_resource type="PackedScene" uid="uid://bpkpsrknjcn24" path="res://Assets/Models/neutral/gas-vulkan.glb" id="1_15c5m"]
+
+[node name="gas-vulkan" unique_id=2147049255 instance=ExtResource("1_15c5m")]
