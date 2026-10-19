@@ -1,4 +1,11 @@
+using System.Collections.Generic;
 using Godot;
+
+public enum GasMineJob
+{
+	WorkInside,
+	CarryGas,
+}
 
 public partial class GasMine : Building
 {
@@ -9,10 +16,13 @@ public partial class GasMine : Building
 
 	[Export] public int WorkersInside { get; set; }
 	[Export] public int StoredGas { get; set; }
+	[Export] public int CarrierCount { get; set; }
 
 	public GasVolcano Volcano { get; private set; }
 
 	private float _workTimer;
+	private readonly List<Worker> _workersOnTheirWayIn = new();
+	private readonly List<Worker> _carriers = new();
 
 	public override void _Ready()
 	{
@@ -28,14 +38,31 @@ public partial class GasMine : Building
 			Volcano.Mine = null;
 	}
 
-	public bool HasFreeSlot()
+	// 1st worker works inside, 2nd carries gas, 3rd works inside, every worker after that carries.
+	public GasMineJob ChooseJobFor(Worker worker)
 	{
-		return WorkersInside < MaxWorkers;
+		ForgetWorkersThatLeft();
+		_workersOnTheirWayIn.Remove(worker);
+		_carriers.Remove(worker);
+
+		int workersInsideOrOnTheirWay = WorkersInside + _workersOnTheirWayIn.Count;
+		bool isFirstWorker = workersInsideOrOnTheirWay == 0;
+		bool isWorkerAfterTheFirstCarrier = workersInsideOrOnTheirWay == 1 && _carriers.Count > 0;
+		if (workersInsideOrOnTheirWay < MaxWorkers && (isFirstWorker || isWorkerAfterTheFirstCarrier))
+		{
+			_workersOnTheirWayIn.Add(worker);
+			return GasMineJob.WorkInside;
+		}
+
+		_carriers.Add(worker);
+		CarrierCount = _carriers.Count;
+		return GasMineJob.CarryGas;
 	}
 
-	public bool TryLetWorkerIn()
+	public bool TryLetWorkerIn(Worker worker)
 	{
-		if (!IsFinished || !HasFreeSlot())
+		_workersOnTheirWayIn.Remove(worker);
+		if (!IsFinished || WorkersInside >= MaxWorkers)
 			return false;
 
 		WorkersInside += 1;
@@ -59,6 +86,8 @@ public partial class GasMine : Building
 
 	protected override void UpdateFinishedBuilding(float delta)
 	{
+		ForgetWorkersThatLeft();
+
 		if (WorkersInside == 0 || Volcano == null || Volcano.Gas <= 0)
 		{
 			_workTimer = 0;
@@ -73,6 +102,13 @@ public partial class GasMine : Building
 
 		_workTimer = 0;
 		StoredGas += Volcano.Take(GasPerWorker * WorkersInside);
+	}
+
+private void ForgetWorkersThatLeft()
+	{
+		_workersOnTheirWayIn.RemoveAll(worker => !Entity.IsAlive(worker) || !worker.IsWorkingFor(this));
+		_carriers.RemoveAll(worker => !Entity.IsAlive(worker) || !worker.IsWorkingFor(this));
+		CarrierCount = _carriers.Count;
 	}
 
 	protected override void OnDestroyed()

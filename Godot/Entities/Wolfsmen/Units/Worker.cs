@@ -26,6 +26,12 @@ public partial class Worker : Unit
 			base.RightClick(target, point);
 	}
 
+public bool IsWorkingFor(GasMine gasMine)
+	{
+		bool isOnGasDuty = State is UnitState.GoingIntoMine or UnitState.FetchingGas or UnitState.BringingGas;
+		return _gasMine == gasMine && isOnGasDuty;
+	}
+
 	public void GatherScrap(ScrapPile scrapPile)
 	{
 		_scrapPile = scrapPile;
@@ -85,7 +91,7 @@ public partial class Worker : Unit
 	{
 		_gasMine = gasMine;
 		_workTimer = 0;
-		State = gasMine.HasFreeSlot() ? UnitState.GoingIntoMine : UnitState.FetchingGas;
+		State = gasMine.ChooseJobFor(this) == GasMineJob.WorkInside ? UnitState.GoingIntoMine : UnitState.FetchingGas;
 	}
 
 	private void UpdateGatheringScrap(float delta)
@@ -173,7 +179,7 @@ public partial class Worker : Unit
 			return;
 		}
 
-		if (_gasMine.TryLetWorkerIn())
+		if (_gasMine.TryLetWorkerIn(this))
 			QueueFree();
 		else
 			State = UnitState.FetchingGas;

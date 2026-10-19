@@ -186,7 +186,7 @@ public partial class Hud : CanvasLayer
 		if (building is Bunker bunker)
 			text += $"\nSchrott wartet: {bunker.StoredScrap}" + (bunker.IsUpgrading ? "\nwird verbessert" : "");
 		if (building is GasMine gasMine)
-			text += $"\nArbeiter drin: {gasMine.WorkersInside}/{gasMine.MaxWorkers}\nGas bereit: {gasMine.StoredGas}"
+			text += $"\nArbeiter drin: {gasMine.WorkersInside}/{gasMine.MaxWorkers}\nTräger: {gasMine.CarrierCount}\nGas bereit: {gasMine.StoredGas}"
 				+ (gasMine.Volcano != null ? $"\nGas im Vulkan: {gasMine.Volcano.Gas}" : "");
 		if (building.QueueLength > 0)
 			text += $"\nin Ausbildung: {building.QueueLength}";
