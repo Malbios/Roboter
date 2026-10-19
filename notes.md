@@ -88,6 +88,11 @@ UI
 - Einheiten/Gebäude können mit Linksklick ausgewählt werden (mehrere gleichzeitig mit Box-Drag wie üblich bei RTS) und mit Rechtsklick bewegt werden oder etwas angreifen
 - ausgewählte Einheiten/Gebäude haben einen leicht durchsichtigen hellblauen Kreis unten um sie herum
 
+Sichtbarkeit
+- Nebel des Krieges
+- Gegnerische Gebäude sollten sichtbar bleiben wenn man sie einmal gesehen hat (dass sie zerstört sind sollte erst sichtbar werden wenn eigene Einheiten oder Gebäude wieder in die Nähe kommen)
+- Gegnerische Einheiten sollten nur sichtbar sein wenn eigene Einheiten oder Gebäude sie sehen können (also in ihrer Nähe)
+
 Start
 - man startet mit 12 Arbeitern und einem Bunker
 - man kann an verschiedenen Stellen starten
