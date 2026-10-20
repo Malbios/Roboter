@@ -16,7 +16,7 @@ public partial class Match : Node3D
 
 	[Export] public Node3D StartPositions { get; set; }
 	[Export] public bool ShuffleStartPositions { get; set; } = true;
-	[Export] public int StartWorkers { get; set; } = 12;
+	[Export] public int StartWorkers { get; set; } = 5;
 	[Export] public int StartMetal { get; set; }
 	[Export] public int StartGas { get; set; }
 	[Export] public PackedScene[] ExtraStartUnits { get; set; } = [];
