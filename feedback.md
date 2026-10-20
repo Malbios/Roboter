@@ -1,0 +1,6 @@
+- reparieren
+- voice lines wenn eine Einheit gebaut wurde
+- wasser
+- Wegpunkte für die Produktionen
+- Arbeiter greifen nicht an?
+- mehrere Gebäude -> trotzdem an einen trainiert
