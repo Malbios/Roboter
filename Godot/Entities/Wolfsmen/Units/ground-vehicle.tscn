@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" path="res://Entities/Effects/bullet.tscn" id="3_effect"]
 [ext_resource type="Texture2D" uid="uid://bx11i7lsh8qfd" path="res://Assets/Portrait/ground-vehicle.png" id="4_portrait"]
 [ext_resource type="AudioStream" uid="uid://b2dm4n4wdwpch" path="res://Assets/Sounds/attack-shot.wav" id="attack_sound"]
+[ext_resource type="AudioStream" uid="uid://dnp4ogavwdst7" path="res://Assets/Sounds/ground-vehicle-selected.ogg" id="selected_sound"]
+[ext_resource type="AudioStream" uid="uid://ddmd5lqmw66sn" path="res://Assets/Sounds/ground-vehicle-command.ogg" id="command_sound"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.9
@@ -43,6 +45,8 @@ AttacksEnemiesNearby = true
 AttackEffect = ExtResource("3_effect")
 AttackSound = ExtResource("attack_sound")
 Portrait = ExtResource("4_portrait")
+SelectedSound = ExtResource("selected_sound")
+CommandSound = ExtResource("command_sound")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]
 

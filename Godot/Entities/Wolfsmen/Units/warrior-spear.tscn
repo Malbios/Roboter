@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" path="res://Entities/Effects/slash.tscn" id="3_effect"]
 [ext_resource type="Texture2D" uid="uid://j2wyqg5mgrrw" path="res://Assets/Portrait/warrior-spear.png" id="4_portrait"]
 [ext_resource type="AudioStream" uid="uid://b02s8kqrmrmb2" path="res://Assets/Sounds/attack-slash.wav" id="attack_sound"]
+[ext_resource type="AudioStream" uid="uid://bq643yaywvk3m" path="res://Assets/Sounds/spear-warrior-selected.ogg" id="selected_sound"]
+[ext_resource type="AudioStream" uid="uid://cuctghe64sgib" path="res://Assets/Sounds/spear-warrior-command.ogg" id="command_sound"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -43,6 +45,8 @@ AttacksEnemiesNearby = true
 AttackEffect = ExtResource("3_effect")
 AttackSound = ExtResource("attack_sound")
 Portrait = ExtResource("4_portrait")
+SelectedSound = ExtResource("selected_sound")
+CommandSound = ExtResource("command_sound")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]
 

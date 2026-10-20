@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" path="res://Entities/Effects/bolt.tscn" id="3_effect"]
 [ext_resource type="Texture2D" uid="uid://084xs2knuja1" path="res://Assets/Portrait/warrior-crossbow.png" id="4_portrait"]
 [ext_resource type="AudioStream" uid="uid://bv1t03mlqhuif" path="res://Assets/Sounds/attack-bolt.wav" id="attack_sound"]
+[ext_resource type="AudioStream" uid="uid://bsxonnraq0bf1" path="res://Assets/Sounds/crossbow-warrior-selected.ogg" id="selected_sound"]
+[ext_resource type="AudioStream" uid="uid://mrcnaslt5fdf" path="res://Assets/Sounds/crossbow-warrior-command.ogg" id="command_sound"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.4
@@ -43,6 +45,8 @@ AttacksEnemiesNearby = true
 AttackEffect = ExtResource("3_effect")
 AttackSound = ExtResource("attack_sound")
 Portrait = ExtResource("4_portrait")
+SelectedSound = ExtResource("selected_sound")
+CommandSound = ExtResource("command_sound")
 
 [node name="Model" parent="." instance=ExtResource("1_model")]
 
