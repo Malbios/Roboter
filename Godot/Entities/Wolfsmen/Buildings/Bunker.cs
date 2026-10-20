@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Bunker : Building
 {
-	[Export] public float SecondsPerScrap { get; set; } = 1;
+	[Export] public float SecondsToTurnScrapIntoMetal { get; set; } = 1;
 	[Export] public PackedScene UpgradedScene { get; set; }
 	[Export] public int UpgradeCostMetal { get; set; } = 100;
 	[Export] public int UpgradeCostGas { get; set; } = 5;
@@ -12,6 +12,7 @@ public partial class Bunker : Building
 	[Export] public bool IsUpgrading { get; set; }
 
 	private float _scrapTimer;
+	private int _scrapBeingTurnedIntoMetal;
 	private float _upgradeTimer;
 
 	public bool CanBeUpgraded => UpgradedScene != null && IsFinished && !IsUpgrading && QueueLength == 0;
@@ -37,21 +38,26 @@ public partial class Bunker : Building
 			UpdateTraining(delta);
 	}
 
+	// All scrap in the bunker becomes metal at once after one second.
+	// Scrap that is delivered during that second waits for the next round.
 	private void TurnScrapIntoMetal(float delta)
 	{
-		if (StoredScrap <= 0)
+		if (_scrapBeingTurnedIntoMetal == 0)
 		{
+			if (StoredScrap <= 0)
+				return;
+
+			_scrapBeingTurnedIntoMetal = StoredScrap;
 			_scrapTimer = 0;
-			return;
 		}
 
 		_scrapTimer += delta;
-		if (_scrapTimer < SecondsPerScrap)
+		if (_scrapTimer < SecondsToTurnScrapIntoMetal)
 			return;
 
-		_scrapTimer = 0;
-		StoredScrap -= 1;
-		Match.Instance.ResourcesOf(Team).Metal += 1;
+		StoredScrap -= _scrapBeingTurnedIntoMetal;
+		Match.Instance.ResourcesOf(Team).Metal += _scrapBeingTurnedIntoMetal;
+		_scrapBeingTurnedIntoMetal = 0;
 	}
 
 	private void UpdateUpgrade(float delta)
