@@ -2,7 +2,7 @@ Arbeiter
 - Anklicken: "Was soll ich tun, Sir?"
 - Befehl: "Aye, Aye, Sir!"
 
-Schwert-Krieger
+Schwert-Krieger (Alex)
 - Anklicken: "Was soll ich tun?"
 - Befehl: "Es geht wieder los!"
 
@@ -22,7 +22,7 @@ Bodenfahrzeug (Erik)
 - Anklicken: "Soll ich los rollen?"
 - Befehl: "Ich roll dann mal los!"
 
-Mech
+Mech (Alex)
 - Anklicken: "Darf ich was zertrümmern?"
 - Befehl: "Ah, ich darf doch was zertrümmern!"
 
