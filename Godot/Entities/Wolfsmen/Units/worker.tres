@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="UnitType" format=3]
+[gd_resource type="Resource" script_class="UnitType" format=3 uid="uid://dejtdleo3ij0v"]
 
-[ext_resource type="Script" path="res://Systems/UnitType.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://cx3n6712jfs63" path="res://Systems/UnitType.cs" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://x5gn1libtikb" path="res://Entities/Wolfsmen/Units/worker.tscn" id="2_scene"]
 
 [resource]
@@ -8,8 +8,6 @@ script = ExtResource("1_script")
 Name = "Arbeiter"
 Scene = ExtResource("2_scene")
 CostMetal = 50
-CostGas = 0
-TrainingTime = 20
+TrainingTime = 5.0
 TrainedAt = 0
-MadeFrom = 0
 MadeFromCount = 0
