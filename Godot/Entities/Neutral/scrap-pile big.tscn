@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ddg4ppff6pk6h"]
+
+[ext_resource type="Script" uid="uid://b3s4l2g2vneo5" path="res://Entities/Neutral/ScrapPile.cs" id="1_mwpe2"]
+[ext_resource type="PackedScene" uid="uid://73dwrupo3sii" path="res://Assets/Models/neutral/schrott.glb" id="2_aifso"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
+height = 0.7
+radius = 0.4
+
+[node name="ScrapPile" type="StaticBody3D" unique_id=1213881016]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_mwpe2")
+Amount = 500
+
+[node name="Model" parent="." unique_id=1340952933 instance=ExtResource("2_aifso")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1028659243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("CylinderShape3D_body")
