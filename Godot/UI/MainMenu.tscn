@@ -43,18 +43,18 @@ size_flags_horizontal = 4
 [node name="HostButton" type="Button" parent="Center/BoxContainer/Menu" unique_id=1488889590]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Host"
+text = "Spiel erstellen"
 
 [node name="AddressInput" type="LineEdit" parent="Center/BoxContainer/Menu" unique_id=407290161]
 unique_name_in_owner = true
 layout_mode = 2
 text = "127.0.0.1"
-placeholder_text = "Host IP address"
+placeholder_text = "IP-Adresse des Gastgebers"
 
 [node name="JoinButton" type="Button" parent="Center/BoxContainer/Menu" unique_id=1180099929]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Join"
+text = "Beitreten"
 
 [node name="QuitButton" type="Button" parent="Center/BoxContainer/Menu"]
 unique_name_in_owner = true
